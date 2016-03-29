@@ -2,11 +2,12 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from flask import g
-from datetime import datetime, timedelta
+from datetime import datetime
 import sqlite3
 import string
-import random
-import json
+import sys
+import requests
+import xml.etree.ElementTree as ET
 
 app = Flask(__name__)
 
@@ -33,11 +34,10 @@ def new():
 	key = request.form['key']
 	vcode = request.form['vcode']
 
-	api=1	
 	#check that the API is valid
 	#check that pilot is in alliance
 	#add to db
-	if valid_api(api) and pilot_in_alliance(api) and account_active(api):
+	if pilot_in_alliance(key,vcode) and account_active(key,vcode):
 		insert_db('insert into pilots (email, name, keyid, vcode, active_account, in_alliance, slack_active) values (?, ?, ?, ?, 1, 1, 0)',[email, name, key, vcode])
 		return render_template('services-success.html')
 	else:
@@ -52,12 +52,11 @@ def update():
 	key = request.form['key']
 	vcode = request.form['vcode']
 
-	api=1
 	#check that the pilot is in our DB
 	#check that the API is valid
 	#check that pilot is in alliance
 	#add to db
-	if valid_pilot(email) and valid_api(api) and pilot_in_alliance(api) and account_active(api):
+	if valid_pilot(email) and pilot_in_alliance(key,vcode) and account_active(key,vcode):
 		insert_db('update pilots set keyid=?,vcode=? where email=?', [key, vcode, email])
 		return render_template('services-success.html')
 	else:
@@ -76,17 +75,56 @@ def valid_pilot(email):
 
     return True
 
-def valid_api(api):
+def pilot_in_alliance(key, vcode):
 
-    return True
+    url = "https://api.eveonline.com/account/Characters.xml.aspx?keyId="+key+"&vCode="+vcode
+    wdsAllianceID = "99005770"
 
-def pilot_in_alliance(api):
+    response = False	
+    try:
+	root = ET.fromstring(requests.get(url).content)
+	
+	#grab all of the pilots returned
+	pilots = list(root.iter('row'))
+		
+	for pilot in pilots:
+		allianceID =  pilot.get('allianceID')
 
-    return True
+		if allianceID == wdsAllianceID:
+			response = True
+			print "pilot in alliance"
 
-def account_active(api):
+    except Exception,e:
+		print "barfed in XML api", sys.exc_info()[0]
+		print str(e)
 
-    return True
+    return response
+
+def account_active(key, vcode):
+
+    url = "https://api.eveonline.com/account/AccountStatus.xml.aspx?keyId="+key+"&vCode="+vcode
+
+    response = False	
+    try:
+	root = ET.fromstring(requests.get(url).content)
+
+	# sample time
+	# 2016-03-29 19:39:26
+	currentTime = datetime.strptime(root.find('currentTime').text, "%Y-%m-%d %H:%M:%S") 
+
+	for child in root:
+   	   if child.tag == "result":
+		paidUntil = datetime.strptime(child.find('paidUntil').text, "%Y-%m-%d %H:%M:%S")		
+	
+	if paidUntil > currentTime:
+		response = True
+		print "account active"
+	
+    except Exception,e:
+		print "barfed in XML api", sys.exc_info()[0]
+		print str(e)
+	
+    return response
 
 def query_db(query, args=(), one=False):
     cur = get_db().execute(query, args)
