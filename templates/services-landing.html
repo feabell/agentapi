@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>The WiNGSPAN Logo Alliance - IT Services</title>
+	<!-- Bootstrap -->
+	<link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static',filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
+
+	<script src="{{ url_for('static',filename='js/jquery-1.12.2.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+  </head>
+<div class="container" role="main">
+
+  <div class="cold-md-12 jumbotron">
+  <h2><strong>The WiNGSPAN Logo Alliance</strong></h2>
+  </div>
+
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse1">I'm a WiNGSPAN agent who already has a Slack account!</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+      <div class="panel-body">
+      <form action="/update/" method=post>
+ 	 <div class="form-group">
+ 	   <label for="inputEmail1">Email address that you signed up for Slack with</label>
+ 	   <input type="email" class="form-control" id="inputEmail1" name="email" placeholder="Email">
+ 	 </div>
+ 	 <div class="form-group">
+ 	   <label for="inputKeyId1">Key ID</label>
+ 	   <input type="text" length=7 class="form-control" id="inputKeyId1" name="key" placeholder="KeyID">
+ 	   <label for="inputVcode1">Verification Code</label>
+ 	   <input type="text" length=64 class="form-control" id="inputVCode1" name="vcode" placeholder="VCode">
+   	   <p class="help-block"><a href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=33554432">Not sure? Create a new API key</a></p>
+ 	 </div>
+	 <button type="submit" class="btn btn-default">Submit</button>
+	</form>
+     </div>
+     <div class="panel-footer"></div>
+    </div>
+  </div>
+</div>
+
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse2">I'm a new WiNGSPAN agent who would like to signup for a Slack Account!</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <div class="panel-body">
+      <form action="/new/" method=post>
+ 	 <div class="form-group">
+ 	   <label for="inputEmail1">Email address that you are happy to have shared with other agents:</label>
+ 	   <input type="email" class="form-control" id="inputEmail1" name="email" placeholder="Email">
+ 	 </div>
+	<div class="form-group">
+	  <label for="inputName1">Pilot name</label>
+	  <input type="text" class="form-control" id="inputName1" name="name" placeholder="Name">
+	</div>
+ 	 <div class="form-group">
+ 	   <label for="inputKeyId1">Key ID</label>
+ 	   <input type="text" length=7 class="form-control" id="inputKeyId1" name="key" placeholder="KeyID">
+ 	   <label for="inputVcode1">Verification Code</label>
+ 	   <input type="text" length=64 class="form-control" id="inputVCode1" name="vcode" placeholder="VCode">
+   	   <p class="help-block"><a href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=33554432">Not sure? Create a new API key</a></p>
+ 	 </div>
+	 <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+      <div class="panel-footer"></div>
+    </div>
+  </div>
+
+</div>

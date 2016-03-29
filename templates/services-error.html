@@ -1,0 +1,18 @@
+<!doctype html>
+<title>Skynet Test</title>
+{% if request.headers['Eve-Trusted'] == 'No' %}
+  <body onload="CCPEVE.requestTrust('http://feabell.com:5000')">
+{% else %}
+  <h1>An error occured</h1>
+  <h3>This could be because</h3>
+
+  <ul>
+   <li>You are accessing this from outside of the In Game Browser (IGB)</li>
+   <li>You aren't a member of The WiNGSPAN LOGO Alliance</li>
+   <li>The fleet id provided doesn't exist</li>
+   <li>The fleet id provided has expired</li>
+   <li>Dakodai is bad at writing python</li>
+  </ul>
+
+  
+{% endif %}
