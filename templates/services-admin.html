@@ -1,0 +1,69 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>The WiNGSPAN Logo Alliance - IT Services</title>
+	<!-- Bootstrap -->
+	<link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static',filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
+
+	<script src="{{ url_for('static',filename='js/jquery-1.12.2.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+  </head>
+<div class="container" role="main">
+
+  <div class="cold-md-12 jumbotron">
+  <h2><strong>The WiNGSPAN Logo Alliance - Admin Panel</strong></h2>
+  </div>
+
+<div class="panel-group">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse1">Accounts To Add To Slack</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+      <div class="panel-body">
+      <form action="/admin/accounts-added" method=post>
+ 	 <div class="form-group">
+	 <textarea class="form-control" rows="3">{{add}}</textarea>
+ 	 </div>
+   	   <p class="help-block">You can copy and paste this into the "invite many people at once" page in Slack admin</p>
+ 	 </div>
+	 <button type="submit" class="btn btn-default">All Accounts Added!</button>
+	</form>
+     </div>
+     <div class="panel-footer"></div>
+    </div>
+  </div>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse2">Accounts To Remove From Slack</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <div class="panel-body">
+      <form action="/admin/accounts-deleted" method=post>
+   	<div class="col-sm-4">
+          <ul class="list-group">
+	    {% for row in delete %}
+            <li class="list-group-item">{{ row[1] }}</li>
+	    {% endfor %}
+          </ul>
+        </div>	
+	 <p class="help-block">Sorry, got to do all these manually :(</p>
+      </div>   
+	 <button type="submit" class="btn btn-default">All Accounts Deleted!</button>
+	</form>
+     </div>
+
+     <div class="panel-footer">
+     </div>
+     </div>
+  </div>
