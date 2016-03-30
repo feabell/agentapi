@@ -1,18 +1,48 @@
+
 <!doctype html>
-<title>Skynet Test</title>
-{% if request.headers['Eve-Trusted'] == 'No' %}
-  <body onload="CCPEVE.requestTrust('http://feabell.com:5000')">
-{% else %}
-  <h1>An error occured</h1>
-  <h3>This could be because</h3>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <ul>
-   <li>You are accessing this from outside of the In Game Browser (IGB)</li>
-   <li>You aren't a member of The WiNGSPAN LOGO Alliance</li>
-   <li>The fleet id provided doesn't exist</li>
-   <li>The fleet id provided has expired</li>
-   <li>Dakodai is bad at writing python</li>
-  </ul>
+	<title>The WiNGSPAN Logo Alliance - IT Services</title>
+	<!-- Bootstrap -->
+	<link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static',filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
 
-  
-{% endif %}
+	<script src="{{ url_for('static',filename='js/jquery-1.12.2.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+  </head>
+<body>
+<div class="container" role="main">
+
+  <div class="cold-md-12 jumbotron">
+  	<h2><strong>The WiNGSPAN Logo Alliance</strong></h2>
+  </div>
+  <div class="alert alert-danger" role="alert">
+       	<strong>Uh-oh</strong> something went wrong!
+  </div>
+<div class="list-group">
+            <div class="list-group-item">
+              <h4 class="list-group-item-heading">Did you enter the right email address?</h4>
+              <p class="list-group-item-text">If you already have a WiNGSPAN Slack account, the email address you supply here must match the one setup for your Slack account.</p>
+            </div>
+            <div class="list-group-item">
+              <h4 class="list-group-item-heading">Did you enter the API key and Verification Code correctly?</h4>
+              <p class="list-group-item-text">If you aren't sure, try <a href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=33554432">creating a new one!</a></p>
+            </div>
+            <div class="list-group-item">
+              <h4 class="list-group-item-heading">Do you have a character in The WiNGSPAN Logo Alliance?</h4>
+              <p class="list-group-item-text">This service is only accessible to the WiNGSPAN Logo Alliance and it's members.  Not a member? Check us out <a href="http://torpedodelivery.com/careers">here</a></p>
+            </div>
+            <div class="list-group-item">
+              <h4 class="list-group-item-heading">Is your Eve account subscription active?</h4>
+              <p class="list-group-item-text">This service requires that the Eve account for the supplied API key is active.  Time to go buy some PLEX!</p>
+            </div>
+          </div>
+  <div
+
+</div>
+</body>
+</html>

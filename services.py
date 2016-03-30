@@ -2,16 +2,25 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from flask import g
+from flask.ext.basicauth import BasicAuth
 from datetime import datetime
 import sqlite3
 import string
 import sys
 import requests
+import yaml
 import xml.etree.ElementTree as ET
 
 app = Flask(__name__)
 
 database = 'agentapi.db'
+
+config = yaml.load(file('services.conf', 'r'))
+
+app.config['BASIC_AUTH_USERNAME'] = config['BASIC_AUTH_USERNAME']
+app.config['BASIC_AUTH_PASSWORD'] = config['BASIC_AUTH_PASSWORD']
+
+basic_auth = BasicAuth(app)
 
 @app.route('/')
 def default():
@@ -19,11 +28,24 @@ def default():
 
 
 @app.route('/admin')
+@basic_auth.required
 def adminpage():
-	#do some auth bullshit
 	#list new accounts to add
 	#list accounts to be deleted
-	return	
+
+	add_to_slack_query = query_db('select name, email from pilots where keyid NOT NULL AND vcode NOT NULL AND slack_active=0 AND active_account=1 AND in_alliance=1')
+
+	add_to_slack=""
+	for add in add_to_slack_query:
+		print add['name']
+		print add['email']
+		add_to_slack = add_to_slack + add['name'] + " <"+ add['email']+">,"
+
+	print "add" + add_to_slack
+
+	delete_from_slack = query_db('select name, email from pilots where slack_active=1 AND (active_account=0 OR in_alliance=0)')
+	
+	return render_template('services-admin.html', add=add_to_slack, delete=delete_from_slack)
 
 @app.route('/new', methods=['POST'])
 @app.route('/new/', methods=['POST'])
@@ -57,7 +79,7 @@ def update():
 	#check that pilot is in alliance
 	#add to db
 	if valid_pilot(email) and pilot_in_alliance(key,vcode) and account_active(key,vcode):
-		insert_db('update pilots set keyid=?,vcode=? where email=?', [key, vcode, email])
+		insert_db('update pilots set keyid=?,vcode=?, active_account=1, in_alliance=1 where email=?', [key, vcode, email])
 		return render_template('services-success.html')
 	else:
 		return render_template('services-error.html')
