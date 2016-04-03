@@ -37,11 +37,7 @@ def adminpage():
 
 	add_to_slack=""
 	for add in add_to_slack_query:
-		print add['name']
-		print add['email']
 		add_to_slack = add_to_slack + add['name'] + " <"+ add['email']+">,"
-
-	print "add" + add_to_slack
 
 	delete_from_slack = query_db('select name, email from pilots where slack_active=1 AND (active_account=0 OR in_alliance=0)')
 	
@@ -100,7 +96,9 @@ def valid_pilot(email):
 def pilot_in_alliance(key, vcode):
 
     url = "https://api.eveonline.com/account/Characters.xml.aspx?keyId="+key+"&vCode="+vcode
-    wdsAllianceID = "99005770"
+    #wdsAllianceID = "99005770"
+    wdsID = "98330748"
+    waepID = "98415327"
 
     response = False	
     try:
@@ -110,9 +108,9 @@ def pilot_in_alliance(key, vcode):
 	pilots = list(root.iter('row'))
 		
 	for pilot in pilots:
-		allianceID =  pilot.get('allianceID')
+		corpID =  pilot.get('corporationID')
 
-		if allianceID == wdsAllianceID:
+		if corpID == wdsID or corpID == waepID:
 			response = True
 			print "pilot in alliance"
 
