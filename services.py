@@ -81,10 +81,11 @@ def update():
 		return render_template('services-error.html')
 
 def valid_pilot(email):
-    results =  query_db('select keyid, vcode, id from pilots where email = ? limit 1',[email])
+    results =  query_db('select keyid, vcode, id from pilots where lower(email) = ? limit 1',[email.lower()])
 
     #fail if no record for this address
     if len(results) != 1:
+	print("Not a valid pilot")
 	return False
 
     #barf if the api and vcode have already been submitted
