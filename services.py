@@ -63,6 +63,11 @@ def new():
 	key = request.form['key']
 	vcode = request.form['vcode']
 
+	#check that the pilot isn't already in the DB
+	if valid_pilot(email):
+		print("pilot %s already exists" % email)
+		return render_template('services-error.html')
+
 	#check that the API is valid
 	#check that pilot is in alliance
 	#add to db
