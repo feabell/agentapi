@@ -2,6 +2,8 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from flask import g
+from flask import redirect
+from flask import url_for
 from flask.ext.basicauth import BasicAuth
 from datetime import datetime
 import sqlite3
@@ -28,6 +30,7 @@ def default():
 
 
 @app.route('/admin')
+@app.route('/admin/')
 @basic_auth.required
 def adminpage():
 	#list new accounts to add
@@ -42,6 +45,14 @@ def adminpage():
 	delete_from_slack = query_db('select name, email from pilots where slack_active=1 AND (active_account=0 OR in_alliance=0)')
 	
 	return render_template('services-admin.html', add=add_to_slack, delete=delete_from_slack)
+
+@app.route('/admin/accounts-added', methods=['POST'])
+@basic_auth.required
+def admin_accounts_added():
+	update_query = insert_db('update pilots set slack_active=1 where keyid NOT NULL AND vcode NOT NULL AND slack_active=0 AND active_account=1 AND in_alliance=1')
+	return redirect(url_for('adminpage'), code=302)
+
+
 
 @app.route('/new', methods=['POST'])
 @app.route('/new/', methods=['POST'])
