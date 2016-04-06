@@ -52,8 +52,6 @@ def admin_accounts_added():
 	update_query = insert_db('update pilots set slack_active=1 where keyid NOT NULL AND vcode NOT NULL AND slack_active=0 AND active_account=1 AND in_alliance=1')
 	return redirect(url_for('adminpage'), code=302)
 
-
-
 @app.route('/new', methods=['POST'])
 @app.route('/new/', methods=['POST'])
 def new():
@@ -64,8 +62,8 @@ def new():
 	vcode = request.form['vcode']
 
 	#check that the pilot isn't already in the DB
-	if valid_pilot(email):
-		print("pilot %s already exists" % email)
+	if slack_exists(email):
+		print("[ERROR] pilot %s already exists" % email)
 		return render_template('services-error.html')
 
 	#check that the API is valid
@@ -75,6 +73,7 @@ def new():
 		insert_db('insert into pilots (email, name, keyid, vcode, active_account, in_alliance, slack_active) values (?, ?, ?, ?, 1, 1, 0)',[email, name, key, vcode])
 		return render_template('services-success.html')
 	else:
+		print("[ERROR] pilot %s not valid" % email)
 		return render_template('services-error.html')
 
 
@@ -94,18 +93,30 @@ def update():
 		insert_db('update pilots set keyid=?,vcode=?, active_account=1, in_alliance=1 where email=?', [key, vcode, email])
 		return render_template('services-success.html')
 	else:
+		print("[ERROR] pilot %s not valid" % email)
 		return render_template('services-error.html')
+
+def slack_exists(email):
+    results =  query_db('select keyid from pilots where lower(email) = ? limit 1',[email.lower()])
+
+    #fail if a record for this address
+    if len(results) >= 1:
+	print("[ERROR] %s already exists in pilots table" % email)
+	return True
+
+    return False
 
 def valid_pilot(email):
     results =  query_db('select keyid, vcode, id from pilots where lower(email) = ? limit 1',[email.lower()])
 
     #fail if no record for this address
     if len(results) != 1:
-	print("Not a valid pilot")
+	print("[ERROR] %s not in pilots table" % email)
 	return False
 
     #barf if the api and vcode have already been submitted
     if (results[0][0] or results[0][1]):
+	print("[ERROR] %s already has an API or VCODE" % email)
 	return False
 
     return True
@@ -126,13 +137,14 @@ def pilot_in_alliance(key, vcode):
 		
 	for pilot in pilots:
 		corpID =  pilot.get('corporationID')
+		pilotName = pilot.get('name')
 
 		if corpID == wdsID or corpID == waepID:
 			response = True
-			print "pilot in alliance"
+			print("[INFO] pilot %s is in alliance" % pilotName)
 
     except Exception,e:
-		print "barfed in XML api", sys.exc_info()[0]
+		print "[WARN] barfed in XML api", sys.exc_info()[0]
 		print str(e)
 
     return response
@@ -148,6 +160,7 @@ def account_active(key, vcode):
 	# sample time
 	# 2016-03-29 19:39:26
 	currentTime = datetime.strptime(root.find('currentTime').text, "%Y-%m-%d %H:%M:%S") 
+	paidUntil = datetime.fromtimestamp(1)
 
 	for child in root:
    	   if child.tag == "result":
@@ -155,10 +168,10 @@ def account_active(key, vcode):
 	
 	if paidUntil > currentTime:
 		response = True
-		print "account active"
+		print("[INFO] account active %s %s" % (key, vcode))
 	
     except Exception,e:
-		print "barfed in XML api", sys.exc_info()[0]
+		print "[WARN] barfed in XML api", sys.exc_info()[0]
 		print str(e)
 	
     return response
