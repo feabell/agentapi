@@ -71,6 +71,7 @@ def new():
 	#add to db
 	if pilot_in_alliance(key,vcode) and account_active(key,vcode):
 		insert_db('insert into pilots (email, name, keyid, vcode, active_account, in_alliance, slack_active) values (?, ?, ?, ?, 1, 1, 0)',[email, name, key, vcode])
+		print("[INFO] pilot %s new account request success" % email)
 		return render_template('services-success.html')
 	else:
 		print("[ERROR] pilot %s not valid" % email)
@@ -91,6 +92,7 @@ def update():
 	#add to db
 	if valid_pilot(email) and pilot_in_alliance(key,vcode) and account_active(key,vcode):
 		insert_db('update pilots set keyid=?,vcode=?, active_account=1, in_alliance=1 where email=?', [key, vcode, email])
+		print("[INFO] pilot %s updated account success" % email)
 		return render_template('services-success.html')
 	else:
 		print("[ERROR] pilot %s not valid" % email)
