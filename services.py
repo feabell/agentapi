@@ -91,7 +91,7 @@ def update():
 	#check that pilot is in alliance
 	#add to db
 	if valid_pilot(email) and pilot_in_alliance(key,vcode) and account_active(key,vcode):
-		insert_db('update pilots set keyid=?,vcode=?, active_account=1, in_alliance=1 where email=?', [key, vcode, email])
+		insert_db('update pilots set keyid=?,vcode=?, active_account=1, in_alliance=1 where lower(email)=?', [key, vcode, email.lower()])
 		print("[INFO] pilot %s updated account success" % email)
 		return render_template('services-success.html')
 	else:
