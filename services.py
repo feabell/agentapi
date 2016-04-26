@@ -1,9 +1,4 @@
-from flask import Flask
-from flask import request
-from flask import render_template
-from flask import g
-from flask import redirect
-from flask import url_for
+from flask import Flask, request, render_template, g, redirect, url_for, session, jsonify
 from flask.ext.basicauth import BasicAuth
 from datetime import datetime
 import sqlite3
@@ -12,6 +7,10 @@ import sys
 import requests
 import yaml
 import xml.etree.ElementTree as ET
+import requests
+import os
+import json
+from requests_oauthlib import OAuth2Session
 
 app = Flask(__name__)
 
@@ -19,15 +18,95 @@ database = 'agentapi.db'
 
 config = yaml.load(file('services.conf', 'r'))
 
+GUILD_ID = config['GUILD_ID']
+
+OAUTH2_CLIENT_ID = config['OAUTH2_CLIENT_ID']
+OAUTH2_CLIENT_SECRET = config['OAUTH2_CLIENT_SECRET']
+OAUTH2_REDIRECT_URI = config['OAUTH2_REDIRECT_URI']
+BOT_TOKEN = config['BOT_TOKEN']
+
+API_BASE_URL = 'https://discordapp.com/api'
+AUTHORIZATION_BASE_URL = API_BASE_URL + '/oauth2/authorize'
+TOKEN_URL = API_BASE_URL + '/oauth2/token'
+
+if 'http://' in OAUTH2_REDIRECT_URI:
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = 'true'
+
 app.config['BASIC_AUTH_USERNAME'] = config['BASIC_AUTH_USERNAME']
 app.config['BASIC_AUTH_PASSWORD'] = config['BASIC_AUTH_PASSWORD']
+app.config['SECRET_KEY'] = OAUTH2_CLIENT_SECRET
+
+WDS_CORP_ID = "98330748"
+ACADEMY_CORP_ID = "98415327"
 
 basic_auth = BasicAuth(app)
+
 
 @app.route('/')
 def default():
 	return render_template('services-landing.html')
 
+@app.route('/discordauth')
+def discordauth():
+    scope = request.args.get(
+        'scope',
+        'identify email')
+    discord = make_session(scope=scope.split(' '))
+    authorization_url, state = discord.authorization_url(AUTHORIZATION_BASE_URL)
+    session['oauth2_state'] = state
+    return redirect(authorization_url)
+
+@app.route('/callback')
+def callback():
+    if request.values.get('error'):
+        return request.values['error']
+    discord = make_session(state=session.get('oauth2_state'))
+    token = discord.fetch_token(
+        TOKEN_URL,
+        client_secret=OAUTH2_CLIENT_SECRET,
+        authorization_response=request.url)
+    session['oauth2_token'] = token
+    return redirect(url_for('.authme'))
+
+@app.route('/authme')
+def authme():
+
+    ACADEMY_ROLE_ID = '172888937453322240'
+    AGENT_ROLE_ID = '172888812991676416'
+
+    discord = make_session(token=session.get('oauth2_token'))
+    user = discord.get(API_BASE_URL + '/users/@me').json()
+
+    email = user['email']
+    validated = user['verified']
+    discordid = user['id']
+
+    #print email + " " + validated
+
+    #check that the email address is valid, the account is active and in corp
+    valid_user_query = query_db('select email from pilots where active_account=1 AND in_alliance=1 AND lower(email) = ? limit 1', [email.lower()] )    
+
+    if len(valid_user_query) == 1 and validated:
+	#update the pilots record with their discord id
+	update_query = insert_db('update pilots set discordid=? where lower(email) = ?', [discordid, email.lower()])
+
+	#check if the pilot is in maincorp
+	corp = which_corp(email)
+	data = ""
+
+	if corp == WDS_CORP_ID:
+		data = AGENT_ROLE_ID
+	elif corp == ACADEMY_CORP_ID:
+		data = ACADEMY_ROLE_ID
+	
+	#push a request to the discord api endpoint
+	headers = {'user-agent': 'WiNGSPAN External Auth/0.1', 'authorization' : BOT_TOKEN}
+	req = requests.patch(API_BASE_URL+'/guilds/'+str(GUILD_ID)+'/members/'+str(discordid), json={'roles':[data]}, headers=headers)
+	print(req.status_code)
+
+	return render_template('services-discord-success.html')
+    else:
+	return render_template('services-discord-error.html')
 
 @app.route('/admin')
 @app.route('/admin/')
@@ -98,6 +177,24 @@ def update():
 		print("[ERROR] pilot %s not valid" % email)
 		return render_template('services-error.html')
 
+def token_updater(token):
+    session['oauth2_token'] = token
+
+
+def make_session(token=None, state=None, scope=None):
+    return OAuth2Session(
+        client_id=OAUTH2_CLIENT_ID,
+        token=token,
+        state=state,
+        scope=scope,
+        redirect_uri=OAUTH2_REDIRECT_URI,
+        auto_refresh_kwargs={
+            'client_id': OAUTH2_CLIENT_ID,
+            'client_secret': OAUTH2_CLIENT_SECRET,
+        },
+        auto_refresh_url=TOKEN_URL,
+        token_updater=token_updater)
+
 def slack_exists(email):
     results =  query_db('select keyid from pilots where lower(email) = ? limit 1',[email.lower()])
 
@@ -123,12 +220,56 @@ def valid_pilot(email):
 
     return True
 
+def which_corp(email):
+
+    wdsID = WDS_CORP_ID
+    waepID = ACADEMY_CORP_ID
+
+    #get the key and vcode from the db
+    results =  query_db('select keyid, vcode from pilots where lower(email) = ? limit 1',[email.lower()])
+
+    if len(results) != 1:
+	print("[ERROR] %s not in pilots table" % email)
+	return False   
+
+    key = results[0][0]
+    vcode = results [0][1]
+    url = "https://api.eveonline.com/account/Characters.xml.aspx?keyId="+str(key)+"&vCode="+vcode
+
+    corp =""
+
+    try:
+	root = ET.fromstring(requests.get(url).content)
+	
+	#grab all of the pilots returned
+	pilots = list(root.iter('row'))
+		
+	for pilot in pilots:
+		corpID =  pilot.get('corporationID')
+		pilotName = pilot.get('name')
+
+		if corpID == wdsID:
+			corp = corpID
+			print("[INFO] pilot %s is in WDS" % pilotName)
+
+		if corpID == waepID and not corp:
+			corp = corpID
+			print("[INFO] pilot %s is in WAEP" % pilotName)
+    except Exception,e:
+		print "[WARN] barfed in XML api", sys.exc_info()[0]
+		print str(e)
+
+    return corp
+
+
+
 def pilot_in_alliance(key, vcode):
 
     url = "https://api.eveonline.com/account/Characters.xml.aspx?keyId="+key+"&vCode="+vcode
     #wdsAllianceID = "99005770"
-    wdsID = "98330748"
-    waepID = "98415327"
+
+    wdsID = WDS_CORP_ID
+    waepID = ACADEMY_CORP_ID
 
     response = False	
     try:
@@ -177,6 +318,7 @@ def account_active(key, vcode):
 		print str(e)
 	
     return response
+
 
 def query_db(query, args=(), one=False):
     cur = get_db().execute(query, args)
