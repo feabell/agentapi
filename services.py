@@ -131,6 +131,37 @@ def admin_accounts_added():
 	update_query = insert_db('update pilots set slack_active=1 where keyid NOT NULL AND vcode NOT NULL AND slack_active=0 AND active_account=1 AND in_alliance=1')
 	return redirect(url_for('adminpage'), code=302)
 
+@app.route('/admin/accounts-deleted', methods=['POST'])
+@basic_auth.required
+def admin_accounts_deleted():
+	update_query = insert_db('update pilots set slack_active=0, keyid=NULL, vcode=NULL, active_account=0, in_alliance=0 where slack_active=1 AND (active_account=0 OR in_alliance=0)')
+	return redirect(url_for('adminpage'), code=302)
+
+@app.route('/admin/checkaccounts')
+@basic_auth.required
+def checkaccounts():
+	#check for accounts to be disabled
+	active_accounts = query_db('select email, keyid, vcode from pilots where active_account=1 AND in_alliance=1 and slack_active=1')
+
+	pilots_to_delete = []
+
+	for pilot in active_accounts:
+		vcode = pilot['vcode']
+		keyid = str(pilot['keyid'])
+		email = pilot['email']
+		if not (pilot_in_alliance(keyid, vcode) or account_active(keyid, vcode)):
+			pilots_to_delete.append(email)
+
+
+	print("[LOG] The following accounts are to be removed from Slack: " + ",".join(pilots_to_delete))
+
+
+	update_query = insert_db('update pilots set active_account=0 and in_alliance=0 where lower(email) IN (?)', [",".join(pilots_to_delete).lower()])
+	return redirect(url_for('adminpage'), code=302)
+
+
+
+
 @app.route('/new', methods=['POST'])
 @app.route('/new/', methods=['POST'])
 def new():
