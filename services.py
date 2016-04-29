@@ -145,18 +145,20 @@ def checkaccounts():
 
 	pilots_to_delete = []
 
+	print "[LOG] Checking %d accounts, this could take some time!" % len(active_accounts)
+
 	for pilot in active_accounts:
 		vcode = pilot['vcode']
 		keyid = str(pilot['keyid'])
 		email = pilot['email']
-		if not (pilot_in_alliance(keyid, vcode) or account_active(keyid, vcode)):
+		if not (pilot_in_alliance(keyid, vcode) and account_active(keyid, vcode)):
 			pilots_to_delete.append(email)
+			update_query = insert_db('update pilots set active_account=0, in_alliance=0 where lower(email) = ?', [email.lower()])
 
 
 	print("[LOG] The following accounts are to be removed from Slack: " + ",".join(pilots_to_delete))
-
-
-	update_query = insert_db('update pilots set active_account=0 and in_alliance=0 where lower(email) IN (?)', [",".join(pilots_to_delete).lower()])
+	
+	#update_query = insert_db('update pilots set active_account=0, in_alliance=0 where lower(email) IN ( ? )', [joined_pilots_to_delete])
 	return redirect(url_for('adminpage'), code=302)
 
 
