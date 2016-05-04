@@ -106,6 +106,7 @@ def authme():
 
 	return render_template('services-discord-success.html')
     else:
+	print email + "failed to auth";
 	return render_template('services-discord-error.html')
 
 @app.route('/admin')
@@ -340,11 +341,15 @@ def account_active(key, vcode):
 
 	for child in root:
    	   if child.tag == "result":
+		print child.find('paidUntil').text
 		paidUntil = datetime.strptime(child.find('paidUntil').text, "%Y-%m-%d %H:%M:%S")		
 	
 	if paidUntil > currentTime:
 		response = True
 		print("[INFO] account active %s %s" % (key, vcode))
+	else:
+		print paidUntil
+		print currentTime
 	
     except Exception,e:
 		print "[WARN] barfed in XML api", sys.exc_info()[0]
