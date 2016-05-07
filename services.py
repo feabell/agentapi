@@ -185,7 +185,10 @@ def new():
 	if pilot_in_alliance(key,vcode) and account_active(key,vcode):
 		insert_db('insert into pilots (email, name, keyid, vcode, active_account, in_alliance, slack_active) values (?, ?, ?, ?, 1, 1, 0)',[email, name, key, vcode])
 		print("[INFO] pilot %s new account request success" % email)
-		return render_template('services-success.html')
+		
+		discord_invite_token = get_invite_link()
+
+		return render_template('services-success.html', token=discord_invite_token)
 	else:
 		print("[ERROR] pilot %s not valid" % email)
 		return render_template('services-error.html')
@@ -206,7 +209,11 @@ def update():
 	if valid_pilot(email) and pilot_in_alliance(key,vcode) and account_active(key,vcode):
 		insert_db('update pilots set keyid=?,vcode=?, active_account=1, in_alliance=1 where lower(email)=?', [key, vcode, email.lower()])
 		print("[INFO] pilot %s updated account success" % email)
-		return render_template('services-success.html')
+
+		#generate an invite link to discord
+		discord_invite_token = get_invite_link()
+
+		return render_template('services-success.html', token=discord_invite_token)
 	else:
 		print("[ERROR] pilot %s not valid" % email)
 		return render_template('services-error.html')
@@ -356,6 +363,17 @@ def account_active(key, vcode):
 		print str(e)
 	
     return response
+
+def get_invite_link():
+	
+	max_age = 86400
+	max_uses = 5
+#	xkcdpass = True
+	headers = {'user-agent': 'WiNGSPAN External Auth/0.1', 'authorization' : BOT_TOKEN}
+	channelid = "172888490608951297"
+	
+	req = requests.post(API_BASE_URL+'/channels/'+channelid+'/invites', json={'max_age':max_age, 'max_uses':max_uses}, headers=headers)
+	return req.json()['code']
 
 
 def query_db(query, args=(), one=False):
