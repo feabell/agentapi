@@ -81,6 +81,11 @@ def authme():
     validated = user['verified']
     discordid = user['id']
 
+    #app 500s if email doesn't exist
+    if not email or not validated or not discordid:
+	print "failed due to blank email, validated or discordid"
+	return render_template('services-discord-error.html')
+
     #print email + " " + validated
 
     #check that the email address is valid, the account is active and in corp
@@ -102,8 +107,6 @@ def authme():
 	#push a request to the discord api endpoint
 	headers = {'user-agent': 'WiNGSPAN External Auth/0.1', 'authorization' : BOT_TOKEN}
 	req = requests.patch(API_BASE_URL+'/guilds/'+str(GUILD_ID)+'/members/'+str(discordid), json={'roles':[data]}, headers=headers)
-	print(req.status_code)
-
 	return render_template('services-discord-success.html')
     else:
 	print email + "failed to auth";
