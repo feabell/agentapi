@@ -168,6 +168,7 @@ def admin_accounts_added():
                            'AND slack_active=0 '
                            'AND active_account=1 '
                            'AND in_alliance=1')
+
 	return redirect(url_for('adminpage'), code=302)
 
 @app.route('/admin/accounts-deleted', methods=['POST'])
@@ -181,6 +182,7 @@ def admin_accounts_deleted():
                            'WHERE slack_active=1 '
                            'AND (active_account=0 '
                            'OR in_alliance=0)')
+
 	return redirect(url_for('adminpage'), code=302)
 
 @app.route('/admin/checkaccounts')
