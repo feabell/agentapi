@@ -157,7 +157,7 @@ def adminpage():
   for add in add_to_slack_query:
     add_to_slack = add_to_slack + add['name'] + " <"+ add['email']+">,"
 
-    delete_from_slack = query_db('SELECT name, email '
+  delete_from_slack = query_db('SELECT name, email '
                                'FROM pilots '
                                'where slack_active=1 '
                                'AND (active_account=0 '
