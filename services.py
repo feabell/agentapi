@@ -97,6 +97,12 @@ def authme():
 
 	#check if the pilot is in maincorp
 	corp = which_corp(email)
+	
+	if not corp:
+		print "couldn't determine users corp.  Probably an expired key: " + email
+		return render_template('services-discord-error.html')
+
+
 	data = ""
 
 	if corp == WDS_CORP_ID:
