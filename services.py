@@ -89,24 +89,24 @@ def authme():
 
   discord = make_session(token=session.get('oauth2_token'))
   user = discord.get(API_BASE_URL + '/users/@me').json()
-
+ 
   email = user['email']
   validated = user['verified']
   discordid = user['id']
-
+ 
   #app 500s if email doesn't exist
   if not email or not validated or not discordid:
     print "failed due to blank email, validated or discordid"
     return render_template('services-discord-error.html')
-  
   #print email + " " + validated
+  
   #check that the email address is valid, the account is active and in corp
   valid_user_query = query_db('SELECT email FROM pilots '
                               'WHERE active_account=1 '
-                              'AND in_alliance=1' 
+                              'AND in_alliance=1 ' 
                               'AND lower(email) = ? '
                               'LIMIT 1', [email.lower()])
-
+  
   if len(valid_user_query) == 1 and validated:
     #update the pilots record with their discord id
     update_query = insert_db('UPDATE pilots '
