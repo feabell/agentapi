@@ -132,7 +132,6 @@ def authme():
                                                                guildid = GUILD_ID,
                                                                discordid = discordid)
     req = requests.patch(uri, json = {'roles':[data]}, headers = headers)
-    print(req.status_code)
 
     return render_template('services-discord-success.html')
 
@@ -187,11 +186,46 @@ def admin_accounts_deleted():
   """
   Method updates DB with deleted pilots.
   """
+  users_to_delete = query_db('SELECT email, discordid '
+                             'FROM pilots '
+                             'WHERE slack_active=1 ' 
+                             'AND (active_account=0 '
+                             'OR in_alliance=0)')
+
   update_query = insert_db('UPDATE pilots '
                            'SET slack_active=0, keyid=NULL, vcode=NULL, active_account=0, in_alliance=0 '
                            'WHERE slack_active=1 '
                            'AND (active_account=0 '
                            'OR in_alliance=0)')
+
+  #remove discord roles
+  for user in users_to_delete:
+    discordid = user['discordid']
+    email = user['email']
+
+    #push requests to the discord api endpoint, to remove roles and message the user to explain the action
+    headers = {'user-agent': 'WiNGSPAN External Auth/0.1', 'authorization' : BOT_TOKEN}
+    uri = '{base}/guilds/{guildid}/members/{discordid}'.format(base = API_BASE_URL,
+                                                               guildid = GUILD_ID,
+                                                               discordid = discordid)
+
+    print "[LOG] Removing discord roles for {email}".format(email=email)
+    req = requests.patch(uri, json = {'roles':''}, headers = headers)
+
+    #create a DM channel with the user
+    uri ='{base}/users/@me/channels'.format(base = API_BASE_URL)
+    req = requests.post(uri, json = {'recipient_id':discordid}, headers=headers)
+
+    dmid = req.json()['id']
+
+    message = """Your Discord roles have been revoked, either because you left the alliance, your account expired or your API key has expired. \r\n
+              If you believe this is an error, please submit a valid API key for this email address to https://services.torpedodelivery.com and then type !authme
+              Otherwise, please feel free to hangout in our public channels.\r\n
+              Cheers! ~authbot"""
+
+    uri ='{base}/channels/{dmid}/messages'.format(base = API_BASE_URL,
+                                                  dmid = dmid)
+    req = requests.post(uri, json = {'content':message}, headers=headers)
 
   return redirect(url_for('adminpage'), code=302)
 
