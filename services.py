@@ -156,7 +156,7 @@ def adminpage():
   for add in add_to_slack_query:
     add_to_slack = add_to_slack + add['name'] + " <"+ add['email']+">,"
 
-  delete_from_slack = query_db('SELECT name, email '
+  delete_from_slack = query_db('SELECT name, email, keyid, vcode '
                                'FROM pilots '
                                'where slack_active=1 '
                                'AND (active_account=0 '
@@ -476,15 +476,14 @@ def account_active(key, vcode):
 
     for child in root:
       if child.tag == "result":
-        print child.find('paidUntil').text
+        #print child.find('paidUntil').text
         paidUntil = datetime.strptime(child.find('paidUntil').text, "%Y-%m-%d %H:%M:%S")		
 	
         if paidUntil > currentTime:
           response = True
           print("[INFO] account active {key} {vcode}".format(key = key, vcode = vcode))
         else:
-          print paidUntil
-          print currentTime
+          print("[INFO] account inactive {key} {vcode}".format(key = key, vcode = vcode))
   
   except Exception,e:
     print "[WARN] barfed in XML api", sys.exc_info()[0]
