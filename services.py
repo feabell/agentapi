@@ -95,10 +95,19 @@ def authme():
   discordid = user['id']
  
   #app 500s if email doesn't exist
-  if not email or not validated or not discordid:
-    print "failed due to blank email, validated or discordid"
+  if not email #or not validated or not discordid:
+    print "failed due to blank email" #, validated or discordid"
     return render_template('services-discord-error.html')
-  #print email + " " + validated
+  
+  #app 500s if email account not validated
+  if not validated #or not validated or not discordid:
+    print "failed to auth {email} due to unvalidated account".format(email=email)
+    return render_template('services-discord-error.html')
+
+  #app 500s if discordid is blank
+  if not discordid #or not validated or not discordid:
+    print "failed to auth {email} due to blank discordid".format(email=email)
+    return render_template('services-discord-error.html')
   
   #check that the email address is valid, the account is active and in corp
   valid_user_query = query_db('SELECT email FROM pilots '
