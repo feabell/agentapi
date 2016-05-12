@@ -201,6 +201,11 @@ def admin_accounts_deleted():
   #remove discord roles
   for user in users_to_delete:
     discordid = user['discordid']
+
+    #skip if we don't have a discordid
+    if not discordid:
+      continue
+
     email = user['email']
 
     #push requests to the discord api endpoint, to remove roles and message the user to explain the action
