@@ -10,13 +10,15 @@ import xml.etree.ElementTree as ET
 import requests
 import os
 import json
+import pprint
+from multiprocessing import Pool
 from requests_oauthlib import OAuth2Session
 
 app = Flask(__name__)
 
 database = 'agentapi.db'
 
-config = yaml.load(file('services.conf', 'r'))
+config = yaml.load(open('services.conf', 'r'))
 
 GUILD_ID = config['GUILD_ID']
 
@@ -96,7 +98,7 @@ def authme():
  
   #app 500s if email doesn't exist
   if not email or not validated or not discordid:
-    print "failed due to blank email, validated or discordid"
+    print("failed due to blank email, validated or discordid")
     return render_template('services-discord-error.html')
   #print email + " " + validated
   
@@ -116,7 +118,7 @@ def authme():
     corp = which_corp(email)
 
     if not corp:
-      print "couldn't determine users corp.  Probably an expired key: {email}".format(email=email)
+      print("couldn't determine users corp.  Probably an expired key: {email}".format(email=email))
       return render_template('services-discord-error.html')
 
     data = ""
@@ -136,7 +138,7 @@ def authme():
     return render_template('services-discord-success.html')
 
   else:
-    print '{email} failed to auth'.format(email = email)
+    print('{email} failed to auth'.format(email = email))
     return render_template('services-discord-error.html')
 
 @app.route('/admin')
@@ -214,7 +216,7 @@ def admin_accounts_deleted():
                                                                guildid = GUILD_ID,
                                                                discordid = discordid)
 
-    print "[LOG] Removing discord roles for {email}".format(email=email)
+    print("[LOG] Removing discord roles for {email}".format(email=email))
     req = requests.patch(uri, json = {'roles':''}, headers = headers)
 
     #create a DM channel with the user
@@ -238,31 +240,44 @@ def admin_accounts_deleted():
 @basic_auth.required
 def checkaccounts():
   """
-  Method checks DB for expired accounts, then deletes them.
+  Method checks DB for expired accounts, updates DB with the prep-for-delete flag.
   """
   active_accounts = query_db('SELECT email, keyid, vcode from pilots '
                              'WHERE active_account=1 '
                              'AND in_alliance=1 '
                              'AND slack_active=1')
-  pilots_to_delete = []
 
-  print "[LOG] Checking {n} accounts, this could take some time!".format(n = len(active_accounts))
+  print("[LOG] Checking {n} accounts.".format(n = len(active_accounts)))
 
-  for pilot in active_accounts:
-		vcode = pilot['vcode']
-		keyid = str(pilot['keyid'])
-		email = pilot['email']
-		if not (pilot_in_alliance(keyid, vcode) and account_active(keyid, vcode)):
-			pilots_to_delete.append(email)
-			update_query = insert_db('UPDATE pilots '
-                               'SET active_account=0, in_alliance=0 '
-                               'WHERE lower(email) = ?', [email.lower()])
+  #turn our dictionary into a list
+  accountlist = []
+  for account in active_accounts:
+    accountlist.append([account['email'], str(account['keyid']), account['vcode']])
 
-  print("[LOG] The following accounts are to be removed from Slack: " + ",".join(pilots_to_delete))
-	
-  # Expected String: update_query = insert_db('update pilots set active_account=0, in_alliance=0 where lower(email) IN ( ? )', [joined_pilots_to_delete])
+  pool = Pool(10)
+  pilots_to_delete = pool.starmap(in_alliance_and_active, accountlist)
+
+  pool.close()
+  pool.join()
+
+  filtered_delete = list(filter(None.__ne__, pilots_to_delete))
+
+  pp = pprint.PrettyPrinter(indent=4)
+  pp.pprint(filtered_delete)
+
+  for email in filtered_delete:
+    update_query = insert_db('UPDATE pilots '
+                             'SET active_account=0, in_alliance=0 '
+                             'WHERE lower(email) = ?', [email.lower()])
+
   return redirect(url_for('adminpage'), code=302)
 
+def in_alliance_and_active(email, keyid, vcode):
+  """
+  Method checks if the provided pilot is in corp and active.  If not active, returns their email address
+  """
+  if not (pilot_in_alliance(keyid, vcode) and account_active(keyid, vcode)):
+    return email
 
 @app.route('/new', methods=['POST'])
 @app.route('/new/', methods=['POST'])
@@ -423,9 +438,9 @@ def which_corp(email):
         corp = corpID
         print("[INFO] pilot {name} is in WAEP".format(name = pilotName))
 
-  except Exception,e:
-    print "[WARN] barfed in XML api", sys.exc_info()[0]
-    print str(e)
+  except Exception as e:
+    print("[WARN] barfed in XML api", sys.exc_info()[0])
+    print(str(e))
 
   return corp
 
@@ -457,9 +472,9 @@ def pilot_in_alliance(key, vcode):
         response = True
         print("[INFO] pilot {name} is in alliance".format(name = pilotName))
 
-  except Exception,e:
-    print "[WARN] barfed in XML api", sys.exc_info()[0]
-    print str(e)
+  except Exception as e:
+    print("[WARN] barfed in XML api", sys.exc_info()[0])
+    print( str(e))
 
   return response
 
@@ -490,9 +505,9 @@ def account_active(key, vcode):
         else:
           print("[INFO] account inactive {key} {vcode}".format(key = key, vcode = vcode))
   
-  except Exception,e:
-    print "[WARN] barfed in XML api", sys.exc_info()[0]
-    print str(e)
+  except Exception as e:
+    print("[WARN] barfed in XML api", sys.exc_info()[0])
+    print(str(e))
 	
   return response
 
@@ -551,6 +566,7 @@ def insert_db(query, args=()):
   get_db().commit()
   cur.close()
 
+
 @app.teardown_appcontext
 def close_connection(exception):
   """
@@ -559,6 +575,7 @@ def close_connection(exception):
   db = getattr(g, '_database', None)
   if db is not None:
     db.close()
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
