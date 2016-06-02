@@ -40,6 +40,7 @@ app.config['SECRET_KEY'] = OAUTH2_CLIENT_SECRET
 
 WDS_CORP_ID = "98330748"
 ACADEMY_CORP_ID = "98415327"
+DSTA_CORP_ID = "98463483"
 
 basic_auth = BasicAuth(app)
 
@@ -88,6 +89,7 @@ def authme():
   """
   ACADEMY_ROLE_ID = '172888937453322240'
   AGENT_ROLE_ID = '172888812991676416'
+  DSTA_ROLE_ID = '186990435325968384'
 
   discord = make_session(token=session.get('oauth2_token'))
   user = discord.get(API_BASE_URL + '/users/@me').json()
@@ -136,6 +138,8 @@ def authme():
       data = AGENT_ROLE_ID
     elif corp == ACADEMY_CORP_ID:
       data = ACADEMY_ROLE_ID
+    elif corp == DSTA_CORP_ID:
+      data = DSTA_ROLE_ID
 	 
     #push a request to the discord api endpoint
     headers = {'user-agent': 'WiNGSPAN External Auth/0.1', 'authorization' : BOT_TOKEN}
@@ -409,8 +413,6 @@ def which_corp(email):
   """
   Method checks if pilots is in corp. Returns corpID Integer.
   """
-  wdsID = WDS_CORP_ID
-  waepID = ACADEMY_CORP_ID
 
   #get the key and vcode from the db
   results =  query_db('SELECT keyid, vcode '
@@ -439,11 +441,15 @@ def which_corp(email):
       corpID =  pilot.get('corporationID')
       pilotName = pilot.get('name')
 
-      if corpID == wdsID:
+      if corpID == WDS_CORP_ID:
         corp = corpID
         print("[INFO] pilot {name} is in WDS".format(name = pilotName))
 
-      if corpID == waepID and not corp:
+      if corpID == DSTA_CORP_ID and not corp:
+        corp = corpID
+        print("[INFO] pilot {name} is in DSTA".format(name = pilotName))
+
+      if corpID == ACADEMY_CORP_ID and not corp:
         corp = corpID
         print("[INFO] pilot {name} is in WAEP".format(name = pilotName))
 
@@ -463,9 +469,6 @@ def pilot_in_alliance(key, vcode):
          'keyId={key}&vCode={vcode}'.format(key = key, vcode = vcode))
   #wdsAllianceID = "99005770"
 
-  wdsID = WDS_CORP_ID
-  waepID = ACADEMY_CORP_ID
-
   response = False	
   try:
     root = ET.fromstring(requests.get(url).content)
@@ -477,7 +480,7 @@ def pilot_in_alliance(key, vcode):
       corpID =  pilot.get('corporationID')
       pilotName = pilot.get('name')
 
-      if corpID == wdsID or corpID == waepID:
+      if corpID ==  WDS_CORP_ID or corpID == DSTA_CORP_ID or corpID == ACADEMY_CORP_ID:
         response = True
         print("[INFO] pilot {name} is in alliance".format(name = pilotName))
 
