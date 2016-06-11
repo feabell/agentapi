@@ -171,7 +171,7 @@ def adminpage():
   for add in add_to_slack_query:
     add_to_slack = add_to_slack + add['name'] + " <"+ add['email']+">,"
 
-  delete_from_slack = query_db('SELECT name, email, keyid, vcode '
+  delete_from_slack = query_db('SELECT name, email, keyid, vcode, id '
                                'FROM pilots '
                                'where slack_active=1 '
                                'AND (active_account=0 '
@@ -282,6 +282,18 @@ def checkaccounts():
     update_query = insert_db('UPDATE pilots '
                              'SET active_account=0, in_alliance=0 '
                              'WHERE lower(email) = ?', [email.lower()])
+
+  return redirect(url_for('adminpage'), code=302)
+
+@app.route('/admin/markactive', methods=['POST'])
+@basic_auth.required
+def admin_mark_active():
+  """
+  Method marks a provided pilot as in corp and active
+  """
+  pilotid = request.form['id']
+  insert_db('UPDATE pilots SET active_account=1, in_alliance=1 WHERE id=?', [pilotid])
+  print("[INFO] pilot {pilotid} marked as active".format(pilotid = pilotid))
 
   return redirect(url_for('adminpage'), code=302)
 

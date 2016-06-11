@@ -49,16 +49,19 @@
     </div>
     <div id="collapse2" class="panel-collapse collapse">
       <div class="panel-body">
-      <form action="/admin/accounts-deleted" method=post>
    	<div class="col-sm-4">
           <ul class="list-group">
 	    {% for row in delete %}
-            <li class="list-group-item">{{ row[1] }} - <a href="http://ridetheclown.com/eveapi/audit.php?usid={{ row[2] }}&apik={{ row[3] }}">jacknife</a></li>
+            <li class="list-group-item">{{ row[1] }} - <a href="http://ridetheclown.com/eveapi/audit.php?usid={{ row[2] }}&apik={{ row[3] }}">jacknife</a>
+		<form action="/admin/markactive" method="post">
+			<input type="hidden" name="id" value="{{ row[4] }}"><input type="submit" value="Mark Active">
+		</form></li>
 	    {% endfor %}
           </ul>
         </div>	
 	 <p class="help-block">Sorry, got to do all these manually :(</p>
       </div>   
+        <form action="/admin/accounts-deleted" method=post>
 	 <button type="submit" class="btn btn-default">All Accounts Deleted!</button>
 	</form>
      </div>
