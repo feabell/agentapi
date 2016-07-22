@@ -40,7 +40,6 @@ app.config['SECRET_KEY'] = OAUTH2_CLIENT_SECRET
 
 WDS_CORP_ID = "98330748"
 ACADEMY_CORP_ID = "98415327"
-DSTA_CORP_ID = "98463483"
 
 basic_auth = BasicAuth(app)
 
@@ -138,8 +137,8 @@ def authme():
       data = AGENT_ROLE_ID
     elif corp == ACADEMY_CORP_ID:
       data = ACADEMY_ROLE_ID
-    elif corp == DSTA_CORP_ID:
-      data = DSTA_ROLE_ID
+    #elif corp == DSTA_CORP_ID:
+    #  data = DSTA_ROLE_ID
 	 
     #push a request to the discord api endpoint
     headers = {'user-agent': 'WiNGSPAN External Auth/0.1', 'authorization' : BOT_TOKEN}
@@ -457,9 +456,9 @@ def which_corp(email):
         corp = corpID
         print("[INFO] pilot {name} is in WDS".format(name = pilotName))
 
-      if corpID == DSTA_CORP_ID and not corp:
-        corp = corpID
-        print("[INFO] pilot {name} is in DSTA".format(name = pilotName))
+      #if corpID == DSTA_CORP_ID and not corp:
+      #  corp = corpID
+      #  print("[INFO] pilot {name} is in DSTA".format(name = pilotName))
 
       if corpID == ACADEMY_CORP_ID and not corp:
         corp = corpID
@@ -492,7 +491,7 @@ def pilot_in_alliance(key, vcode):
       corpID =  pilot.get('corporationID')
       pilotName = pilot.get('name')
 
-      if corpID ==  WDS_CORP_ID or corpID == DSTA_CORP_ID or corpID == ACADEMY_CORP_ID:
+      if corpID ==  WDS_CORP_ID or corpID == ACADEMY_CORP_ID:
         response = True
         print("[INFO] pilot {name} is in alliance".format(name = pilotName))
 
