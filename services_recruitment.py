@@ -147,8 +147,8 @@ def rec_process():
     if base_met and (sb_met or strat_met or astero_met or recon_met or blops_met or t3_met):
       #insert a record to the recruitment table
       update_query = insert_db('INSERT INTO recruits '
-                               '(name, keyid, vcode, blob, status, sb, astero, strat, recon, blops, t3) '
-                               ' VALUES (?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?)', 
+                               '(name, keyid, vcode, blob, status, sb, astero, strat, recon, blops, t3, dateadded) '
+                               ' VALUES (?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, datetime())', 
                                [pilotName, key, vcode, blob, sb_met, astero_met, strat_met, recon_met, blops_met, t3_met])
 
       return render_template('recruitment-success.html', sb=sb_met, strat=strat_met, astero=astero_met, recon=recon_met, blops=blops_met, t3=t3_met)
