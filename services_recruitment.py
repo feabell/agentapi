@@ -153,7 +153,7 @@ def rec_process():
 
       return render_template('recruitment-success.html', sb=sb_met, strat=strat_met, astero=astero_met, recon=recon_met, blops=blops_met, t3=t3_met)
     else:
-      return render_template('recruitment-fail.html', sb=sb_met, strat=strat_met, astero=astero_met, recon=recon_met, blops=blops_met)
+      return render_template('recruitment-error.html', sb=sb_met, strat=strat_met, astero=astero_met, recon=recon_met, blops=blops_met)
 
   except Exception as e:
     print("[WARN] barfed in XML api", sys.exc_info()[0])
