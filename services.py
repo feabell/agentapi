@@ -8,8 +8,6 @@ app = Flask(__name__)
 
 config = yaml.load(open('services.conf', 'r'))
 
-GUILD_ID = config['GUILD_ID']
-BOT_TOKEN = config['BOT_TOKEN']
 OAUTH2_CLIENT_SECRET = config['OAUTH2_CLIENT_SECRET']
 
 app.config['BASIC_AUTH_USERNAME'] = config['BASIC_AUTH_USERNAME']

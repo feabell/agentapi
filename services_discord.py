@@ -9,6 +9,9 @@ OAUTH2_CLIENT_ID = config['OAUTH2_CLIENT_ID']
 OAUTH2_CLIENT_SECRET = config['OAUTH2_CLIENT_SECRET']
 OAUTH2_REDIRECT_URI = config['OAUTH2_REDIRECT_URI']
 
+BOT_TOKEN = config['BOT_TOKEN']
+GUILD_ID = config['GUILD_ID']
+
 API_BASE_URL = 'https://discordapp.com/api'
 AUTHORIZATION_BASE_URL = API_BASE_URL + '/oauth2/authorize'
 TOKEN_URL = API_BASE_URL + '/oauth2/token'
@@ -145,3 +148,18 @@ def token_updater(token):
   """
   session['oauth2_token'] = token
 
+def get_invite_link():
+  """
+  Method requests an invite link to specified channel (General). Returns url string.
+  """
+  max_age = 86400
+  max_uses = 5
+#	xkcdpass = True
+  headers = {'user-agent': 'WiNGSPAN External Auth/0.1', 'authorization' : BOT_TOKEN}
+  # General Channel
+  channelid = "172888490608951297"
+	
+  uri = ('{base}/channels/{cid}/invites'.format(base = API_BASE_URL, cid = channelid))
+  req = requests.post(uri, json={'max_age':max_age, 'max_uses':max_uses}, headers=headers)
+
+  return req.json()['code']

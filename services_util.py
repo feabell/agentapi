@@ -3,8 +3,10 @@ import xml.etree.ElementTree as ET
 from datetime import datetime 
 import sys 
 import requests
+import yaml
 from flask import g
 
+from services_discord import get_invite_link
 database = 'agentapi.db'
 
 WDS_CORP_ID = "98330748"
@@ -168,21 +170,6 @@ def in_alliance_and_active(email, keyid, vcode):
   if not (pilot_in_alliance(keyid, vcode) and account_active(keyid, vcode)):
     return email
 
-def get_invite_link():
-  """
-  Method requests an invite link to specified channel (General). Returns url string.
-  """
-  max_age = 86400
-  max_uses = 5
-#	xkcdpass = True
-  headers = {'user-agent': 'WiNGSPAN External Auth/0.1', 'authorization' : BOT_TOKEN}
-  # General Channel
-  channelid = "172888490608951297"
-	
-  uri = ('{base}/channels/{cid}/invites'.format(base = API_BASE_URL, cid = channelid))
-  req = requests.post(uri, json={'max_age':max_age, 'max_uses':max_uses}, headers=headers)
-
-  return req.json()['code']
 
 
 def query_db(query, args=(), one=False):
