@@ -43,7 +43,7 @@ def rec_process():
         if pilot.get('characterID') == name:
           pilotID = int(pilot.get('characterID'))
           pilotName = pilot.get('name')
-          print("pilot selected: +pilotName")
+          print("pilot selected: " +pilotName)
     elif len(pilots) > 1 and not name:
       #get all the pilots
       player_pilots = {}
