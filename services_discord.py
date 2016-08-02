@@ -24,6 +24,10 @@ if 'http://' in OAUTH2_REDIRECT_URI:
 
 services_discord = Blueprint('services_discord', __name__)
 
+@services_discord.route('/test234')
+def test():
+  query_db('Select 1')
+  return "werked"
 @services_discord.route('/discordauth')
 def discordauth():
   """
@@ -68,7 +72,6 @@ def authme():
   email = user['email']
   validated = user['verified']
   discordid = user['id']
- 
   #app 500s if email doesn't exist
   if not email: #or not validated or not discordid:
     print("failed due to blank email")
@@ -90,7 +93,7 @@ def authme():
                               'AND in_alliance=1 ' 
                               'AND lower(email) = ? '
                               'LIMIT 1', [email.lower()])
-  
+
   if len(valid_user_query) == 1 and validated:
     #update the pilots record with their discord id
     update_query = insert_db('UPDATE pilots '
@@ -98,7 +101,6 @@ def authme():
                              'WHERE lower(email) = ?', [discordid, email.lower()])
     #check if the pilot is in maincorp
     corp = which_corp(email)
-
     if not corp:
       print("couldn't determine users corp.  Probably an expired key: {email}".format(email=email))
       return render_template('services-discord-error.html')
@@ -109,7 +111,8 @@ def authme():
       data = AGENT_ROLE_ID
     elif corp == ACADEMY_CORP_ID:
       data = ACADEMY_ROLE_ID
-	 
+
+
     #push a request to the discord api endpoint
     headers = {'user-agent': 'WiNGSPAN External Auth/0.1', 'authorization' : BOT_TOKEN}
     uri = '{base}/guilds/{guildid}/members/{discordid}'.format(base = API_BASE_URL,

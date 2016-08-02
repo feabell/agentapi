@@ -6,7 +6,6 @@ import requests
 import yaml
 from flask import g
 
-from services_discord import get_invite_link
 database = 'agentapi.db'
 
 WDS_CORP_ID = "98330748"
