@@ -23,7 +23,7 @@ def rec_process():
 
   #bail if submitted without correct info
   if not (key or vcode):
-    return render_template('recruitment-error.html')
+    return render_template('recruitment-apierror.html')
  
   url = ('https://api.eveonline.com/account/Characters.xml.aspx?'
          'keyId={key}&vCode={vcode}'.format(key = key, vcode = vcode))
@@ -39,14 +39,12 @@ def rec_process():
       pilotID = pilots[0].get('characterID')
       pilotName = pilots[0].get('name')
     elif len(pilots) > 1 and name:
-      print("pilot selected")
       for pilot in pilots:
         if pilot.get('characterID') == name:
           pilotID = int(pilot.get('characterID'))
           pilotName = pilot.get('name')
-          print(pilotName)
+          print("pilot selected: +pilotName")
     elif len(pilots) > 1 and not name:
-      print ("multi pilots")
       #get all the pilots
       player_pilots = {}
       for pilot in pilots:
@@ -54,7 +52,7 @@ def rec_process():
          
       return render_template('recruitment-pickpilot.html', keyid=key, vcode=vcode, player_pilots=player_pilots, blob=blob)
     else:
-      return render_template('recruitment-error.html')
+      return render_template('recruitment-apierror.html')
 
     skillsurl = ('https://api.eveonline.com/char/Skills.xml.aspx?'
 		 'keyId={key}&vCode={vcode}&characterID={pilotID}'.format(key = key, vcode = vcode, pilotID = pilotID))
@@ -164,12 +162,13 @@ def check_skills(user_skills, req_skills):
 
   for skill,level in req_skills.items():
     if not user_skills.get(skill):
-      print('not injected:'+skill)
+      #print('not injected:'+skill)
       met_req = False
     elif user_skills.get(skill) >= level:
-      print('passed:'+skill)
+      #print('passed:'+skill)
+      pass
     else:
-      print('failed:'+skill)
+      #print('failed:'+skill)
       met_req = False
 
   return met_req
