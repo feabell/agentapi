@@ -5,6 +5,7 @@ import requests
 import pprint
 
 from services_util import *
+from services_discord import remove_roles
 
 services_admin = Blueprint('services_admin', __name__)
 
