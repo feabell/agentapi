@@ -1,14 +1,29 @@
 from flask import Blueprint, render_template, url_for, request
 import xml.etree.ElementTree as ET
-import requests, sys
+import requests, sys, yaml
 from services_util import *
 
 services_recruitment = Blueprint('services_recruitment', __name__)
+pre_reqs = yaml.load(open('pilot_prereqs.conf', 'r'))
+
+base = pre_reqs['baseline']
+sb = pre_reqs['sb']
+strat = pre_reqs['strat']
+astero = pre_reqs['astero']
+recon = pre_reqs['recon']
+blops = pre_reqs['blops']
+amarr_t3 = pre_reqs['amarr_t3']
+minmatar_t3 = pre_reqs['minmatar_t3']
+caldari_t3 = pre_reqs['caldari_t3']
+gallente_t3 = pre_reqs['gallente_t3']
 
 @services_recruitment.route('/recruitment',  methods=['GET'])
 @services_recruitment.route('/recruitment/',  methods=['GET'])
 def rec_landing():
-	return render_template('recruitment-landing.html')
+	print(type(base))
+	return render_template('recruitment-landing.html', 
+		base_prereq=base, sb_prereq=sb, strat_prereq=strat, ast_prereq=astero, 
+		recon_prereq=recon, blops_prereq=blops)
 
 @services_recruitment.route('/recruitment',  methods=['POST'])
 @services_recruitment.route('/recruitment/',  methods=['POST'])
@@ -59,80 +74,6 @@ def rec_process():
 
     pilotsskills = parse_skills(ET.fromstring(requests.get(skillsurl).content))
 
-    baseline = {'Astrometrics': 4,
-	'Astrometric Acquisition': 2,
-	'Astrometric Pinpointing': 2,
-	'Astrometric Rangefinding': 2,
-	'Cloaking': 4,
-	'Warp Drive Operation': 3,
-	'Signature Analysis': 3}
-
-    sb = {'Torpedoes': 4,
-	'Missile Launcher Operation': 5,
-	'Guided Missile Precision': 2,
-	'Weapon Upgrades': 4,
-	'Target Navigation Prediction': 2,
-	'Covert Ops': 4,
-	'Missile Bombardment': 4}
-
-    strat = {'Amarr Cruiser' : 4,
-	'Gallente Cruiser': 4,
-	'Hull Upgrades' : 4,
-	'Mechanics' : 5,
-	'Capacitor Emission Systems': 4,
-	'Light Drone Operation': 4,
-	'Medium Drone Operation':  4,
-	'Heavy Drone Operation': 4,
-	'Drones' : 5,
-	'Drone Interfacing' : 4,
-	'Drone Sharpshooting': 4}
-
-    astero = {'Amarr Frigate': 4,
-	'Gallente Frigate': 4,
-	'Light Drone Operation' : 4,
-	'Drones': 5,
-	'Drone Interfacing' : 4,
-	'Propulsion Jamming' : 4,
-	'Astrometric Acquisition': 4,
-	'Astrometric Pinpointing': 4,
-	'Astrometric Rangefinding': 4}
-
-    recon = {'Recon Ships' : 4,
-	'Power Grid Management': 5,
-	'Navigation': 5,
-	'Propulsion Jamming': 4 } 
-
-    blops = {'Black Ops': 4,
-	'Jump Fuel Conservation': 4,
-	'Propulsion Jamming': 3}
-
-    amarr_t3 = {'Amarr Defensive Systems': 4,
-	'Amarr Electronic Systems': 4,
-	'Amarr Offensive Systems': 4,
-	'Amarr Propulsion Systems': 4,
-	'Amarr Engineering Systems': 4,
-        'Amarr Strategic Cruiser': 3 }
-
-    gallente_t3 = {'Gallente Defensive Systems': 4,
-	'Gallente Electronic Systems': 4,
-	'Gallente Offensive Systems': 4,
-	'Gallente Propulsion Systems': 4,
-	'Gallente Engineering Systems': 4,
-        'Gallente Strategic Cruiser': 3 }
-
-    minmatar_t3 = {'Minmatar Defensive Systems': 4,
-	'Minmatar Electronic Systems': 4,
-	'Minmatar Offensive Systems': 4,
-	'Minmatar Propulsion Systems': 4,
-	'Minmatar Engineering Systems': 4,
-        'Minmatar Strategic Cruiser': 3 }
-    
-    caldari_t3 = {'Caldari Defensive Systems': 4,
-	'Caldari Electronic Systems': 4,
-	'Caldari Offensive Systems': 4,
-	'Caldari Propulsion Systems': 4,
-	'Caldari Engineering Systems': 4,
-        'Caldari Strategic Cruiser': 3 }
 
     base_met = check_skills(pilotsskills, baseline)
     sb_met = check_skills(pilotsskills, sb)
@@ -151,7 +92,10 @@ def rec_process():
 
       return render_template('recruitment-success.html', sb=sb_met, strat=strat_met, astero=astero_met, recon=recon_met, blops=blops_met, t3=t3_met)
     else:
-      return render_template('recruitment-error.html', pilotName=pilotName, sb=sb_met, strat=strat_met, astero=astero_met, recon=recon_met, blops=blops_met)
+      return render_template('recruitment-error.html', 
+			pilotName=pilotName, sb=sb_met, strat=strat_met, astero=astero_met, recon=recon_met, blops=blops_met,
+			base_prereq=base, sb_prereq=sb, strat_prereq=strat, ast_prereq=astero, 
+			recon_prereq=recon, blops_prereq=blops)
 
   except Exception as e:
     print("[WARN] barfed in XML api", sys.exc_info()[0])
