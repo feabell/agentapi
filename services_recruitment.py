@@ -20,7 +20,6 @@ gallente_t3 = pre_reqs['gallente_t3']
 @services_recruitment.route('/recruitment',  methods=['GET'])
 @services_recruitment.route('/recruitment/',  methods=['GET'])
 def rec_landing():
-	print(type(base))
 	return render_template('recruitment-landing.html', 
 		base_prereq=base, sb_prereq=sb, strat_prereq=strat, ast_prereq=astero, 
 		recon_prereq=recon, blops_prereq=blops)
