@@ -74,7 +74,7 @@ def rec_process():
     pilotsskills = parse_skills(ET.fromstring(requests.get(skillsurl).content))
 
 
-    base_met = check_skills(pilotsskills, baseline)
+    base_met = check_skills(pilotsskills, base)
     sb_met = check_skills(pilotsskills, sb)
     strat_met = check_skills(pilotsskills, strat)
     astero_met = check_skills(pilotsskills, astero)
