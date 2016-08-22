@@ -54,7 +54,7 @@ def new():
     print("[INFO] pilot {email} new account request success".format(email = email))
 		
     discord_invite_token = get_invite_link()
-    slack_invite = invite_to_slack(email=email, token=SLACK_TOKEN)
+    slack_invite = invite_to_slack(email=email, token=SLACK_TOKEN, name=name)
 
     return render_template('services-success.html', token=discord_invite_token)
   else:
