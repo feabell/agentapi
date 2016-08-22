@@ -3,12 +3,14 @@ import yaml
 
 from services_util import *
 from services_discord import get_invite_link
+from services_slack import *
 
 app = Flask(__name__)
 
 config = yaml.load(open('services.conf', 'r'))
 
 OAUTH2_CLIENT_SECRET = config['OAUTH2_CLIENT_SECRET']
+SLACK_TOKEN = config['SLACK_TOKEN']
 
 app.config['BASIC_AUTH_USERNAME'] = config['BASIC_AUTH_USERNAME']
 app.config['BASIC_AUTH_PASSWORD'] = config['BASIC_AUTH_PASSWORD']
@@ -48,10 +50,11 @@ def new():
 
   if pilot_in_alliance(key, vcode) and account_active(key, vcode):
     insert_db('INSERT INTO pilots (email, name, keyid, vcode, active_account, in_alliance, slack_active) '
-              'VALUES (?, ?, ?, ?, 1, 1, 0)', [email, name, key, vcode])
+              'VALUES (?, ?, ?, ?, 1, 1, 1)', [email, name, key, vcode])
     print("[INFO] pilot {email} new account request success".format(email = email))
 		
     discord_invite_token = get_invite_link()
+    slack_invite = invite_to_slack(email=email, token=SLACK_TOKEN)
 
     return render_template('services-success.html', token=discord_invite_token)
   else:
