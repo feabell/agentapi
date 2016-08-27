@@ -2,11 +2,10 @@
 from slackclient import SlackClient
 import json
 
-def init(token):
-  global api_client
-  api_client = SlackClient(token)
 
-def invite_to_slack(email, name):
+def invite_to_slack(email, name, token):
+
+  api_client = SlackClient(token)
   api_client.api_call('users.admin.invite', email=email, set_active=True, first_name=name)
 
   return

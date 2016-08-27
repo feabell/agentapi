@@ -24,7 +24,6 @@ app.register_blueprint(services_recruitment)
 app.register_blueprint(services_discord)
 app.register_blueprint(services_admin, url_prefix='/admin')
 
-
 @app.route('/')
 def default():
   """
@@ -54,7 +53,7 @@ def new():
     print("[INFO] pilot {email} new account request success".format(email = email))
 		
     discord_invite_token = get_invite_link()
-    slack_invite = invite_to_slack(email=email, token=SLACK_TOKEN, name=name)
+    slack_invite = invite_to_slack(email=email, name=name, token=SLACK_TOKEN)
 
     return render_template('services-success.html', token=discord_invite_token)
   else:
