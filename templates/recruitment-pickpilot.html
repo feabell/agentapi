@@ -34,13 +34,14 @@
  	   <input type="text" length=7 class="form-control hidden" id="inputKeyId1" name="key" placeholder="KeyID" value="{{ keyid }}"> 
  	   <input type="text" length=64 class="form-control hidden" id="inputVCode1" name="vcode" placeholder="VCode" value= "{{ vcode }}" >
 	   <textarea class="form-control hidden" rows="5" id="inputBlob1" name="blob">{{ blob }}</textarea>
-	   <select class="form-control" id="selectPilot1"  name="name">
-		{% for pilot, id in player_pilots.items() %}
-		<option value="{{ id }}">{{ pilot }}</option>
-		{% endfor %}
-	   </select>
  	 </div>
-	 <button type="submit" class="btn btn-default">Submit</button>
+    <div class="row">
+      {% for pilot, id in player_pilots.items() %}
+        <button type="submit" class="col-md-4 btn btn-default" style="margin: 5px;" name="name" value="{{ id }}">
+          <img src="https://image.eveonline.com/Character/{{ id }}_256.jpg"><br>{{ pilot }}
+        </button>
+      {% endfor %}
+    </div>
 	</form>
      </div>
      <div class="panel-footer"></div>
