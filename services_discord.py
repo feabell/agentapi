@@ -1,6 +1,6 @@
 from flask import Blueprint, request, session, redirect, render_template, url_for
 from requests_oauthlib import OAuth2Session
-import yaml, requests, json
+import yaml, requests, json, os
 from services_util import *
 
 config = yaml.load(open('services.conf', 'r'))
