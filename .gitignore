@@ -1,3 +1,5 @@
 *.db
 *.conf
 *.pyc
+.idea/
+__pycache__/
