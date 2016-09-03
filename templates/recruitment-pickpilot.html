@@ -1,24 +1,4 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<title>WiNGSPAN Delivery Network - Recruitment</title>
-	<!-- Bootstrap -->
-	<link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
-	<link href="{{ url_for('static',filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
-	<link href="{{ url_for('static',filename='css/wds-custom.css') }}" rel="stylesheet">
-
-	<script src="{{ url_for('static',filename='js/jquery-1.12.2.min.js') }}"></script>
-	<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
-  </head>
-<div class="container" role="main">
-
-  <div class="cold-md-12 jumbotron">
-  <h2><strong>WiNGSPAN Delivery Network - Recruitment</strong></h2>
-  </div>
+{% include "recruitment-head.html" ignore missing %}
 
 <div class="panel-group">
   <div class="panel panel-default">
@@ -29,23 +9,26 @@
     </div>
     <div id="collapse1" class="panel-collapse">
       <div class="panel-body">
-      <form action="/recruitment/" method=post>
- 	 <div class="form-group">
- 	   <input type="text" length=7 class="form-control hidden" id="inputKeyId1" name="key" placeholder="KeyID" value="{{ keyid }}"> 
- 	   <input type="text" length=64 class="form-control hidden" id="inputVCode1" name="vcode" placeholder="VCode" value= "{{ vcode }}" >
-	   <textarea class="form-control hidden" rows="5" id="inputBlob1" name="blob">{{ blob }}</textarea>
- 	 </div>
-    <div class="row">
-      {% for pilot, id in player_pilots.items() %}
-        <button type="submit" class="col-md-4 btn btn-default" style="margin: 5px;" name="name" value="{{ id }}">
-          <img src="https://image.eveonline.com/Character/{{ id }}_256.jpg"><br>{{ pilot }}
-        </button>
-      {% endfor %}
-    </div>
-	</form>
-     </div>
-     <div class="panel-footer"></div>
+        <form action="/recruitment/" method=post>
+          <div class="form-group">
+            <input type="text" length=7 class="form-control hidden" id="inputKeyId1" name="key" placeholder="KeyID"
+                   value="{{ keyid }}">
+            <input type="text" length=64 class="form-control hidden" id="inputVCode1" name="vcode" placeholder="VCode"
+                   value="{{ vcode }}">
+            <textarea class="form-control hidden" rows="5" id="inputBlob1" name="blob">{{ blob }}</textarea>
+          </div>
+          <div class="row">
+            {% for pilot, id in player_pilots.items() %}
+              <button type="submit" class="col-md-4 btn btn-default" style="margin: 5px;" name="name" value="{{ id }}">
+                <img src="https://image.eveonline.com/Character/{{ id }}_256.jpg"><br>{{ pilot }}
+              </button>
+            {% endfor %}
+          </div>
+        </form>
+      </div>
+      <div class="panel-footer"></div>
     </div>
   </div>
 </div>
 
+{% include "foot.html" ignore missing %}

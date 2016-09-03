@@ -1,24 +1,4 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<title>WiNGSPAN Delivery Network - IT Services</title>
-	<!-- Bootstrap -->
-	<link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
-	<link href="{{ url_for('static',filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
-	<link href="{{ url_for('static',filename='css/wds-custom.css') }}" rel="stylesheet">
-
-	<script src="{{ url_for('static',filename='js/jquery-1.12.2.min.js') }}"></script>
-	<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
-  </head>
-<div class="container" role="main">
-
-  <div class="cold-md-12 jumbotron">
-  <h2><strong>WiNGSPAN Delivery Network</strong></h2>
-  </div>
+{% include "services-head.html" ignore missing %}
 
 <div class="panel-group">
   <div class="panel panel-default">
@@ -29,22 +9,24 @@
     </div>
     <div id="collapse1" class="panel-collapse collapse">
       <div class="panel-body">
-      <form action="/update/" method=post>
- 	 <div class="form-group">
- 	   <label for="inputEmail1">Email address that you signed up for Slack and Discord with:</label>
- 	   <input type="email" class="form-control" id="inputEmail1" name="email" placeholder="Email">
- 	 </div>
- 	 <div class="form-group">
- 	   <label for="inputKeyId1">Key ID</label>
- 	   <input type="text" length=7 class="form-control" id="inputKeyId1" name="key" placeholder="KeyID">
- 	   <label for="inputVcode1">Verification Code</label>
- 	   <input type="text" length=64 class="form-control" id="inputVCode1" name="vcode" placeholder="VCode">
-   	   <p class="help-block"><a href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=33554432" target="_blank">Not sure? Create a new API key!</a> (make sure to check the "No Expiry" checkbox)</p>
- 	 </div>
-	 <button type="submit" class="btn btn-default">Submit</button>
-	</form>
-     </div>
-     <div class="panel-footer"></div>
+        <form action="/update/" method=post>
+          <div class="form-group">
+            <label for="inputEmail1">Email address that you signed up for Slack and Discord with:</label>
+            <input type="email" class="form-control" id="inputEmail1" name="email" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="inputKeyId1">Key ID</label>
+            <input type="text" length=7 class="form-control" id="inputKeyId1" name="key" placeholder="KeyID">
+            <label for="inputVcode1">Verification Code</label>
+            <input type="text" length=64 class="form-control" id="inputVCode1" name="vcode" placeholder="VCode">
+            <p class="help-block"><a
+                href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=33554432"
+                target="_blank">Not sure? Create a new API key!</a> (make sure to check the "No Expiry" checkbox)</p>
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+      <div class="panel-footer"></div>
     </div>
   </div>
 </div>
@@ -58,99 +40,117 @@
     </div>
     <div id="collapse2" class="panel-collapse collapse">
       <div class="panel-body">
-      <form action="/new/" method=post>
- 	 <div class="form-group">
- 	   <label for="inputEmail1">Email address that you are happy to have shared with other agents:</label>
- 	   <input type="email" class="form-control" id="inputEmail1" name="email" placeholder="Email">
- 	 </div>
-	<div class="form-group">
-	  <label for="inputName1">Pilot name</label>
-	  <input type="text" class="form-control" id="inputName1" name="name" placeholder="Name">
-	</div>
- 	 <div class="form-group">
- 	   <label for="inputKeyId1">Key ID</label>
- 	   <input type="text" maxlength=7 class="form-control" id="inputKeyId1" name="key" placeholder="KeyID">
- 	   <label for="inputVcode1">Verification Code</label>
- 	   <input type="text" maxlength=64 class="form-control" id="inputVCode1" name="vcode" placeholder="VCode">
-   	   <p class="help-block"><a href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=33554432" target="_blank">Not sure? Create a new API key!</a> (make sure to check the "No Expiry" checkbox)</p>
- 	 </div>
-	 <button type="submit" class="btn btn-default">Submit</button>
+        <form action="/new/" method=post>
+          <div class="form-group">
+            <label for="inputEmail1">Email address that you are happy to have shared with other agents:</label>
+            <input type="email" class="form-control" id="inputEmail1" name="email" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="inputName1">Pilot name</label>
+            <input type="text" class="form-control" id="inputName1" name="name" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <label for="inputKeyId1">Key ID</label>
+            <input type="text" maxlength=7 class="form-control" id="inputKeyId1" name="key" placeholder="KeyID">
+            <label for="inputVcode1">Verification Code</label>
+            <input type="text" maxlength=64 class="form-control" id="inputVCode1" name="vcode" placeholder="VCode">
+            <p class="help-block"><a
+                href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=33554432"
+                target="_blank">Not sure? Create a new API key!</a> (make sure to check the "No Expiry" checkbox)</p>
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
       </div>
       <div class="panel-footer"></div>
     </div>
   </div>
 </div>
 
-
 <div class="panel-group">
   <div class="panel panel-default">
-    <div  class="panel-heading">
+    <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" href="#collapse3">FAQ</a>
       </h4>
     </div>
     <div class="panel-body collapse" id="collapse3">
-	<div class="panel-group" id="accordion">
-  	   <div class="panel panel-default">
-    		<div class="panel-heading">
-      		   <h5 class="panel-title">
-        	      <a data-toggle="collapse" data-parent="#accordion" href="#collapsefaq1">Why Do I Have To Do This? </a>
-      		   </h5>
-    		</div>
-    		<div id="collapsefaq1" class="panel-collapse collapse ">
-      		   <div class="panel-body">
-			To make management of our communications services easier, your EvE account will be tied to your Slack and Discord accounts.  Having a character in a WiNGSPAN alliance corporation, with a subscribed EvE account is a requirement for access to WiNGSPAN communications services.
-		   </div>
-    		</div>
-  	   </div>
-      	   <div class="panel panel-default">
-    		<div class="panel-heading">
-      		   <h5 class="panel-title">
-        		<a data-toggle="collapse" data-parent="#accordion" href="#collapsefaq2">What Permissions Do You Need From My API? </a>
-      		   </h5>
-    		</div>
-    		<div id="collapsefaq2" class="panel-collapse collapse">
-		      <div class="panel-body">
-       			We have a setup a preset <a href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=33554432" target="_blank">access mask</a> with the required permissions.  The solo permission we require is the "Account Status" flag so that we can verify your EvE account is active. At least one character on the provided API must be a member of a WiNGSPAN corporation.
-		      </div>
-    		</div>
-  	   </div>
-      	   <div class="panel panel-default">
-    		<div class="panel-heading">
-      		   <h5 class="panel-title">
-        		<a data-toggle="collapse" data-parent="#accordion" href="#collapsefaq3">Why Can't My API Expire?</a>
-      		   </h5>
-    		</div>
-    		<div id="collapsefaq3" class="panel-collapse collapse">
-		      <div class="panel-body">
-       			If your API expires, when we perform our checks to see if you are still eligible to be a member of the WiNGSPAN comms services we won't be able to get any data.  So your Slack account will get deactivated and your Discord account will lose all roles.	
-		      </div>
-    		</div>
-	   </div>
-      	   <div class="panel panel-default">
-    		<div class="panel-heading">
-      		   <h5 class="panel-title">
-        		<a data-toggle="collapse" data-parent="#accordion" href="#collapsefaq4">What happens if my account lapses? Or I leave corp?</a>
-      		   </h5>
-    		</div>
-    		<div id="collapsefaq4" class="panel-collapse collapse">
-		      <div class="panel-body">
-		     	Your Slack account will be de-activated, but NOT deleted. Your Discord account will lose all roles.  If you re-sub and/or rejoin a WiNGSPAN corporation your Slack account will be re-instated and you can re-auth on Discord with authbot to get your roles back.. 
-		     </div>
-    		</div>
-	   </div>
-      	   <div class="panel panel-default">
-    		<div class="panel-heading">
-      		   <h5 class="panel-title">
-        		<a data-toggle="collapse" data-parent="#accordion" href="#collapsefaq5">I'm confused! Who can I speak to about this? </a>
-      		   </h5>
-    		</div>
-    		<div id="collapsefaq5" class="panel-collapse collapse">
-		      <div class="panel-body">
-       			Feel free to drop an in-game mail or private message to your friendly neighbourhood Operations Director <a href="https://gate.eveonline.com/Profile/dakodai">Dakodai</a>
-		      </div>
-    		</div>
-	</div>
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h5 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapsefaq1">Why Do I Have To Do This? </a>
+            </h5>
+          </div>
+          <div id="collapsefaq1" class="panel-collapse collapse ">
+            <div class="panel-body">
+              To make management of our communications services easier, your EvE account will be tied to your Slack
+              and Discord accounts. Having a character in a WiNGSPAN alliance corporation, with a subscribed EvE
+              account is a requirement for access to WiNGSPAN communications services.
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h5 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapsefaq2">What Permissions Do You Need
+                From My API? </a>
+            </h5>
+          </div>
+          <div id="collapsefaq2" class="panel-collapse collapse">
+            <div class="panel-body">
+              We have a setup a preset <a
+                href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=33554432"
+                target="_blank">access mask</a> with the required permissions. The solo permission we require is the
+              "Account Status" flag so that we can verify your EvE account is active. At least one character on the
+              provided API must be a member of a WiNGSPAN corporation.
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h5 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapsefaq3">Why Can't My API Expire?</a>
+            </h5>
+          </div>
+          <div id="collapsefaq3" class="panel-collapse collapse">
+            <div class="panel-body">
+              If your API expires, when we perform our checks to see if you are still eligible to be a member of the
+              WiNGSPAN comms services we won't be able to get any data. So your Slack account will get deactivated and
+              your Discord account will lose all roles.
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h5 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapsefaq4">What happens if my account
+                lapses? Or I leave corp?</a>
+            </h5>
+          </div>
+          <div id="collapsefaq4" class="panel-collapse collapse">
+            <div class="panel-body">
+              Your Slack account will be de-activated, but NOT deleted. Your Discord account will lose all roles. If
+              you re-sub and/or rejoin a WiNGSPAN corporation your Slack account will be re-instated and you can
+              re-auth on Discord with authbot to get your roles back..
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h5 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapsefaq5">I'm confused! Who can I speak to
+                about this? </a>
+            </h5>
+          </div>
+          <div id="collapsefaq5" class="panel-collapse collapse">
+            <div class="panel-body">
+              Feel free to drop an in-game mail or private message to your friendly neighbourhood Operations Director
+              <a href="https://gate.eveonline.com/Profile/dakodai">Dakodai</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-      
+</div>
+
+{% include "foot.html" ignore missing %}
