@@ -1,51 +1,35 @@
+{% include "services-head.html" ignore missing %}
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<title>WiNGSPAN Delivery Network - IT Services</title>
-	<!-- Bootstrap -->
-	<link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
-	<link href="{{ url_for('static',filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css/wds-custom.css') }}" rel="stylesheet">
-
-	<script src="{{ url_for('static',filename='js/jquery-1.12.2.min.js') }}"></script>
-	<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
-  </head>
-<body>
-<div class="container" role="main">
-
-  <div class="cold-md-12 jumbotron">
-  	<h2><strong>WiNGSPAN Delivery Network</strong></h2>
-  </div>
-  <div class="alert alert-danger" role="alert">
-       	<strong>Uh-oh</strong> something went wrong!
-  </div>
-<div class="list-group">
-            <div class="list-group-item">
-              <h4 class="list-group-item-heading">Have you provided your API key to <a href="https://services.torpedodelivery.com">Services</a>?</h4>
-              <p class="list-group-item-text">You must have provided a valid email address, API key and verification code to Services before you can authenticate your Discord account</p>
-            </div>
-            <div class="list-group-item">
-              <h4 class="list-group-item-heading">Is your Discord account email address the same as the address you provided to Services?</h4>
-              <p class="list-group-item-text">To make sure that the Discord user is you, we require that the email address in use by your Discord account is the same as the one you provided to Services (and use on Slack).  This email account must also be 'verified' by Discord (i.e. by clicking the verification link that they send you by email)</p>
-            </div>
-            <div class="list-group-item">
-              <h4 class="list-group-item-heading">Do you have a character in a WiNGSPAN Delivery Network corporation?</h4>
-              <p class="list-group-item-text">This service is only accessible to the WiNGSPAN Delivery Network and it's members.  Not a member? Check us out <a href="http://torpedodelivery.com/careers">here</a></p>
-            </div>
-            <div class="list-group-item">
-              <h4 class="list-group-item-heading">Is your Eve account subscription active?</h4>
-              <p class="list-group-item-text">This service requires that the Eve account for the supplied API key is active.  Time to go buy some PLEX!</p>
-            </div>
-          </div>
-  <p> None of the above? Contact <a href="https://gate.eveonline.com/Profile/dakodai">Dakodai</a> ingame to figure out what's wrong!</p>
-
-  <div>
-
+<div class="alert alert-danger" role="alert">
+  <strong>Uh-oh</strong> something went wrong!
 </div>
-</body>
-</html>
+<div class="list-group">
+  <div class="list-group-item">
+    <h4 class="list-group-item-heading">Have you provided your API key to <a
+        href="https://services.torpedodelivery.com">Services</a>?</h4>
+    <p class="list-group-item-text">You must have provided a valid email address, API key and verification code to
+      Services before you can authenticate your Discord account</p>
+  </div>
+  <div class="list-group-item">
+    <h4 class="list-group-item-heading">Is your Discord account email address the same as the address you provided to
+      Services?</h4>
+    <p class="list-group-item-text">To make sure that the Discord user is you, we require that the email address in
+      use by your Discord account is the same as the one you provided to Services (and use on Slack). This email
+      account must also be 'verified' by Discord (i.e. by clicking the verification link that they send you by
+      email)</p>
+  </div>
+  <div class="list-group-item">
+    <h4 class="list-group-item-heading">Do you have a character in a WiNGSPAN Delivery Network corporation?</h4>
+    <p class="list-group-item-text">This service is only accessible to the WiNGSPAN Delivery Network and it's members.
+      Not a member? Check us out <a href="http://torpedodelivery.com/careers">here</a></p>
+  </div>
+  <div class="list-group-item">
+    <h4 class="list-group-item-heading">Is your Eve account subscription active?</h4>
+    <p class="list-group-item-text">This service requires that the Eve account for the supplied API key is active.
+      Time to go buy some PLEX!</p>
+  </div>
+</div>
+<p> None of the above? Contact <a href="https://gate.eveonline.com/Profile/dakodai">Dakodai</a> ingame to figure out
+  what's wrong!</p>
+
+{% include "foot.html" ignore missing %}

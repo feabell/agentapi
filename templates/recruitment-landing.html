@@ -1,28 +1,6 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% include "recruitment-head.html" ignore missing %}
 
-	<title>WiNGSPAN Delivery Network - Recruitment</title>
-	<!-- Bootstrap -->
-	<link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
-	<link href="{{ url_for('static',filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
-	<link href="{{ url_for('static',filename='css/wds-custom.css') }}" rel="stylesheet">
-
-	<script src="{{ url_for('static',filename='js/jquery-1.12.2.min.js') }}"></script>
-	<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
-  </head>
-<div class="container" role="main">
-
-  <div class="cold-md-12 jumbotron">
-  <h2><strong>WiNGSPAN Delivery Network - Recruitment</strong></h2>
-  </div>
-
-<div>
-  {% include "recruitment-skillreqs.html" ignore missing %}
-</div>
+{% include "recruitment-skillreqs.html" ignore missing %}
 
 <div class="panel-group">
   <div class="panel panel-default">
@@ -33,24 +11,25 @@
     </div>
     <div id="collapse1" class="panel-collapse">
       <div class="panel-body">
-      <form action="/recruitment/" method=post>
- 	 <div class="form-group">
- 	   <label for="inputKeyId1">Key ID</label>
- 	   <input type="text" length=7 class="form-control" id="inputKeyId1" name="key" placeholder="KeyID">
- 	   <label for="inputVcode1">Verification Code</label>
- 	   <input type="text" length=64 class="form-control" id="inputVCode1" name="vcode" placeholder="VCode">
- 	   <label for="inputVcode1">Tell Us About Yourself</label>
-	   <textarea class="form-control" rows="3" id="inputBlob1" name="blob"></textarea>
- 	   <input type="text" length=64 class="form-control hidden" id="inputName1" name="name" placeholder="">
-   	   <p class="help-block"><a href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=1073741832" target="_blank">Not sure? Create a new API key!</a></p> 
- 	 </div>
-	 <button type="submit" class="btn btn-default">Submit</button>
-	</form>
-     </div>
-     <div class="panel-footer"></div>
+        <form action="/recruitment/" method=post>
+          <div class="form-group">
+            <label for="inputKeyId1">Key ID</label>
+            <input type="text" length=7 class="form-control" id="inputKeyId1" name="key" placeholder="KeyID">
+            <label for="inputVcode1">Verification Code</label>
+            <input type="text" length=64 class="form-control" id="inputVCode1" name="vcode" placeholder="VCode">
+            <label for="inputVcode1">Tell Us About Yourself</label>
+            <textarea class="form-control" rows="3" id="inputBlob1" name="blob"></textarea>
+            <input type="text" length=64 class="form-control hidden" id="inputName1" name="name" placeholder="">
+            <p class="help-block"><a
+                href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=1073741832"
+                target="_blank">Not sure? Create a new API key!</a></p>
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+      <div class="panel-footer"></div>
     </div>
   </div>
 </div>
 
-
-
+{% include "foot.html" ignore missing %}

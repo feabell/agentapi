@@ -1,38 +1,12 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% include "recruitment-head.html" ignore missing %}
 
-	<title>WiNGSPAN Delivery Network - IT Services</title>
-	<!-- Bootstrap -->
-	<link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
-	<link href="{{ url_for('static',filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css/wds-custom.css') }}" rel="stylesheet">
-
-	<script src="{{ url_for('static',filename='js/jquery-1.12.2.min.js') }}"></script>
-	<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
-  </head>
-<body>
-<div class="container" role="main">
-
-  <div class="cold-md-12 jumbotron">
-  	<h2><strong>WiNGSPAN Delivery Network</strong></h2>
-  </div>
-  <div class="alert alert-danger" role="alert">
-       	<strong>We're sorry {{ pilotName }}</strong>, But you don't meet our pre-requirements.
-  </div>
-
-  {% include "recruitment-skillreqs.html" ignore missing %}
-
-
-
-
-	</div>
-
-  <p> Still unsure?  Contact <a href="https://gate.eveonline.com/Profile/dakodai">Dakodai</a> ingame to figure out what's wrong!</p>
-
+<div class="alert alert-danger" role="alert">
+  <strong>We're sorry {{ pilotName }}</strong>, But you don't meet our pre-requirements.
 </div>
-</body>
-</html>
+{% include "recruitment-skillreqs.html" ignore missing %}
+<div>
+  <p> Still unsure? Contact <a href="https://gate.eveonline.com/Profile/dakodai">Dakodai</a> ingame to figure out what's
+    wrong!</p>
+</div>
+
+{% include "foot.html" ignore missing %}
