@@ -68,6 +68,11 @@ def rec_process():
     else:
       return render_template('recruitment-apierror.html')
 
+    #check for duplicate active application
+    result = query_db('SELECT name, status FROM recruits WHERE name=? AND status=0', [pilotName])
+    if len(result) > 0:
+        return render_template('recruitment-duplicate.html', pilotName=pilotName)
+
     skillsurl = ('https://api.eveonline.com/char/Skills.xml.aspx?'
 		 'keyId={key}&vCode={vcode}&characterID={pilotID}'.format(key = key, vcode = vcode, pilotID = pilotID))
 
