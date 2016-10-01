@@ -119,6 +119,7 @@ def authme():
                                                                guildid = GUILD_ID,
                                                                discordid = discordid)
     req = requests.patch(uri, json = {'roles':[data]}, headers = headers)
+    print(req.text)
 
     return render_template('services-discord-success.html')
 
