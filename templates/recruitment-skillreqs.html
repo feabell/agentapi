@@ -1,10 +1,33 @@
 <div>
-  <h4> We require that you meet the following minimum skills:</h4>
-  <pre>
+
+  {% if skillsneeded and skillsneeded['base'] %}
+
+    <div class="alert alert-danger">You are missing the following base skills</div>
+<pre>
+{% for skill, level in  skillsneeded['base'].items() %} {{ skill }}: {{ level }}
+{% endfor %}
+</pre>
+
+  {% elif skillsneeded %}
+
+    <div class="alert alert-wds">
+      You meet our base requirements but none of the specializations.
+      <br>
+      Expand each section below to see the additional skills you need to train.
+    </div>
+
+  {% else %}
+
+    <h4> We require that you meet the following minimum skills:</h4>
+<pre>
 {% for skill, level in base_prereq.items() %} {{ skill }}: {{ level }}
 {% endfor %}
 </pre>
+
+  {% endif %}
+
   <br>
+
   <h4>You must also meet <strong>AT LEAST ONE</strong> of the following:</h4>
 
   <div class="panel-group">
@@ -18,10 +41,21 @@
       </div>
       <div id="collapse-sr1" class="panel-collapse collapse">
         <div class="panel-body">
+
+          {% if skillsneeded and skillsneeded['bomber'] %}
+
+            <div class="alert alert-danger">You are missing the following skills</div>
+<pre>
+{% for skill, level in  skillsneeded['bomber'].items() %} {{ skill }}: {{ level }}
+{% endfor %}
+</pre>
+          {% else %}
 <pre>
 {% for skill, level in sb_prereq.items() %} {{ skill }}: {{ level }}
 {% endfor %}
 </pre>
+          {% endif %}
+
         </div>
         <div class="panel-footer"></div>
       </div>
@@ -36,10 +70,24 @@
       </div>
       <div id="collapse-sr2" class="panel-collapse collapse">
         <div class="panel-body">
+
+          {% if skillsneeded and skillsneeded['astero'] %}
+
+            <div class="alert alert-danger">You are missing the following skills</div>
+<pre>
+{% for skill, level in  skillsneeded['astero'].items() %} {{ skill }}: {{ level }}
+{% endfor %}
+</pre>
+
+          {% else %}
+
 <pre>
 {% for skill, level in ast_prereq.items() %} {{ skill }}: {{ level }}
 {% endfor %}
 </pre>
+
+          {% endif %}
+
         </div>
         <div class="panel-footer"></div>
       </div>
@@ -54,10 +102,24 @@
       </div>
       <div id="collapse-sr3" class="panel-collapse collapse">
         <div class="panel-body">
+
+          {% if skillsneeded and skillsneeded['strat'] %}
+
+            <div class="alert alert-danger">You are missing the following skills</div>
+            <pre>
+{% for skill, level in  skillsneeded['strat'].items() %} {{ skill }}: {{ level }}
+{% endfor %}
+</pre>
+
+          {% else %}
+
 <pre>
 {% for skill, level in strat_prereq.items() %} {{ skill }}: {{ level }}
 {% endfor %}
 </pre>
+
+          {% endif %}
+
         </div>
         <div class="panel-footer"></div>
       </div>
@@ -72,10 +134,24 @@
       </div>
       <div id="collapse-sr4" class="panel-collapse collapse">
         <div class="panel-body">
+
+          {% if skillsneeded and skillsneeded['recon'] %}
+
+            <div class="alert alert-danger">You are missing the following skills</div>
+            <pre>
+{% for skill, level in  skillsneeded['recon'].items() %} {{ skill }}: {{ level }}
+{% endfor %}
+</pre>
+
+          {% else %}
+
 <pre>
 {% for skill, level in recon_prereq.items() %} {{ skill }}: {{ level }}
 {% endfor %}
 </pre>
+
+          {% endif %}
+
         </div>
         <div class="panel-footer"></div>
       </div>
@@ -108,10 +184,24 @@ Racial Defensive Systems 4
       </div>
       <div id="collapse-sr6" class="panel-collapse collapse">
         <div class="panel-body">
+
+          {% if skillsneeded and skillsneeded['blops'] %}
+
+            <div class="alert alert-danger">You are missing the following skills</div>
+            <pre>
+{% for skill, level in  skillsneeded['blops'].items() %} {{ skill }}: {{ level }}
+{% endfor %}
+</pre>
+
+          {% else %}
+
 <pre>
 {% for skill, level in blops_prereq.items() %} {{ skill }}: {{ level }}
 {% endfor %}
 </pre>
+
+          {% endif %}
+
         </div>
         <div class="panel-footer"></div>
       </div>

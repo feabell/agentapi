@@ -78,14 +78,22 @@ def rec_process():
 
     pilotsskills = parse_skills(ET.fromstring(requests.get(skillsurl).content))
 
+    base_met, baseneeded = check_skills(pilotsskills, base)
+    sb_met, bomberneeded = check_skills(pilotsskills, sb)
+    strat_met, stratneeded = check_skills(pilotsskills, strat)
+    astero_met, asteroneeded = check_skills(pilotsskills, astero)
+    recon_met, reconneeded = check_skills(pilotsskills, recon)
+    blops_met, blopsneeded = check_skills(pilotsskills, blops)
+    t3_met, t3needed = (check_skills(pilotsskills, amarr_t3) or check_skills(pilotsskills, gallente_t3) or check_skills(pilotsskills, minmatar_t3) or check_skills(pilotsskills, caldari_t3))
 
-    base_met = check_skills(pilotsskills, base)
-    sb_met = check_skills(pilotsskills, sb)
-    strat_met = check_skills(pilotsskills, strat)
-    astero_met = check_skills(pilotsskills, astero)
-    recon_met = check_skills(pilotsskills, recon)
-    blops_met = check_skills(pilotsskills, blops)
-    t3_met = (check_skills(pilotsskills, amarr_t3) or check_skills(pilotsskills, gallente_t3) or check_skills(pilotsskills, minmatar_t3) or check_skills(pilotsskills, caldari_t3))
+    skillsneeded = {
+      'base': baseneeded,
+      'bomber': bomberneeded,
+      'strat': stratneeded,
+      'astero': asteroneeded,
+      'recon': reconneeded,
+      'blops': blopsneeded
+    }
 
     if base_met and (sb_met or strat_met or astero_met or recon_met or blops_met or t3_met):
       #insert a record to the recruitment table
@@ -99,27 +107,30 @@ def rec_process():
       return render_template('recruitment-error.html', 
 			pilotName=pilotName, sb=sb_met, strat=strat_met, astero=astero_met, recon=recon_met, blops=blops_met,
 			base_prereq=base, sb_prereq=sb, strat_prereq=strat, ast_prereq=astero, 
-			recon_prereq=recon, blops_prereq=blops)
+			recon_prereq=recon, blops_prereq=blops, skillsneeded=skillsneeded)
 
   except Exception as e:
     print("[WARN] barfed in XML api", sys.exc_info()[0])
     print( str(e))
 
 def check_skills(user_skills, req_skills): 
-  met_req = True 
+  met_req = True
+  skills_not_met = {}
 
   for skill,level in req_skills.items():
     if not user_skills.get(skill):
       #print('not injected:'+skill)
       met_req = False
+      skills_not_met[skill] = level
     elif user_skills.get(skill) >= level:
       #print('passed:'+skill)
       pass
     else:
       #print('failed:'+skill)
       met_req = False
+      skills_not_met[skill] = level
 
-  return met_req
+  return met_req, skills_not_met
 
 def parse_skills(xmltree):  
 
