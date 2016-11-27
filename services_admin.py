@@ -137,3 +137,13 @@ def admin_mark_active():
 
   return redirect(url_for('services_admin.adminpage'), code=302)
 
+@services_admin.route('/markallactive', methods=['GET'])
+@basic_auth.required
+def admin_mark_all_active():
+  """
+  Method updates DB with pilots that have been mistakenly marked for deletion.
+  """
+  update_query = insert_db('UPDATE pilots '
+                           'SET active_account=1, in_alliance=1 '
+			   'WHERE slack_active=1;')
+

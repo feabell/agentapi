@@ -163,7 +163,7 @@ def remove_roles(discordid, email):
 
   dmid = req.json()['id']
 
-  message = """Your Discord roles have been revoked, either because you left the alliance, your account expired or your API key has expired. \r\n
+  message = """Your Discord and roles have been revoked, either because you left the alliance, your clone status reverted or Alpha or your API key has expired. \r\n
               If you believe this is an error, please submit a valid API key for this email address to https://services.torpedodelivery.com and then type !authme
               Otherwise, please feel free to hangout in our public channels.\r\n
               Cheers! ~authbot"""
