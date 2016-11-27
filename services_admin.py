@@ -147,3 +147,4 @@ def admin_mark_all_active():
                            'SET active_account=1, in_alliance=1 '
 			   'WHERE slack_active=1;')
 
+  return redirect(url_for('services_admin.adminpage'), code=302)
