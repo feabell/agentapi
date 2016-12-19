@@ -1,0 +1,91 @@
+﻿<?xml version="1.0"?>
+<plan xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Bomber" owner="ca22dc62-7d94-4c9b-ae48-2fc531955fb1" revision="4658">
+  <sorting criteria="None" order="None" groupByPriority="false" />
+  <entry skillID="3319" skill="Missile Launcher Operation" level="2" priority="3" type="Prerequisite">
+    <notes>Guided Missile Precision, Torpedoes</notes>
+  </entry>
+  <entry skillID="3319" skill="Missile Launcher Operation" level="3" priority="3" type="Prerequisite">
+    <notes>Guided Missile Precision, Torpedoes</notes>
+  </entry>
+  <entry skillID="3319" skill="Missile Launcher Operation" level="4" priority="3" type="Prerequisite">
+    <notes>Guided Missile Precision, Torpedoes</notes>
+  </entry>
+  <entry skillID="20312" skill="Guided Missile Precision" level="1" priority="3" type="Planned">
+    <notes>Guided Missile Precision</notes>
+  </entry>
+  <entry skillID="20312" skill="Guided Missile Precision" level="2" priority="3" type="Planned">
+    <notes>Guided Missile Precision</notes>
+  </entry>
+  <entry skillID="20312" skill="Guided Missile Precision" level="3" priority="3" type="Planned">
+    <notes>Guided Missile Precision</notes>
+  </entry>
+  <entry skillID="20312" skill="Guided Missile Precision" level="4" priority="3" type="Planned">
+    <notes>Guided Missile Precision</notes>
+  </entry>
+  <entry skillID="3321" skill="Light Missiles" level="1" priority="3" type="Prerequisite">
+    <notes>Torpedoes</notes>
+  </entry>
+  <entry skillID="3321" skill="Light Missiles" level="2" priority="3" type="Prerequisite">
+    <notes>Torpedoes</notes>
+  </entry>
+  <entry skillID="3321" skill="Light Missiles" level="3" priority="3" type="Prerequisite">
+    <notes>Torpedoes</notes>
+  </entry>
+  <entry skillID="3324" skill="Heavy Missiles" level="1" priority="3" type="Prerequisite">
+    <notes>Torpedoes</notes>
+  </entry>
+  <entry skillID="3324" skill="Heavy Missiles" level="2" priority="3" type="Prerequisite">
+    <notes>Torpedoes</notes>
+  </entry>
+  <entry skillID="3324" skill="Heavy Missiles" level="3" priority="3" type="Prerequisite">
+    <notes>Torpedoes</notes>
+  </entry>
+  <entry skillID="3325" skill="Torpedoes" level="1" priority="3" type="Planned">
+    <notes>Torpedoes</notes>
+  </entry>
+  <entry skillID="3325" skill="Torpedoes" level="2" priority="3" type="Planned">
+    <notes>Torpedoes</notes>
+  </entry>
+  <entry skillID="3325" skill="Torpedoes" level="3" priority="3" type="Planned">
+    <notes>Torpedoes</notes>
+  </entry>
+  <entry skillID="3325" skill="Torpedoes" level="4" priority="3" type="Planned">
+    <notes>Torpedoes</notes>
+  </entry>
+  <entry skillID="3318" skill="Weapon Upgrades" level="3" priority="3" type="Planned">
+    <notes>Weapon Upgrades</notes>
+  </entry>
+  <entry skillID="3318" skill="Weapon Upgrades" level="4" priority="3" type="Planned">
+    <notes>Weapon Upgrades</notes>
+  </entry>
+  <entry skillID="3432" skill="Electronics Upgrades" level="4" priority="3" type="Prerequisite">
+    <notes>Covert Ops</notes>
+  </entry>
+  <entry skillID="3432" skill="Electronics Upgrades" level="5" priority="3" type="Prerequisite">
+    <notes>Covert Ops</notes>
+  </entry>
+  <entry skillID="12093" skill="Covert Ops" level="1" priority="3" type="Planned">
+    <notes>Covert Ops</notes>
+  </entry>
+  <entry skillID="12093" skill="Covert Ops" level="2" priority="3" type="Planned">
+    <notes>Covert Ops</notes>
+  </entry>
+  <entry skillID="12093" skill="Covert Ops" level="3" priority="3" type="Planned">
+    <notes>Covert Ops</notes>
+  </entry>
+  <entry skillID="12093" skill="Covert Ops" level="4" priority="3" type="Planned">
+    <notes>Covert Ops</notes>
+  </entry>
+  <entry skillID="12441" skill="Missile Bombardment" level="1" priority="3" type="Planned">
+    <notes>Missile Bombardment</notes>
+  </entry>
+  <entry skillID="12441" skill="Missile Bombardment" level="2" priority="3" type="Planned">
+    <notes>Missile Bombardment</notes>
+  </entry>
+  <entry skillID="12441" skill="Missile Bombardment" level="3" priority="3" type="Planned">
+    <notes>Missile Bombardment</notes>
+  </entry>
+  <entry skillID="12441" skill="Missile Bombardment" level="4" priority="3" type="Planned">
+    <notes>Missile Bombardment</notes>
+  </entry>
+</plan>

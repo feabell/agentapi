@@ -1,0 +1,40 @@
+﻿<?xml version="1.0"?>
+<plan xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Base" owner="ca22dc62-7d94-4c9b-ae48-2fc531955fb1" revision="4658">
+  <sorting criteria="None" order="None" groupByPriority="false" />
+  <entry skillID="3412" skill="Astrometrics" level="4" priority="3" type="Planned">
+    <notes>Astrometrics, Astrometric Pinpointing</notes>
+  </entry>
+  <entry skillID="25810" skill="Astrometric Pinpointing" level="1" priority="3" type="Planned">
+    <notes>Astrometric Pinpointing</notes>
+  </entry>
+  <entry skillID="25810" skill="Astrometric Pinpointing" level="2" priority="3" type="Planned">
+    <notes>Astrometric Pinpointing</notes>
+  </entry>
+  <entry skillID="25810" skill="Astrometric Pinpointing" level="3" priority="3" type="Planned">
+    <notes>Astrometric Pinpointing</notes>
+  </entry>
+  <entry skillID="25739" skill="Astrometric Rangefinding" level="2" priority="3" type="Planned">
+    <notes>Astrometric Rangefinding</notes>
+  </entry>
+  <entry skillID="25739" skill="Astrometric Rangefinding" level="3" priority="3" type="Planned">
+    <notes>Astrometric Rangefinding</notes>
+  </entry>
+  <entry skillID="25811" skill="Astrometric Acquisition" level="2" priority="3" type="Planned">
+    <notes>Astrometric Acquisition</notes>
+  </entry>
+  <entry skillID="25811" skill="Astrometric Acquisition" level="3" priority="3" type="Planned">
+    <notes>Astrometric Acquisition</notes>
+  </entry>
+  <entry skillID="11579" skill="Cloaking" level="1" priority="3" type="Planned">
+    <notes>Cloaking</notes>
+  </entry>
+  <entry skillID="11579" skill="Cloaking" level="2" priority="3" type="Planned">
+    <notes>Cloaking</notes>
+  </entry>
+  <entry skillID="11579" skill="Cloaking" level="3" priority="3" type="Planned">
+    <notes>Cloaking</notes>
+  </entry>
+  <entry skillID="11579" skill="Cloaking" level="4" priority="3" type="Planned">
+    <notes>Cloaking</notes>
+  </entry>
+</plan>
