@@ -2,7 +2,24 @@
 
 {% include "recruitment-skillreqs.html" ignore missing %}
 
+{% if not recruitment_open %}
 <div class="panel-group">
+
+  <div class="panel panel-default">
+   <div class="panel-heading">
+     <h4 class="panel-title">
+       <a>Recruitment is closed</a>
+     </h4>
+   </div>
+   <div class="panel-body">
+   Recruitment is currently closed.  Please check back later, or keep an eye on the MOTD in the #wing-ds public channel in game
+   </div>
+   <div class="panel-footer">
+   </div>
+ </div>
+</div>
+
+{% else %}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -31,5 +48,6 @@
     </div>
   </div>
 </div>
+{% endif %}
 
 {% include "foot.html" ignore missing %}

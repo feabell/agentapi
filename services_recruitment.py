@@ -17,12 +17,14 @@ minmatar_t3 = pre_reqs['minmatar_t3']
 caldari_t3 = pre_reqs['caldari_t3']
 gallente_t3 = pre_reqs['gallente_t3']
 
+RECRUITMENT_OPEN = pre_reqs['RECRUITMENT_OPEN']
+
 @services_recruitment.route('/recruitment',  methods=['GET'])
 @services_recruitment.route('/recruitment/',  methods=['GET'])
 def rec_landing():
 	return render_template('recruitment-landing.html', 
 		base_prereq=base, sb_prereq=sb, strat_prereq=strat, ast_prereq=astero, 
-		recon_prereq=recon, blops_prereq=blops)
+		recon_prereq=recon, blops_prereq=blops, recruitment_open=RECRUITMENT_OPEN)
 
 @services_recruitment.route('/recruitment',  methods=['POST'])
 @services_recruitment.route('/recruitment/',  methods=['POST'])
