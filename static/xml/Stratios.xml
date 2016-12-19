@@ -1,0 +1,109 @@
+﻿<?xml version="1.0"?>
+<plan xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Stratios" owner="c16011f1-6f1f-4586-93c3-ff9e6f6b6541" revision="4658">
+  <sorting criteria="None" order="None" groupByPriority="false" />
+  <entry skillID="3392" skill="Mechanics" level="3" priority="3" type="Planned">
+    <notes>Mechanics</notes>
+  </entry>
+  <entry skillID="3392" skill="Mechanics" level="4" priority="3" type="Planned">
+    <notes>Mechanics</notes>
+  </entry>
+  <entry skillID="3392" skill="Mechanics" level="5" priority="3" type="Planned">
+    <notes>Mechanics</notes>
+  </entry>
+  <entry skillID="3423" skill="Capacitor Emission Systems" level="1" priority="3" type="Planned">
+    <notes>Capacitor Emission Systems</notes>
+  </entry>
+  <entry skillID="3423" skill="Capacitor Emission Systems" level="2" priority="3" type="Planned">
+    <notes>Capacitor Emission Systems</notes>
+  </entry>
+  <entry skillID="3423" skill="Capacitor Emission Systems" level="3" priority="3" type="Planned">
+    <notes>Capacitor Emission Systems</notes>
+  </entry>
+  <entry skillID="3423" skill="Capacitor Emission Systems" level="4" priority="3" type="Planned">
+    <notes>Capacitor Emission Systems</notes>
+  </entry>
+  <entry skillID="3436" skill="Drones" level="2" priority="3" type="Prerequisite">
+    <notes>Drone Interfacing</notes>
+  </entry>
+  <entry skillID="3436" skill="Drones" level="3" priority="3" type="Prerequisite">
+    <notes>Drone Interfacing</notes>
+  </entry>
+  <entry skillID="3436" skill="Drones" level="4" priority="3" type="Prerequisite">
+    <notes>Drone Interfacing</notes>
+  </entry>
+  <entry skillID="3436" skill="Drones" level="5" priority="3" type="Prerequisite">
+    <notes>Drone Interfacing</notes>
+  </entry>
+  <entry skillID="3442" skill="Drone Interfacing" level="1" priority="3" type="Planned">
+    <notes>Drone Interfacing</notes>
+  </entry>
+  <entry skillID="3442" skill="Drone Interfacing" level="2" priority="3" type="Planned">
+    <notes>Drone Interfacing</notes>
+  </entry>
+  <entry skillID="3442" skill="Drone Interfacing" level="3" priority="3" type="Planned">
+    <notes>Drone Interfacing</notes>
+  </entry>
+  <entry skillID="3442" skill="Drone Interfacing" level="4" priority="3" type="Planned">
+    <notes>Drone Interfacing</notes>
+  </entry>
+  <entry skillID="3328" skill="Gallente Frigate" level="1" priority="3" type="Prerequisite">
+    <notes>Gallente Cruiser</notes>
+  </entry>
+  <entry skillID="3328" skill="Gallente Frigate" level="2" priority="3" type="Prerequisite">
+    <notes>Gallente Cruiser</notes>
+  </entry>
+  <entry skillID="3328" skill="Gallente Frigate" level="3" priority="3" type="Prerequisite">
+    <notes>Gallente Cruiser</notes>
+  </entry>
+  <entry skillID="33093" skill="Gallente Destroyer" level="1" priority="3" type="Prerequisite">
+    <notes>Gallente Cruiser</notes>
+  </entry>
+  <entry skillID="33093" skill="Gallente Destroyer" level="2" priority="3" type="Prerequisite">
+    <notes>Gallente Cruiser</notes>
+  </entry>
+  <entry skillID="33093" skill="Gallente Destroyer" level="3" priority="3" type="Prerequisite">
+    <notes>Gallente Cruiser</notes>
+  </entry>
+  <entry skillID="3332" skill="Gallente Cruiser" level="1" priority="3" type="Planned">
+    <notes>Gallente Cruiser</notes>
+  </entry>
+  <entry skillID="3332" skill="Gallente Cruiser" level="2" priority="3" type="Planned">
+    <notes>Gallente Cruiser</notes>
+  </entry>
+  <entry skillID="3332" skill="Gallente Cruiser" level="3" priority="3" type="Planned">
+    <notes>Gallente Cruiser</notes>
+  </entry>
+  <entry skillID="3332" skill="Gallente Cruiser" level="4" priority="3" type="Planned">
+    <notes>Gallente Cruiser</notes>
+  </entry>
+  <entry skillID="3331" skill="Amarr Frigate" level="1" priority="3" type="Prerequisite">
+    <notes>Amarr Cruiser</notes>
+  </entry>
+  <entry skillID="3331" skill="Amarr Frigate" level="2" priority="3" type="Prerequisite">
+    <notes>Amarr Cruiser</notes>
+  </entry>
+  <entry skillID="3331" skill="Amarr Frigate" level="3" priority="3" type="Prerequisite">
+    <notes>Amarr Cruiser</notes>
+  </entry>
+  <entry skillID="33091" skill="Amarr Destroyer" level="1" priority="3" type="Prerequisite">
+    <notes>Amarr Cruiser</notes>
+  </entry>
+  <entry skillID="33091" skill="Amarr Destroyer" level="2" priority="3" type="Prerequisite">
+    <notes>Amarr Cruiser</notes>
+  </entry>
+  <entry skillID="33091" skill="Amarr Destroyer" level="3" priority="3" type="Prerequisite">
+    <notes>Amarr Cruiser</notes>
+  </entry>
+  <entry skillID="3335" skill="Amarr Cruiser" level="1" priority="3" type="Planned">
+    <notes>Amarr Cruiser</notes>
+  </entry>
+  <entry skillID="3335" skill="Amarr Cruiser" level="2" priority="3" type="Planned">
+    <notes>Amarr Cruiser</notes>
+  </entry>
+  <entry skillID="3335" skill="Amarr Cruiser" level="3" priority="3" type="Planned">
+    <notes>Amarr Cruiser</notes>
+  </entry>
+  <entry skillID="3335" skill="Amarr Cruiser" level="4" priority="3" type="Planned">
+    <notes>Amarr Cruiser</notes>
+  </entry>
+</plan>

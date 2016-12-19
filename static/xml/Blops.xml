@@ -1,0 +1,94 @@
+﻿<?xml version="1.0"?>
+<plan xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Blops" owner="ca22dc62-7d94-4c9b-ae48-2fc531955fb1" revision="4658">
+  <sorting criteria="None" order="None" groupByPriority="false" />
+  <entry skillID="3449" skill="Navigation" level="4" priority="3" type="Prerequisite">
+    <notes>Jump Fuel Conservation, Black Ops</notes>
+  </entry>
+  <entry skillID="3449" skill="Navigation" level="5" priority="3" type="Prerequisite">
+    <notes>Jump Fuel Conservation, Black Ops</notes>
+  </entry>
+  <entry skillID="3455" skill="Warp Drive Operation" level="2" priority="3" type="Prerequisite">
+    <notes>Jump Fuel Conservation, Black Ops</notes>
+  </entry>
+  <entry skillID="3455" skill="Warp Drive Operation" level="3" priority="3" type="Prerequisite">
+    <notes>Jump Fuel Conservation, Black Ops</notes>
+  </entry>
+  <entry skillID="3455" skill="Warp Drive Operation" level="4" priority="3" type="Prerequisite">
+    <notes>Jump Fuel Conservation, Black Ops</notes>
+  </entry>
+  <entry skillID="3455" skill="Warp Drive Operation" level="5" priority="3" type="Prerequisite">
+    <notes>Jump Fuel Conservation, Black Ops</notes>
+  </entry>
+  <entry skillID="3402" skill="Science" level="5" priority="3" type="Prerequisite">
+    <notes>Jump Fuel Conservation, Black Ops</notes>
+  </entry>
+  <entry skillID="3456" skill="Jump Drive Operation" level="1" priority="3" type="Prerequisite">
+    <notes>Jump Fuel Conservation, Black Ops</notes>
+  </entry>
+  <entry skillID="3456" skill="Jump Drive Operation" level="2" priority="3" type="Prerequisite">
+    <notes>Jump Fuel Conservation, Black Ops</notes>
+  </entry>
+  <entry skillID="3456" skill="Jump Drive Operation" level="3" priority="3" type="Prerequisite">
+    <notes>Jump Fuel Conservation, Black Ops</notes>
+  </entry>
+  <entry skillID="21610" skill="Jump Fuel Conservation" level="1" priority="3" type="Planned">
+    <notes>Jump Fuel Conservation</notes>
+  </entry>
+  <entry skillID="21610" skill="Jump Fuel Conservation" level="2" priority="3" type="Planned">
+    <notes>Jump Fuel Conservation</notes>
+  </entry>
+  <entry skillID="21610" skill="Jump Fuel Conservation" level="3" priority="3" type="Planned">
+    <notes>Jump Fuel Conservation</notes>
+  </entry>
+  <entry skillID="21610" skill="Jump Fuel Conservation" level="4" priority="3" type="Planned">
+    <notes>Jump Fuel Conservation</notes>
+  </entry>
+  <entry skillID="11579" skill="Cloaking" level="1" priority="3" type="Prerequisite">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="11579" skill="Cloaking" level="2" priority="3" type="Prerequisite">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="11579" skill="Cloaking" level="3" priority="3" type="Prerequisite">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="11579" skill="Cloaking" level="4" priority="3" type="Prerequisite">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="3456" skill="Jump Drive Operation" level="4" priority="3" type="Prerequisite">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="3456" skill="Jump Drive Operation" level="5" priority="3" type="Prerequisite">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="21611" skill="Jump Drive Calibration" level="1" priority="3" type="Prerequisite">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="21611" skill="Jump Drive Calibration" level="2" priority="3" type="Prerequisite">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="21611" skill="Jump Drive Calibration" level="3" priority="3" type="Prerequisite">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="21611" skill="Jump Drive Calibration" level="4" priority="3" type="Prerequisite">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="3327" skill="Spaceship Command" level="4" priority="3" type="Prerequisite">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="3327" skill="Spaceship Command" level="5" priority="3" type="Prerequisite">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="28656" skill="Black Ops" level="1" priority="3" type="Planned">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="28656" skill="Black Ops" level="2" priority="3" type="Planned">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="28656" skill="Black Ops" level="3" priority="3" type="Planned">
+    <notes>Black Ops</notes>
+  </entry>
+  <entry skillID="28656" skill="Black Ops" level="4" priority="3" type="Planned">
+    <notes>Black Ops</notes>
+  </entry>
+</plan>
