@@ -34,7 +34,7 @@ def rec_process():
   """
   
   #bail if recruitment is closed
-  if not RECRUIMENT_OPEN:
+  if not RECRUITMENT_OPEN:
    return redirect(url_for('services_recruitment.rec_landing'), code=302)
 
   name = request.form['name']
