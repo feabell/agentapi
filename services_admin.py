@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint, url_for, redirect, request
 from flask.ext.basicauth import BasicAuth
-from multiprocessing import Pool
+from multiprocessing import Pool, Process
 import requests
 import pprint
 
@@ -107,6 +107,14 @@ def checkaccounts():
   for account in active_accounts:
     accountlist.append([account['email'], str(account['keyid']), account['vcode']])
 
+  #kickoff the background_check as a non-blocking process
+  p = Process(target=background_check, args=accountlist)
+  p.start()
+
+  return redirect(url_for('services_admin.adminpage'), code=302)
+
+def background_check(accountlist)  
+
   pool = Pool(10)
   pilots_to_delete = pool.starmap(in_alliance_and_active, accountlist)
 
@@ -123,7 +131,7 @@ def checkaccounts():
                              'SET active_account=0, in_alliance=0 '
                              'WHERE lower(email) = ?', [email.lower()])
 
-  return redirect(url_for('services_admin.adminpage'), code=302)
+  return
 
 @services_admin.route('/markactive', methods=['POST'])
 @basic_auth.required
