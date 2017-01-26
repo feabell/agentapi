@@ -108,14 +108,14 @@ def checkaccounts():
     accountlist.append([account['email'], str(account['keyid']), account['vcode']])
 
   #kickoff the background_check as a non-blocking process
-  p = Process(target=background_check, args=accountlist)
+  p = Process(target=background_check, args=(accountlist,))
   p.start()
 
   return redirect(url_for('services_admin.adminpage'), code=302)
 
-def background_check(accountlist)  
+def background_check(accountlist): 
 
-  pool = Pool(10)
+  pool = Pool(15)
   pilots_to_delete = pool.starmap(in_alliance_and_active, accountlist)
 
   pool.close()
