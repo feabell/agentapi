@@ -167,12 +167,44 @@
       </div>
       <div id="collapse-sr5" class="panel-collapse collapse">
         <div class="panel-body">
+          {% if skillsneeded and skillsneeded['t3'] %}
+
+            <div class="alert alert-danger">You are missing the following skills</div>
+            {% for race, t3_skills in skillsneeded['t3'] %}
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h5 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse{{ race }}">{{ race.title() }}</a>
+                  </h5>
+                </div>
+
+                <div id="collapse{{ race }}" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre>
+{% for skill, level in  t3_skills.items() %} {{ skill }}: {{ level }}
+{% endfor %}
+</pre>
+                  </div>
+                  <div class="panel-footer">
+                    <a href="/static/xml/{{ race.title() }}.xml" download>Download EVEMon Plan</a>
+                  </div>
+                </div>
+              </div>
+
+            {% endfor %}
+
+          {% else %}
+
+            <div class="panel-body">
 <pre>Racial Strategic Cruiser 4
 Racial Electronic Systems 4
 Racial Offensive Systems 4
 Racial Propulsion Systems 4
 Racial Defensive Systems 4
 </pre>
+            </div>
+
+          {% endif %}
         </div>
         <div class="panel-footer"></div>
       </div>

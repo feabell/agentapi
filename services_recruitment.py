@@ -16,6 +16,12 @@ amarr_t3 = pre_reqs['amarr_t3']
 minmatar_t3 = pre_reqs['minmatar_t3']
 caldari_t3 = pre_reqs['caldari_t3']
 gallente_t3 = pre_reqs['gallente_t3']
+t3_all = {
+  'legion': amarr_t3,
+  'proteus': gallente_t3,
+  'loki': minmatar_t3,
+  'tengu': caldari_t3
+}
 
 RECRUITMENT_OPEN = pre_reqs['RECRUITMENT_OPEN']
 
@@ -91,7 +97,17 @@ def rec_process():
     astero_met, asteroneeded = check_skills(pilotsskills, astero)
     recon_met, reconneeded = check_skills(pilotsskills, recon)
     blops_met, blopsneeded = check_skills(pilotsskills, blops)
-    t3_met, t3needed = (check_skills(pilotsskills, amarr_t3) or check_skills(pilotsskills, gallente_t3) or check_skills(pilotsskills, minmatar_t3) or check_skills(pilotsskills, caldari_t3))
+
+    t3_needed = {
+      'legion': None,
+      'proteus': None,
+      'loki': None,
+      'tengu': None
+    }
+    for race, t3_skills in t3_all.items():
+      t3_met, t3_needed[race] = (check_skills(pilotsskills, t3_skills))
+      if t3_met:
+        break
 
     skillsneeded = {
       'base': baseneeded,
@@ -99,7 +115,8 @@ def rec_process():
       'strat': stratneeded,
       'astero': asteroneeded,
       'recon': reconneeded,
-      'blops': blopsneeded
+      'blops': blopsneeded,
+      't3': t3_needed.items()
     }
 
     if base_met and (sb_met or strat_met or astero_met or recon_met or blops_met or t3_met):
@@ -112,7 +129,7 @@ def rec_process():
       return render_template('recruitment-success.html', sb=sb_met, strat=strat_met, astero=astero_met, recon=recon_met, blops=blops_met, t3=t3_met)
     else:
       return render_template('recruitment-error.html', 
-			pilotName=pilotName, sb=sb_met, strat=strat_met, astero=astero_met, recon=recon_met, blops=blops_met,
+			pilotName=pilotName, sb=sb_met, strat=strat_met, astero=astero_met, recon=recon_met, blops=blops_met, t3=t3_met,
 			base_prereq=base, sb_prereq=sb, strat_prereq=strat, ast_prereq=astero, 
 			recon_prereq=recon, blops_prereq=blops, skillsneeded=skillsneeded)
 
