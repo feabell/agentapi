@@ -1,0 +1,133 @@
+﻿<?xml version="1.0"?>
+<plan xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Tengu" owner="c49238cb-4a1a-455b-a480-71bb0d81d5e8" revision="4658">
+  <sorting criteria="None" order="None" groupByPriority="false" />
+  <entry skillID="3416" skill="Shield Operation" level="4" priority="3" type="Prerequisite">
+    <notes>Caldari Defensive Systems</notes>
+  </entry>
+  <entry skillID="3416" skill="Shield Operation" level="5" priority="3" type="Prerequisite">
+    <notes>Caldari Defensive Systems</notes>
+  </entry>
+  <entry skillID="3392" skill="Mechanics" level="3" priority="3" type="Prerequisite">
+    <notes>Caldari Defensive Systems</notes>
+  </entry>
+  <entry skillID="30544" skill="Caldari Defensive Systems" level="1" priority="3" type="Planned">
+    <notes>Caldari Defensive Systems</notes>
+  </entry>
+  <entry skillID="30544" skill="Caldari Defensive Systems" level="2" priority="3" type="Planned">
+    <notes>Caldari Defensive Systems</notes>
+  </entry>
+  <entry skillID="30544" skill="Caldari Defensive Systems" level="3" priority="3" type="Planned">
+    <notes>Caldari Defensive Systems</notes>
+  </entry>
+  <entry skillID="30544" skill="Caldari Defensive Systems" level="4" priority="3" type="Planned">
+    <notes>Caldari Defensive Systems</notes>
+  </entry>
+  <entry skillID="3426" skill="CPU Management" level="5" priority="3" type="Prerequisite">
+    <notes>Caldari Electronic Systems</notes>
+  </entry>
+  <entry skillID="30542" skill="Caldari Electronic Systems" level="1" priority="3" type="Planned">
+    <notes>Caldari Electronic Systems</notes>
+  </entry>
+  <entry skillID="30542" skill="Caldari Electronic Systems" level="2" priority="3" type="Planned">
+    <notes>Caldari Electronic Systems</notes>
+  </entry>
+  <entry skillID="30542" skill="Caldari Electronic Systems" level="3" priority="3" type="Planned">
+    <notes>Caldari Electronic Systems</notes>
+  </entry>
+  <entry skillID="30542" skill="Caldari Electronic Systems" level="4" priority="3" type="Planned">
+    <notes>Caldari Electronic Systems</notes>
+  </entry>
+  <entry skillID="3413" skill="Power Grid Management" level="5" priority="3" type="Prerequisite">
+    <notes>Caldari Engineering Systems</notes>
+  </entry>
+  <entry skillID="30548" skill="Caldari Engineering Systems" level="1" priority="3" type="Planned">
+    <notes>Caldari Engineering Systems</notes>
+  </entry>
+  <entry skillID="30548" skill="Caldari Engineering Systems" level="2" priority="3" type="Planned">
+    <notes>Caldari Engineering Systems</notes>
+  </entry>
+  <entry skillID="30548" skill="Caldari Engineering Systems" level="3" priority="3" type="Planned">
+    <notes>Caldari Engineering Systems</notes>
+  </entry>
+  <entry skillID="30548" skill="Caldari Engineering Systems" level="4" priority="3" type="Planned">
+    <notes>Caldari Engineering Systems</notes>
+  </entry>
+  <entry skillID="3319" skill="Missile Launcher Operation" level="2" priority="3" type="Prerequisite">
+    <notes>Caldari Offensive Systems</notes>
+  </entry>
+  <entry skillID="3319" skill="Missile Launcher Operation" level="3" priority="3" type="Prerequisite">
+    <notes>Caldari Offensive Systems</notes>
+  </entry>
+  <entry skillID="3319" skill="Missile Launcher Operation" level="4" priority="3" type="Prerequisite">
+    <notes>Caldari Offensive Systems</notes>
+  </entry>
+  <entry skillID="3319" skill="Missile Launcher Operation" level="5" priority="3" type="Prerequisite">
+    <notes>Caldari Offensive Systems</notes>
+  </entry>
+  <entry skillID="30549" skill="Caldari Offensive Systems" level="1" priority="3" type="Planned">
+    <notes>Caldari Offensive Systems</notes>
+  </entry>
+  <entry skillID="30549" skill="Caldari Offensive Systems" level="2" priority="3" type="Planned">
+    <notes>Caldari Offensive Systems</notes>
+  </entry>
+  <entry skillID="30549" skill="Caldari Offensive Systems" level="3" priority="3" type="Planned">
+    <notes>Caldari Offensive Systems</notes>
+  </entry>
+  <entry skillID="30549" skill="Caldari Offensive Systems" level="4" priority="3" type="Planned">
+    <notes>Caldari Offensive Systems</notes>
+  </entry>
+  <entry skillID="3449" skill="Navigation" level="4" priority="3" type="Prerequisite">
+    <notes>Caldari Propulsion Systems</notes>
+  </entry>
+  <entry skillID="3449" skill="Navigation" level="5" priority="3" type="Prerequisite">
+    <notes>Caldari Propulsion Systems</notes>
+  </entry>
+  <entry skillID="30552" skill="Caldari Propulsion Systems" level="1" priority="3" type="Planned">
+    <notes>Caldari Propulsion Systems</notes>
+  </entry>
+  <entry skillID="30552" skill="Caldari Propulsion Systems" level="2" priority="3" type="Planned">
+    <notes>Caldari Propulsion Systems</notes>
+  </entry>
+  <entry skillID="30552" skill="Caldari Propulsion Systems" level="3" priority="3" type="Planned">
+    <notes>Caldari Propulsion Systems</notes>
+  </entry>
+  <entry skillID="30552" skill="Caldari Propulsion Systems" level="4" priority="3" type="Planned">
+    <notes>Caldari Propulsion Systems</notes>
+  </entry>
+  <entry skillID="33092" skill="Caldari Destroyer" level="1" priority="3" type="Prerequisite">
+    <notes>Caldari Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="33092" skill="Caldari Destroyer" level="2" priority="3" type="Prerequisite">
+    <notes>Caldari Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="33092" skill="Caldari Destroyer" level="3" priority="3" type="Prerequisite">
+    <notes>Caldari Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3334" skill="Caldari Cruiser" level="1" priority="3" type="Prerequisite">
+    <notes>Caldari Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3334" skill="Caldari Cruiser" level="2" priority="3" type="Prerequisite">
+    <notes>Caldari Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3334" skill="Caldari Cruiser" level="3" priority="3" type="Prerequisite">
+    <notes>Caldari Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3334" skill="Caldari Cruiser" level="4" priority="3" type="Prerequisite">
+    <notes>Caldari Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3334" skill="Caldari Cruiser" level="5" priority="3" type="Prerequisite">
+    <notes>Caldari Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="30651" skill="Caldari Strategic Cruiser" level="1" priority="3" type="Planned">
+    <notes>Caldari Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="30651" skill="Caldari Strategic Cruiser" level="2" priority="3" type="Planned">
+    <notes>Caldari Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="30651" skill="Caldari Strategic Cruiser" level="3" priority="3" type="Planned">
+    <notes>Caldari Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="30651" skill="Caldari Strategic Cruiser" level="4" priority="3" type="Planned">
+    <notes>Caldari Strategic Cruiser</notes>
+  </entry>
+</plan>

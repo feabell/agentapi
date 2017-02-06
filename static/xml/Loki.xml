@@ -1,0 +1,130 @@
+﻿<?xml version="1.0"?>
+<plan xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Loki" owner="076f5d26-fad7-44e5-a774-7c762fd03e36" revision="4658">
+  <sorting criteria="None" order="None" groupByPriority="false" />
+  <entry skillID="3392" skill="Mechanics" level="3" priority="3" type="Prerequisite">
+    <notes>Minmatar Defensive Systems</notes>
+  </entry>
+  <entry skillID="3392" skill="Mechanics" level="4" priority="3" type="Prerequisite">
+    <notes>Minmatar Defensive Systems</notes>
+  </entry>
+  <entry skillID="3392" skill="Mechanics" level="5" priority="3" type="Prerequisite">
+    <notes>Minmatar Defensive Systems</notes>
+  </entry>
+  <entry skillID="30545" skill="Minmatar Defensive Systems" level="1" priority="3" type="Planned">
+    <notes>Minmatar Defensive Systems</notes>
+  </entry>
+  <entry skillID="30545" skill="Minmatar Defensive Systems" level="2" priority="3" type="Planned">
+    <notes>Minmatar Defensive Systems</notes>
+  </entry>
+  <entry skillID="30545" skill="Minmatar Defensive Systems" level="3" priority="3" type="Planned">
+    <notes>Minmatar Defensive Systems</notes>
+  </entry>
+  <entry skillID="30545" skill="Minmatar Defensive Systems" level="4" priority="3" type="Planned">
+    <notes>Minmatar Defensive Systems</notes>
+  </entry>
+  <entry skillID="3426" skill="CPU Management" level="5" priority="3" type="Prerequisite">
+    <notes>Minmatar Electronic Systems</notes>
+  </entry>
+  <entry skillID="30543" skill="Minmatar Electronic Systems" level="1" priority="3" type="Planned">
+    <notes>Minmatar Electronic Systems</notes>
+  </entry>
+  <entry skillID="30543" skill="Minmatar Electronic Systems" level="2" priority="3" type="Planned">
+    <notes>Minmatar Electronic Systems</notes>
+  </entry>
+  <entry skillID="30543" skill="Minmatar Electronic Systems" level="3" priority="3" type="Planned">
+    <notes>Minmatar Electronic Systems</notes>
+  </entry>
+  <entry skillID="30543" skill="Minmatar Electronic Systems" level="4" priority="3" type="Planned">
+    <notes>Minmatar Electronic Systems</notes>
+  </entry>
+  <entry skillID="3413" skill="Power Grid Management" level="5" priority="3" type="Prerequisite">
+    <notes>Minmatar Engineering Systems</notes>
+  </entry>
+  <entry skillID="30547" skill="Minmatar Engineering Systems" level="1" priority="3" type="Planned">
+    <notes>Minmatar Engineering Systems</notes>
+  </entry>
+  <entry skillID="30547" skill="Minmatar Engineering Systems" level="2" priority="3" type="Planned">
+    <notes>Minmatar Engineering Systems</notes>
+  </entry>
+  <entry skillID="30547" skill="Minmatar Engineering Systems" level="3" priority="3" type="Planned">
+    <notes>Minmatar Engineering Systems</notes>
+  </entry>
+  <entry skillID="30547" skill="Minmatar Engineering Systems" level="4" priority="3" type="Planned">
+    <notes>Minmatar Engineering Systems</notes>
+  </entry>
+  <entry skillID="3300" skill="Gunnery" level="5" priority="3" type="Prerequisite">
+    <notes>Minmatar Offensive Systems</notes>
+  </entry>
+  <entry skillID="3319" skill="Missile Launcher Operation" level="2" priority="3" type="Prerequisite">
+    <notes>Minmatar Offensive Systems</notes>
+  </entry>
+  <entry skillID="3319" skill="Missile Launcher Operation" level="3" priority="3" type="Prerequisite">
+    <notes>Minmatar Offensive Systems</notes>
+  </entry>
+  <entry skillID="30551" skill="Minmatar Offensive Systems" level="1" priority="3" type="Planned">
+    <notes>Minmatar Offensive Systems</notes>
+  </entry>
+  <entry skillID="30551" skill="Minmatar Offensive Systems" level="2" priority="3" type="Planned">
+    <notes>Minmatar Offensive Systems</notes>
+  </entry>
+  <entry skillID="30551" skill="Minmatar Offensive Systems" level="3" priority="3" type="Planned">
+    <notes>Minmatar Offensive Systems</notes>
+  </entry>
+  <entry skillID="30551" skill="Minmatar Offensive Systems" level="4" priority="3" type="Planned">
+    <notes>Minmatar Offensive Systems</notes>
+  </entry>
+  <entry skillID="3449" skill="Navigation" level="4" priority="3" type="Prerequisite">
+    <notes>Minmatar Propulsion Systems</notes>
+  </entry>
+  <entry skillID="3449" skill="Navigation" level="5" priority="3" type="Prerequisite">
+    <notes>Minmatar Propulsion Systems</notes>
+  </entry>
+  <entry skillID="30554" skill="Minmatar Propulsion Systems" level="1" priority="3" type="Planned">
+    <notes>Minmatar Propulsion Systems</notes>
+  </entry>
+  <entry skillID="30554" skill="Minmatar Propulsion Systems" level="2" priority="3" type="Planned">
+    <notes>Minmatar Propulsion Systems</notes>
+  </entry>
+  <entry skillID="30554" skill="Minmatar Propulsion Systems" level="3" priority="3" type="Planned">
+    <notes>Minmatar Propulsion Systems</notes>
+  </entry>
+  <entry skillID="30554" skill="Minmatar Propulsion Systems" level="4" priority="3" type="Planned">
+    <notes>Minmatar Propulsion Systems</notes>
+  </entry>
+  <entry skillID="33094" skill="Minmatar Destroyer" level="1" priority="3" type="Prerequisite">
+    <notes>Minmatar Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="33094" skill="Minmatar Destroyer" level="2" priority="3" type="Prerequisite">
+    <notes>Minmatar Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="33094" skill="Minmatar Destroyer" level="3" priority="3" type="Prerequisite">
+    <notes>Minmatar Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3333" skill="Minmatar Cruiser" level="1" priority="3" type="Prerequisite">
+    <notes>Minmatar Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3333" skill="Minmatar Cruiser" level="2" priority="3" type="Prerequisite">
+    <notes>Minmatar Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3333" skill="Minmatar Cruiser" level="3" priority="3" type="Prerequisite">
+    <notes>Minmatar Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3333" skill="Minmatar Cruiser" level="4" priority="3" type="Prerequisite">
+    <notes>Minmatar Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3333" skill="Minmatar Cruiser" level="5" priority="3" type="Prerequisite">
+    <notes>Minmatar Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="30653" skill="Minmatar Strategic Cruiser" level="1" priority="3" type="Planned">
+    <notes>Minmatar Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="30653" skill="Minmatar Strategic Cruiser" level="2" priority="3" type="Planned">
+    <notes>Minmatar Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="30653" skill="Minmatar Strategic Cruiser" level="3" priority="3" type="Planned">
+    <notes>Minmatar Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="30653" skill="Minmatar Strategic Cruiser" level="4" priority="3" type="Planned">
+    <notes>Minmatar Strategic Cruiser</notes>
+  </entry>
+</plan>

@@ -1,0 +1,130 @@
+﻿<?xml version="1.0"?>
+<plan xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Legion" owner="e4727d3f-9c10-43eb-9033-633aa41bdb6d" revision="4658">
+  <sorting criteria="None" order="None" groupByPriority="false" />
+  <entry skillID="3392" skill="Mechanics" level="3" priority="3" type="Prerequisite">
+    <notes>Amarr Defensive Systems</notes>
+  </entry>
+  <entry skillID="3392" skill="Mechanics" level="4" priority="3" type="Prerequisite">
+    <notes>Amarr Defensive Systems</notes>
+  </entry>
+  <entry skillID="3392" skill="Mechanics" level="5" priority="3" type="Prerequisite">
+    <notes>Amarr Defensive Systems</notes>
+  </entry>
+  <entry skillID="30532" skill="Amarr Defensive Systems" level="1" priority="3" type="Planned">
+    <notes>Amarr Defensive Systems</notes>
+  </entry>
+  <entry skillID="30532" skill="Amarr Defensive Systems" level="2" priority="3" type="Planned">
+    <notes>Amarr Defensive Systems</notes>
+  </entry>
+  <entry skillID="30532" skill="Amarr Defensive Systems" level="3" priority="3" type="Planned">
+    <notes>Amarr Defensive Systems</notes>
+  </entry>
+  <entry skillID="30532" skill="Amarr Defensive Systems" level="4" priority="3" type="Planned">
+    <notes>Amarr Defensive Systems</notes>
+  </entry>
+  <entry skillID="3426" skill="CPU Management" level="5" priority="3" type="Prerequisite">
+    <notes>Amarr Electronic Systems</notes>
+  </entry>
+  <entry skillID="30536" skill="Amarr Electronic Systems" level="1" priority="3" type="Planned">
+    <notes>Amarr Electronic Systems</notes>
+  </entry>
+  <entry skillID="30536" skill="Amarr Electronic Systems" level="2" priority="3" type="Planned">
+    <notes>Amarr Electronic Systems</notes>
+  </entry>
+  <entry skillID="30536" skill="Amarr Electronic Systems" level="3" priority="3" type="Planned">
+    <notes>Amarr Electronic Systems</notes>
+  </entry>
+  <entry skillID="30536" skill="Amarr Electronic Systems" level="4" priority="3" type="Planned">
+    <notes>Amarr Electronic Systems</notes>
+  </entry>
+  <entry skillID="3413" skill="Power Grid Management" level="5" priority="3" type="Prerequisite">
+    <notes>Amarr Engineering Systems</notes>
+  </entry>
+  <entry skillID="30539" skill="Amarr Engineering Systems" level="1" priority="3" type="Planned">
+    <notes>Amarr Engineering Systems</notes>
+  </entry>
+  <entry skillID="30539" skill="Amarr Engineering Systems" level="2" priority="3" type="Planned">
+    <notes>Amarr Engineering Systems</notes>
+  </entry>
+  <entry skillID="30539" skill="Amarr Engineering Systems" level="3" priority="3" type="Planned">
+    <notes>Amarr Engineering Systems</notes>
+  </entry>
+  <entry skillID="30539" skill="Amarr Engineering Systems" level="4" priority="3" type="Planned">
+    <notes>Amarr Engineering Systems</notes>
+  </entry>
+  <entry skillID="3300" skill="Gunnery" level="5" priority="3" type="Prerequisite">
+    <notes>Amarr Offensive Systems</notes>
+  </entry>
+  <entry skillID="3436" skill="Drones" level="2" priority="3" type="Prerequisite">
+    <notes>Amarr Offensive Systems</notes>
+  </entry>
+  <entry skillID="3436" skill="Drones" level="3" priority="3" type="Prerequisite">
+    <notes>Amarr Offensive Systems</notes>
+  </entry>
+  <entry skillID="30537" skill="Amarr Offensive Systems" level="1" priority="3" type="Planned">
+    <notes>Amarr Offensive Systems</notes>
+  </entry>
+  <entry skillID="30537" skill="Amarr Offensive Systems" level="2" priority="3" type="Planned">
+    <notes>Amarr Offensive Systems</notes>
+  </entry>
+  <entry skillID="30537" skill="Amarr Offensive Systems" level="3" priority="3" type="Planned">
+    <notes>Amarr Offensive Systems</notes>
+  </entry>
+  <entry skillID="30537" skill="Amarr Offensive Systems" level="4" priority="3" type="Planned">
+    <notes>Amarr Offensive Systems</notes>
+  </entry>
+  <entry skillID="3449" skill="Navigation" level="4" priority="3" type="Prerequisite">
+    <notes>Amarr Propulsion Systems</notes>
+  </entry>
+  <entry skillID="3449" skill="Navigation" level="5" priority="3" type="Prerequisite">
+    <notes>Amarr Propulsion Systems</notes>
+  </entry>
+  <entry skillID="30538" skill="Amarr Propulsion Systems" level="1" priority="3" type="Planned">
+    <notes>Amarr Propulsion Systems</notes>
+  </entry>
+  <entry skillID="30538" skill="Amarr Propulsion Systems" level="2" priority="3" type="Planned">
+    <notes>Amarr Propulsion Systems</notes>
+  </entry>
+  <entry skillID="30538" skill="Amarr Propulsion Systems" level="3" priority="3" type="Planned">
+    <notes>Amarr Propulsion Systems</notes>
+  </entry>
+  <entry skillID="30538" skill="Amarr Propulsion Systems" level="4" priority="3" type="Planned">
+    <notes>Amarr Propulsion Systems</notes>
+  </entry>
+  <entry skillID="33091" skill="Amarr Destroyer" level="1" priority="3" type="Prerequisite">
+    <notes>Amarr Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="33091" skill="Amarr Destroyer" level="2" priority="3" type="Prerequisite">
+    <notes>Amarr Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="33091" skill="Amarr Destroyer" level="3" priority="3" type="Prerequisite">
+    <notes>Amarr Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3335" skill="Amarr Cruiser" level="1" priority="3" type="Prerequisite">
+    <notes>Amarr Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3335" skill="Amarr Cruiser" level="2" priority="3" type="Prerequisite">
+    <notes>Amarr Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3335" skill="Amarr Cruiser" level="3" priority="3" type="Prerequisite">
+    <notes>Amarr Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3335" skill="Amarr Cruiser" level="4" priority="3" type="Prerequisite">
+    <notes>Amarr Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="3335" skill="Amarr Cruiser" level="5" priority="3" type="Prerequisite">
+    <notes>Amarr Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="30650" skill="Amarr Strategic Cruiser" level="1" priority="3" type="Planned">
+    <notes>Amarr Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="30650" skill="Amarr Strategic Cruiser" level="2" priority="3" type="Planned">
+    <notes>Amarr Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="30650" skill="Amarr Strategic Cruiser" level="3" priority="3" type="Planned">
+    <notes>Amarr Strategic Cruiser</notes>
+  </entry>
+  <entry skillID="30650" skill="Amarr Strategic Cruiser" level="4" priority="3" type="Planned">
+    <notes>Amarr Strategic Cruiser</notes>
+  </entry>
+</plan>
