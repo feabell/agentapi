@@ -106,8 +106,7 @@ def rec_process():
     }
     for race, t3_skills in t3_all.items():
       t3_met, t3_needed[race] = (check_skills(pilotsskills, t3_skills))
-      if t3_met:
-        break
+
 
     skillsneeded = {
       'base': baseneeded,
@@ -125,7 +124,6 @@ def rec_process():
                                '(name, keyid, vcode, blob, status, sb, astero, strat, recon, blops, t3, dateadded) '
                                ' VALUES (?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, datetime())', 
                                [pilotName, key, vcode, blob, sb_met, astero_met, strat_met, recon_met, blops_met, t3_met])
-
       return render_template('recruitment-success.html', sb=sb_met, strat=strat_met, astero=astero_met, recon=recon_met, blops=blops_met, t3=t3_met)
     else:
       return render_template('recruitment-error.html', 
