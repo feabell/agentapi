@@ -99,14 +99,15 @@ def rec_process():
     blops_met, blopsneeded = check_skills(pilotsskills, blops)
 
     t3_needed = {
-      'legion': None,
-      'proteus': None,
-      'loki': None,
-      'tengu': None
+      'legion': {},
+      'proteus': {},
+      'loki': {},
+      'tengu': {}
     }
     for race, t3_skills in t3_all.items():
       t3_met, t3_needed[race] = (check_skills(pilotsskills, t3_skills))
-
+      if t3_met:
+        break
 
     skillsneeded = {
       'base': baseneeded,
