@@ -20,3 +20,19 @@
   <div class="jumbotron">
     <h2><strong>WiNGSPAN Delivery Network - Recruitment</strong></h2>
   </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        {% if message %}
+          {% if category == 'success' %}
+            <div class="alert alert-success" role="alert">
+          {% else %}
+            <div class="alert alert-danger" role="alert">
+          {% endif %}
+        <p>{{ message }}</p>
+        </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}

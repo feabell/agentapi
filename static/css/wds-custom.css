@@ -40,7 +40,79 @@ h6.panel-title {
     font-style: normal;
 }
 
+body {
+    font-family: "Montserrat", sans-serif;
+}
+
 .alert-wds {
     color: #333;
     background-color: #F07C00;
+}
+
+#summary span, #breakdown {
+    font-size: 12px !important;
+}
+
+.lbl {
+    display: inline-block;
+    width: calc(100% - 17px);
+
+    overflow: hidden;
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+}
+
+#summary hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.pop {
+    cursor: pointer;
+}
+
+.popover {
+    max-width: none;
+}
+
+h5 {
+    font-weight: bold;
+}
+
+h6 {
+    font-style: italic;
+}
+
+#breakdown .pull-right {
+    width: 17px;
+    text-align: center;
+}
+
+.level {
+    background-color: #F07C00;
+}
+
+.notinjected, .l0 {
+    background-color: rgba(240, 124, 0, 0);
+}
+
+.l1 {
+    background-color: rgba(240, 124, 0, .2);
+}
+
+.l2 {
+    background-color: rgba(240, 124, 0, .4);
+}
+
+.l3 {
+    background-color: rgba(240, 124, 0, .6);
+}
+
+.l4 {
+    background-color: rgba(240, 124, 0, .8);
+}
+
+.l5 {
+    background-color: rgba(240, 124, 0, 1);
 }

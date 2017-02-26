@@ -1,0 +1,5 @@
+EVE_OAUTH_USER_AGENT: 'A descriptive name for your application'
+EVE_OAUTH_CLIENT_ID: ''
+EVE_OAUTH_SECRET: ''
+EVE_OAUTH_CALLBACK: 'YOUR_URL_HERE/eve/callback'
+EVE_OAUTH_SCOPE: 'publicData esi-skills.read_skills.v1'
