@@ -277,8 +277,8 @@ def eve_oauth_callback():
     token_exists = query_db('SELECT name, token FROM recruits WHERE NAME=?', [pilot_name])
 
     if len(token_exists) == 0:
-        insert_query = insert_db('INSERT INTO recruits'
-                                 '(name, token, blob, dateadded)'
+        insert_query = insert_db('INSERT INTO recruits '
+                                 '(name, token, blob, dateadded) '
                                  'VALUES (?, ?, ?, datetime())',
                                  [pilot_name, refresh_token, 'INCOMPLETE APPLICATION'])
     else:
