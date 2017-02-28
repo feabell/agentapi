@@ -21,6 +21,12 @@
 
 {% if skills %}
   <h1>Pilot - {{ pilot_name }}</h1>
+  <h4>
+    <a href="https://gate.eveonline.com/Profile/{{ pilot_name }}/" target="_blank">EVE_Gate</a> |
+    <a href="https://zkillboard.com/character/{{ pilotID }}/" target="_blank">zKillBoard</a> |
+    <a href="https://evewho.com/pilot/{{ pilot_name }}/" target="_blank">EVEWho</a>
+  </h4>
+  <hr>
   <div class="row">
     <div class="col-sm-4 col-md-3">
       <nav class="nav">
@@ -33,7 +39,7 @@
         <div id="summary" class="collapse navbar-collapse">
           <ul class="nav">
             <div class="row">
-              <li id="menuTotals"><a>Total</a></li>
+              <li id="menuTotals">Total</li>
               <div>
                 <span class="pull-left">
                 {{ skills_stats['Totals']['num_skills'] }} Skills

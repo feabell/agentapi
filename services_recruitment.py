@@ -278,14 +278,14 @@ def eve_oauth_callback():
 
     if len(token_exists) == 0:
         insert_query = insert_db('INSERT INTO recruits'
-                                 '(name, token)'
-                                 'VALUES (?, ?)',
-                                 [pilot_name, refresh_token])
+                                 '(name, token, blob)'
+                                 'VALUES (?, ?, ?)',
+                                 [pilot_name, refresh_token, 'INCOMPLETE APPLICATION'])
     else:
         update_query = insert_db('UPDATE recruits '
-                                 'SET token=? '
+                                 'SET token=?, blob=? '
                                  'WHERE name=?',
-                                 [refresh_token, pilot_name])
+                                 [refresh_token, 'INCOMPLETE APPLICATION', pilot_name])
 
     flash('Logged in as: ' + pilot_name, 'success')
 
@@ -408,7 +408,7 @@ def view_recruit(pilot_name):
         print('Skill Parse error: ' + str(e))
         return render_template('recruitment-view.html')
 
-    return render_template('recruitment-view.html', pilot_name=pilot_name, skills=skills_dict, skills_stats=skills_stats)
+    return render_template('recruitment-view.html', pilot_name=pilot_name, pilotID=pilotID, skills=skills_dict, skills_stats=skills_stats)
 
 
 def check_skills(user_skills, req_skills):
