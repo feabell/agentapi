@@ -38,15 +38,16 @@ t3_all = {
 
 RECRUITMENT_OPEN = pre_reqs['RECRUITMENT_OPEN']
 
-@services_recruitment.route('/recruitment',  methods=['GET'])
-@services_recruitment.route('/recruitment/',  methods=['GET'])
+@services_recruitment.route('/recruitment-old',  methods=['GET'])
+@services_recruitment.route('/recruitment-old/',  methods=['GET'])
 def rec_landing():
+
 	return render_template('recruitment-landing.html', 
 		base_prereq=base, sb_prereq=sb, strat_prereq=strat, ast_prereq=astero, 
 		recon_prereq=recon, blops_prereq=blops, recruitment_open=RECRUITMENT_OPEN)
 
-@services_recruitment.route('/recruitment',  methods=['POST'])
-@services_recruitment.route('/recruitment/',  methods=['POST'])
+@services_recruitment.route('/recruitment-old',  methods=['POST'])
+@services_recruitment.route('/recruitment-old/',  methods=['POST'])
 def rec_process():
   """
   Landing for recruitment
@@ -150,8 +151,8 @@ def rec_process():
     print( str(e))
 
 
-@services_recruitment.route('/crest', methods=['GET'])
-@services_recruitment.route('/crest/', methods=['GET'])
+@services_recruitment.route('/recruitment', methods=['GET'])
+@services_recruitment.route('/recruitment/', methods=['GET'])
 def crest_landing():
     return render_template('recruitment-landing.html',
                            base_prereq=base, sb_prereq=sb, strat_prereq=strat, ast_prereq=astero,
@@ -159,8 +160,8 @@ def crest_landing():
                            crest_url=preston.get_authorize_url())
 
 
-@services_recruitment.route('/crest', methods=['POST'])
-@services_recruitment.route('/crest/', methods=['POST'])
+@services_recruitment.route('/recruitment', methods=['POST'])
+@services_recruitment.route('/recruitment/', methods=['POST'])
 def crest_process():
     # Get pilot name from form
     pilot_name = request.form['name']
