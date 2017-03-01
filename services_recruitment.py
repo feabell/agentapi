@@ -352,6 +352,7 @@ def view_recruit(pilot_name):
             auth = preston.use_refresh_token(refresh_token)
 
             pilot_info = auth.whoami()
+            pilotID = auth.characters[pilot_info['CharacterID']]
 
             result = auth.characters[pilot_info['CharacterID']].skills()
             if result.get('error') is not None:
