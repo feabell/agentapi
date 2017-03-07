@@ -270,7 +270,7 @@ def eve_oauth_callback():
     refresh_token = auth.refresh_token
 
     # check for duplicate active application
-    result = query_db('SELECT name, status FROM recruits WHERE name=? AND status=0', [pilot_name])
+    result = query_db('SELECT name, status FROM recruits WHERE name=? AND status>=0', [pilot_name])
     if len(result) > 0:
         return render_template('recruitment-duplicate.html', pilotName=pilot_name)
 
@@ -279,12 +279,12 @@ def eve_oauth_callback():
 
     if len(token_exists) == 0:
         insert_query = insert_db('INSERT INTO recruits '
-                                 '(name, token, blob, dateadded) '
-                                 'VALUES (?, ?, ?, datetime())',
+                                 '(name, token, blob, status, dateadded) '
+                                 'VALUES (?, ?, ?, -1, datetime())',
                                  [pilot_name, refresh_token, 'INCOMPLETE APPLICATION'])
     else:
         update_query = insert_db('UPDATE recruits '
-                                 'SET token=?, blob=?, dateadded=datetime() '
+                                 'SET token=?, blob=?, dateadded=datetime(), status=-1 '
                                  'WHERE name=?',
                                  [refresh_token, 'INCOMPLETE APPLICATION', pilot_name])
 
