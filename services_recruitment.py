@@ -270,7 +270,7 @@ def eve_oauth_callback():
     refresh_token = auth.refresh_token
 
     # check for duplicate active application
-    result = query_db('SELECT name, status FROM recruits WHERE name=? AND status>=0', [pilot_name])
+    result = query_db('SELECT name, status FROM recruits WHERE name=? AND status>=0 AND status <3', [pilot_name])
     if len(result) > 0:
         return render_template('recruitment-duplicate.html', pilotName=pilot_name)
 
