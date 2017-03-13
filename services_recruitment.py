@@ -300,7 +300,9 @@ def eve_oauth_callback():
 def view_recruit(pilot_name):
     try:
         # prefer token/ESI method
-        refresh_token = dict(query_db('SELECT * FROM recruits WHERE name=?', [pilot_name], True))['token']
+        query = dict(query_db('SELECT * FROM recruits WHERE name=?', [pilot_name], True))
+        refresh_token = query['token']
+        blob = query['blob']
 
         skill_groups = json.load(open('skill_groups.json', 'r'))
 
@@ -410,7 +412,8 @@ def view_recruit(pilot_name):
         print('Skill Parse error: ' + str(e))
         return render_template('recruitment-view.html')
 
-    return render_template('recruitment-view.html', pilot_name=pilot_name, pilotID=pilotID, skills=skills_dict, skills_stats=skills_stats)
+    return render_template('recruitment-view.html', pilot_name=pilot_name, pilotID=pilotID, skills=skills_dict,
+                           skills_stats=skills_stats, blob=blob)
 
 
 def check_skills(user_skills, req_skills):

@@ -22,10 +22,14 @@
 {% if skills %}
   <h1>Pilot - {{ pilot_name }}</h1>
   <h4>
-    <a href="https://gate.eveonline.com/Profile/{{ pilot_name }}/" target="_blank">EVE_Gate</a> |
-    <a href="https://zkillboard.com/character/{{ pilotID }}/" target="_blank">zKillBoard</a> |
-    <a href="https://evewho.com/pilot/{{ pilot_name }}/" target="_blank">EVEWho</a>
+    <a href="https://gate.eveonline.com/Profile/{{ pilot_name }}/" target="_blank">EVE Gate</a> |
+    <a href="https://zkillboard.com/character/{{ pilotID }}/" target="_blank">zKillboard</a> |
+    <a href="https://evewho.com/pilot/{{ pilot_name }}/" target="_blank">EVEWho</a> |
+    <a href="http://eve-hunt.net/hunt/{{ pilot_name }}" target="_blank">EVE Hunt</a>
   </h4>
+  <hr>
+  <h4>Application Text</h4>
+  <pre>{{ blob }}</pre>
   <hr>
   <div class="row">
     <div class="col-sm-4 col-md-3">
