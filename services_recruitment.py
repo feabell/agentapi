@@ -355,9 +355,9 @@ def view_recruit(pilot_name):
             auth = preston.use_refresh_token(refresh_token)
 
             pilot_info = auth.whoami()
-            pilotID = auth.characters[pilot_info['CharacterID']]
+            pilotID = pilot_info['CharacterID']
 
-            result = auth.characters[pilot_info['CharacterID']].skills()
+            result = auth.characters[pilotID].skills()
             if result.get('error') is not None:
                 flash('ESI is not responding. Please try again, or wait a few minutes.', 'error')
                 return render_template('recruitment-view.html')
