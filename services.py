@@ -11,6 +11,7 @@ config = yaml.load(open('services.conf', 'r'))
 
 OAUTH2_CLIENT_SECRET = config['OAUTH2_CLIENT_SECRET']
 SLACK_TOKEN = config['SLACK_TOKEN']
+SLACK_NPSI_TOKEN = config['SLACK_NPSI_TOKEN']
 
 app.config['BASIC_AUTH_USERNAME'] = config['BASIC_AUTH_USERNAME']
 app.config['BASIC_AUTH_PASSWORD'] = config['BASIC_AUTH_PASSWORD']
@@ -85,6 +86,20 @@ def update():
   else:
     print("[ERROR] pilot {email} not valid".format(email = email))
     return render_template('services-error.html')
+
+@app.route('/npsi', methods = ['GET', 'POST'])
+@app.route('/npsi/', methods = ['GET', 'POST'])
+def npsi():
+ """
+ Form for sending Slack invites for the WDS BLOPS/NPSI community
+ """
+ if request.method == 'GET':
+   return render_template('services-npsi-landing.html')
+ elif request.method == 'POST':
+   email = request.form['email']
+   name = request.form['name']
+   slack_invite = invite_to_slack(email=email, name=name, token=SLACK_NPSI_TOKEN)
+   return render_template('services-npsi-success.html')
 
 @app.teardown_appcontext
 def close_connection(exception):
