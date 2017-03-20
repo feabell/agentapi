@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, g
+from flask import Flask, request, render_template, g, redirect, url_for
 import yaml
 
 from services_util import *
@@ -89,6 +89,11 @@ def update():
 
 @app.route('/npsi', methods = ['GET', 'POST'])
 @app.route('/npsi/', methods = ['GET', 'POST'])
+def send_to_torpfleet():
+  return redirect(url_for('npsi'))
+
+@app.route('/torpfleet', methods = ['GET', 'POST'])
+@app.route('/torpfleet/', methods = ['GET', 'POST'])
 def npsi():
  """
  Form for sending Slack invites for the WDS BLOPS/NPSI community
