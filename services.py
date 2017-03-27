@@ -11,7 +11,6 @@ config = yaml.load(open('services.conf', 'r'))
 
 OAUTH2_CLIENT_SECRET = config['OAUTH2_CLIENT_SECRET']
 SLACK_TOKEN = config['SLACK_TOKEN']
-SLACK_NPSI_TOKEN = config['SLACK_NPSI_TOKEN']
 
 app.config['BASIC_AUTH_USERNAME'] = config['BASIC_AUTH_USERNAME']
 app.config['BASIC_AUTH_PASSWORD'] = config['BASIC_AUTH_PASSWORD']
@@ -20,9 +19,11 @@ app.config['SECRET_KEY'] = OAUTH2_CLIENT_SECRET
 from services_recruitment import services_recruitment
 from services_discord import services_discord
 from services_admin import services_admin
+from services_torp import services_torp
 
 app.register_blueprint(services_recruitment)
 app.register_blueprint(services_discord)
+app.register_blueprint(services_torp)
 app.register_blueprint(services_admin, url_prefix='/admin')
 
 @app.route('/')
@@ -86,25 +87,6 @@ def update():
   else:
     print("[ERROR] pilot {email} not valid".format(email = email))
     return render_template('services-error.html')
-
-@app.route('/npsi', methods = ['GET', 'POST'])
-@app.route('/npsi/', methods = ['GET', 'POST'])
-def send_to_torpfleet():
-  return redirect(url_for('npsi'))
-
-@app.route('/torpfleet', methods = ['GET', 'POST'])
-@app.route('/torpfleet/', methods = ['GET', 'POST'])
-def npsi():
- """
- Form for sending Slack invites for the WDS BLOPS/NPSI community
- """
- if request.method == 'GET':
-   return render_template('services-npsi-landing.html')
- elif request.method == 'POST':
-   email = request.form['email']
-   name = request.form['name']
-   slack_invite = invite_to_slack(email=email, name=name, token=SLACK_NPSI_TOKEN)
-   return render_template('services-npsi-success.html')
 
 @app.teardown_appcontext
 def close_connection(exception):
