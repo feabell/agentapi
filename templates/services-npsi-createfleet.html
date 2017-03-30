@@ -15,7 +15,7 @@
         {% else %}
           {% if fid %}
 	    <h3> Your fleet link: </h3>
-            <pre>http://services.torpedodelivery.com/torp/join/{fid}</pre>
+            <pre>http://services.torpedodelivery.com/torp/joinfleet/{{fid}}</pre>
           {% else %}
             <form action="/torp/createfleet/" method=post>
               <div class="form-group">

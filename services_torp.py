@@ -64,19 +64,19 @@ def create_fleet():
     #grab form data
     fleeturl = request.form['fleeturl']
     session_id = session['id']
-
+    
     if fleeturl == None or session_id == None:
       return redirect(url_for('services_torp.create_fleet'))
 
     #parse out the fleetid from fleeturl
-    fleetid = urlparse(fleeturl).path.replace("/","")
+    fleetid = urlparse(fleeturl).path.split("/")[2]
 
     #update the db record
-    update_query = update_db('UPDATE fleets set fleetid=? where sessionid=? ', [fleetid, session_id])
-
+    update_query = insert_db('UPDATE fleets set fleetid=? where sessionid=? ', [fleetid, session_id])
+    
     #grab the fleetid
-    fid = dict(query_db('SELECT id FROM fleets where sessionid=?', [session_id]), True)['id']
-
+    fid = dict(query_db('SELECT id FROM fleets where sessionid=?', [session_id], True))['id']
+   
     if fid == None:
       return redirect(url_for('services_torp.create_fleet'))
 
@@ -100,15 +100,15 @@ def eve_create_oauth_callback():
    refresh_token = auth.refresh_token
    
    #do some sessionid bullshit
-   session_id = uuid.uuid4()
-   session['id'] = session_id
-
+   session_id = uuid.uuid4().urn[9:]
+   session['id'] = session_id 
+   
    #check that the pilot is in our list of FC's
 
    #create a DB entry for this FC
    insert_query = insert_db('INSERT INTO fleets '
                             '(name, token, fleetid, dateadded, sessionid) '
-                            'VALUES (?, ?, 0, datetime(), ?)',
+                            'VALUES (?, ?, "0", datetime(), ?)',
                             [pilot_name, refresh_token, session_id])
    
    return render_template('services-npsi-createfleet.html', showcrest=False)
@@ -125,7 +125,7 @@ def join_fleet(fid):
   session['id'] = fid
     
   #lookup the fleetid, make sure it's valid
-  fleet_query = query_db('select fleetid, token from fleets where id=?', [fid])
+  fleet_query = query_db('select fleetid, token from fleets where id=?', [fid], True)
 
   if len(fleet_query) == 0: 
     flash('There is no active fleet with the specified ID.', 'error')
@@ -145,9 +145,10 @@ def join_fleet(fid):
   fcauth = create_preston.use_refresh_token(refresh_token)
   result = fcauth.fleets[fleetid]
 
-  if result.get('error') is not None:
-    flash('This fleet is no longer available.', 'error')
-    return render_template('services-npsi-error.html')
+  #if result.get('error') is not None:
+  #  print(4)
+  #  flash('This fleet is no longer available.', 'error')
+  #  return render_template('services-npsi-error.html')
 
   return render_template('services-npsi-joinfleet.html', showcrest=True, crest_url=join_preston.get_authorize_url())
 
@@ -156,38 +157,32 @@ def eve_join_oauth_callback():
   if 'error' in request.path:
     flash('There was an error in EVE\'s response', 'error')
     return url_for('services_torp.fleet_landing')
-   
+  
   try:
-    auth = preston.authenticate(request.args['code'])
+    auth = join_preston.authenticate(request.args['code'])
   except Exception as e:
     print('SSO callback exception: ' + str(e))
     flash('There was an authentication error signing you in.', 'error')
     return redirect(url_for('services_torp.fleet_landing'))
-
+  
   pilot_info = auth.whoami()
   pilot_name = pilot_info['CharacterName']
-  pilot_id = pilot_info['CharacterId']
+  pilot_id = pilot_info['CharacterID']
   fid = session['id']
-   
+  
   #lookup the fleetid in db
-  fleetid = dict(query_db('select fleetid, token from fleets where id=?', [fid], True))
+  fleet = dict(query_db('select fleetid, token from fleets where id=?', [fid], True))
   fleetid = fleet['fleetid'] 
   refresh_token = fleet['token']
-
+  
   #grab the FC's token
   fcauth = create_preston.use_refresh_token(refresh_token)
+  access_token = fcauth.access_token
   
   #send an invite
-  data = {
-   "character_id": pid,
-   "role": "squad_member"
-  }
+  data = { "character_id": pilot_id,   "role": "squad_member"  }
 
-  headers = {
-   "Authorization":"Bearer {token}".format(token=refresh_token)
-  }
-
-  uri = 'https://esi.tech.ccp.is/latest/fleets/{fid}/members/'.format(fid = fleetid)
-  requests.post(uri,data=data,headers=headers).json()
-
+  uri = 'https://esi.tech.ccp.is/latest/fleets/{fid}/members/?token={token}'.format(fid = fleetid, token=access_token)
+  r = requests.post(uri,json=data)
+  print(r.text)
   return render_template('services-npsi-joinfleet.html', showcrest=False)

@@ -13,7 +13,8 @@
           <a href="{{ crest_url }}"><img src="{{ url_for('static',filename='images/sso_white.png') }}"
                                          alt="Click here to log in"></a>
         {% else %}
-          <h3>A fleet invite has been sent, please check in game</h3>
+          <h3>A fleet invite has been sent, please check in game.</h3>
+          <h4>This won't work if you have a CSPA charge set or are already in a fleet</h4>
 	{% endif %}
       </div>
    </div>
