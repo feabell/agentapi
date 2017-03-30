@@ -9,7 +9,8 @@ names_url = 'https://esi.tech.ccp.is/latest/universe/names/?datasource=tranquili
 
 services_recruitment = Blueprint('services_recruitment', __name__)
 pre_reqs = yaml.load(open('pilot_prereqs.conf', 'r'))
-crest_config = yaml.load(open('crest_config.conf', 'r'))
+config = yaml.load(open('crest_config.conf', 'r'))
+crest_config = config['recruitment']
 
 preston = ESIPreston(
     user_agent=crest_config['EVE_OAUTH_USER_AGENT'],
