@@ -89,7 +89,7 @@ def eve_create_oauth_callback():
      return redirect(url_for('services_torp.create_fleet'))
    
    try:
-     auth = createpreston.authenticate(request.args['code'])
+     auth = create_preston.authenticate(request.args['code'])
    except Exception as e:
         print('SSO callback exception: ' + str(e))
         flash('There was an authentication error signing you in.', 'error')
