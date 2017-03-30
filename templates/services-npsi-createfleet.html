@@ -1,0 +1,34 @@
+{% include "services-head.html" ignore missing %}
+
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a>Create a TORP Fleet Invite Link</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse">
+      <div class="panel-body">
+        {% if showcrest %}
+          <a href="{{ crest_url }}"><img src="{{ url_for('static',filename='images/sso_white.png') }}"
+                                         alt="Click here to log in"></a>
+        {% else %}
+          {% if fid %}
+	    <h3> Your fleet link: </h3>
+            <pre>http://services.torpedodelivery.com/torp/join/{fid}</pre>
+          {% else %}
+            <form action="/torp/createfleet/" method=post>
+              <div class="form-group">
+                <input type="text" length=64 class="form-control" id="inputUrl1" name="fleeturl" >
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+           {% endif %}
+        {% endif %}
+      </div>
+   </div>
+  </div>
+</div>
+
+{% include "foot.html" ignore missing %}
+

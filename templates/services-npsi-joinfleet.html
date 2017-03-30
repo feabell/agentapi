@@ -1,0 +1,24 @@
+{% include "services-head.html" ignore missing %}
+
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a>Join a TORP Fleet</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse">
+      <div class="panel-body">
+        {% if showcrest %}
+          <a href="{{ crest_url }}"><img src="{{ url_for('static',filename='images/sso_white.png') }}"
+                                         alt="Click here to log in"></a>
+        {% else %}
+          <h3>A fleet invite has been sent, please check in game</h3>
+	{% endif %}
+      </div>
+   </div>
+  </div>
+</div>
+
+{% include "foot.html" ignore missing %}
+
