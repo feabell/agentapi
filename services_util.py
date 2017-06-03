@@ -133,6 +133,10 @@ def account_active(key, vcode):
   """
   Method checks if pilot account is active. Returns True/False.
   """
+
+  #the API endpoint for this check is broken, so... always true :(
+  return True
+
   url = ('https://api.eveonline.com/account/AccountStatus.xml.aspx?'
          'keyId={key}&vCode={vcode}'.format(key = key, vcode = vcode))
 
