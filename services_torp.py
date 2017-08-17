@@ -7,6 +7,7 @@ import requests
 import uuid
 
 from services_util import *
+from services_slack import *
 
 names_url = 'https://esi.tech.ccp.is/latest/universe/names/?datasource=tranquility'
 

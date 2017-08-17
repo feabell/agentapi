@@ -5,11 +5,12 @@ from preston.esi import Preston as ESIPreston
 
 from services_util import *
 
-names_url = 'https://esi.tech.ccp.is/latest/universe/names/?datasource=tranquility'
+#names_url = 'https://esi.tech.ccp.is/latest/universe/names/?datasource=tranquility'
 
 services_recruitment = Blueprint('services_recruitment', __name__)
 pre_reqs = yaml.load(open('pilot_prereqs.conf', 'r'))
 config = yaml.load(open('crest_config.conf', 'r'))
+skills_map = json.load(open('skills_map.json', 'r'))
 crest_config = config['recruitment']
 
 preston = ESIPreston(
@@ -192,11 +193,13 @@ def crest_process():
         for skill in skills:
             ids_list.append(skill.get('skill_id'))
 
-        skill_names = requests.post(url=names_url, json=ids_list).json()
+        #skill_names = requests.post(url=names_url, json=ids_list).json()
+        skill_names = skills_map
 
         for skill in skills:
             skill_id = skill['skill_id']
-            skill_name = next(item['name'] for item in skill_names if item['id'] == skill_id)
+            #skill_name = next(item['name'] for item in skill_names if item['id'] == skill_id)
+            skill_name = skill_names[str(skill_id)]
             skill_level_trained = skill['current_skill_level']
             skills_dict[skill_name] = skill_level_trained
 
@@ -244,7 +247,10 @@ def crest_process():
                                    recon_prereq=recon, blops_prereq=blops, skillsneeded=skillsneeded)
 
     except Exception as e:
+        tb = sys.exc_info()[2]
         print('Error processing skills: ' + str(e))
+        print(tb.tb_lineno)
+        print(sys.exc_info()[0])
         flash('There was an error fetching data.', 'error')
         return render_template('recruitment-landing.html',
                                base_prereq=base, sb_prereq=sb, strat_prereq=strat, ast_prereq=astero,
@@ -371,7 +377,8 @@ def view_recruit(pilot_name):
                 ids_list.append(skill.get('skill_id'))
 
             try:
-                skill_names = requests.post(url=names_url, json=ids_list).json()
+                skill_names = skills_map
+                #skill_names = requests.post(url=names_url, json=ids_list).json()
 
             except Exception as e:
                 flash('There was an error in EVE\'s response', 'error')
@@ -401,7 +408,8 @@ def view_recruit(pilot_name):
 
                     # Add skill and metadata to dicts
                     skill_id = skill['skill_id']
-                    skill_name = next(item['name'] for item in skill_names if item['id'] == skill_id)  # stackoverflow FTW
+                    #skill_name = next(item['name'] for item in skill_names if item['id'] == skill_id)  # stackoverflow FTW
+                    skill_name = skill_names[str(skill_id)]
                     skill_level_trained = skill['current_skill_level']
                     skills_dict[group][skill_name] = skill_level_trained
                     skills_stats[group]['skills_in_group'] += 1
