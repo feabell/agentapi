@@ -24,7 +24,7 @@ for skillid in requests.get(category_endpoint).json()["groups"]:
 		type_endpoint = esi_base + "types/" +str(typeid) + esi_trail
 		types = requests.get(type_endpoint).json()
 		
-		skills_map[typeid] = types["name"]
+		skills_map[int(typeid)] = types["name"]
 		#print(str(typeid) +"="+types["name"])
 
 

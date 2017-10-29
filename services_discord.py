@@ -75,7 +75,7 @@ def authme():
   #app 500s if email doesn't exist
   if not email: #or not validated or not discordid:
     print("failed due to blank email")
-    return render_template('services-discord-error.html')
+    return render_template('services-discord-error.html', error='email')
   
   #app 500s if email account not validated
   if not validated: #or not validated or not discordid:
@@ -103,7 +103,7 @@ def authme():
     corp = which_corp(email)
     if not corp:
       print("couldn't determine users corp.  Probably an expired key: {email}".format(email=email))
-      return render_template('services-discord-error.html')
+      return render_template('services-discord-error.html', error='corp')
 
     data = ""
 
@@ -125,7 +125,7 @@ def authme():
 
   else:
     print('{email} failed to auth'.format(email = email))
-    return render_template('services-discord-error.html')
+    return render_template('services-discord-error.html', error='email')
 
 def make_session(token=None, state=None, scope=None):
   """

@@ -2,6 +2,18 @@
 
 <div class="alert alert-danger" role="alert">
   <strong>Uh-oh</strong> something went wrong!
+  {% if error %}
+     {% if error == 'email' %}
+     <p> We couldn't verify your Discord email address, please make sure you are logged into Discord
+     in this browser.  You can check this by going to <a href="http://discordapp.com/@channels/me">Discord</a>
+     and clicking the cog in the bottom left and then selecting the "account" menu.</p>
+     {% endif %}
+     {% if error == 'corp' %}
+     <p> We couldn't verify that you are a member of Wingspan Delivery Services.  Please ensure that your API key
+     is correct.  If you are a new member to the corp, please bear in mind that the EVE API can be slow to update
+     (up to an hour), please try again shortly</p>
+     {% endif %}
+  {% endif %}
 </div>
 <div class="list-group">
   <div class="list-group-item">
