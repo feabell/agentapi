@@ -310,6 +310,7 @@ def view_recruit(pilot_name):
         query = dict(query_db('SELECT * FROM recruits WHERE name=?', [pilot_name], True))
         refresh_token = query['token']
         blob = query['blob']
+        notes = query['notes']
 
         skill_groups = json.load(open('skill_groups.json', 'r'))
 
@@ -423,7 +424,7 @@ def view_recruit(pilot_name):
         return render_template('recruitment-view.html')
 
     return render_template('recruitment-view.html', pilot_name=pilot_name, pilotID=pilotID, skills=skills_dict,
-                           skills_stats=skills_stats, blob=blob)
+                           skills_stats=skills_stats, blob=blob, notes=notes)
 
 
 def check_skills(user_skills, req_skills):
