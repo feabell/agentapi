@@ -365,6 +365,7 @@ def view_recruit(pilot_name):
             pilotID = pilot_info['CharacterID']
 
             result = auth.characters[pilotID].skills()
+           
             if result.get('error') is not None:
                 flash('ESI is not responding. Please try again, or wait a few minutes.', 'error')
                 return render_template('recruitment-view.html')
