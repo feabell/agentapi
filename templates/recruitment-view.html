@@ -113,6 +113,7 @@
           {% endfor %}
 
           <h5>Missiles</h5>
+	  {% if 'Missiles' in skills %}
           {% for size in ['Rockets', 'Heavy Assault Missiles', 'Torpedoes'] %}
             <span class="lbl">{{ size }}</span> <span class="pull-right">{{ skills['Missiles'][size] }}</span><br>
           {% endfor %}
@@ -123,6 +124,8 @@
             <span class="pull-right">{{ skills['Missiles'][size+' Missiles'] }}</span><br>
           {% endfor %}
           <hr>
+	  {% endif %}
+	  
 
           <h5>Drone Operation</h5>
           {% for size in ['Light', 'Medium', 'Heavy'] %}
@@ -163,9 +166,11 @@
           <hr>
 
           <h5>Missile Support</h5>
+ 	  {% if 'Missiles' in skills %}
           {% for skill in ['Guided Missile Precision', 'Missile Bombardment', 'Missile Launcher Operation', 'Missile Projection', 'Rapid Launch', 'Target Navigation Prediction', 'Warhead Upgrades'] %}
             <span class="lbl">{{ skill }}</span> <span class="pull-right">{{ skills['Missiles'][skill] }}</span><br>
           {% endfor %}
+	  {% endif %}
           <hr>
         </div>
       </div>
@@ -262,10 +267,12 @@
             <hr>
           {% endfor %}
           <h5>Missile Spec.</h5>
+	  {% if 'Missiles' in skills %}
           {% for type in ['Rocket', 'Light Missile', 'Heavy Assault Missile', 'Heavy Missile', 'Torpedo', 'Cruise Missile'] %}
             <span class="lbl">{{ type }}</span>
             <span class="pull-right">{{ skills['Missiles'][type+' Specialization'] }}</span><br>
           {% endfor %}
+	  {% endif %}
           <hr>
           <h5>Drone Spec.</h5>
           {% for type in ['Amarr', 'Caldari', 'Gallente', 'Minmatar'] %}

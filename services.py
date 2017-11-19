@@ -6,6 +6,7 @@ from services_discord import get_invite_link
 from services_slack import *
 
 app = Flask(__name__)
+app.config['PROPAGATE_EXCEPTIONS'] = True
 
 config = yaml.load(open('services.conf', 'r'))
 
