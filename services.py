@@ -6,7 +6,7 @@ from services_discord import get_invite_link
 from services_slack import *
 
 app = Flask(__name__)
-#app.config['PROPAGATE_EXCEPTIONS'] = True
+app.config['PROPAGATE_EXCEPTIONS'] = True
 
 config = yaml.load(open('services.conf', 'r'))
 
@@ -100,4 +100,3 @@ def close_connection(exception):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True, ssl_context='adhoc')
-    print('running')
