@@ -1,4 +1,4 @@
-import json
+import json, sys
 
 from flask import Blueprint, render_template, url_for, request, flash, redirect
 from preston.esi import Preston as ESIPreston
@@ -200,7 +200,7 @@ def crest_process():
             skill_id = skill['skill_id']
             #skill_name = next(item['name'] for item in skill_names if item['id'] == skill_id)
             skill_name = skill_names[str(skill_id)]
-            skill_level_trained = skill['current_skill_level']
+            skill_level_trained = skill['active_skill_level']
             skills_dict[skill_name] = skill_level_trained
 
         base_met, baseneeded = check_skills(skills_dict, base)
@@ -350,7 +350,7 @@ def view_recruit(pilot_name):
                 skills.append({
                     'skillpoints_in_skill': int(skill.get('skillpoints')),
                     'skill_id': int(skill.get('typeID')),
-                    'current_skill_level': int(skill.get('level'))
+                    'active_skill_level': int(skill.get('level'))
                 })
                 skill_names.append({
                     'id': int(skill.get('typeID')),
@@ -412,15 +412,18 @@ def view_recruit(pilot_name):
                     skill_id = skill['skill_id']
                     #skill_name = next(item['name'] for item in skill_names if item['id'] == skill_id)  # stackoverflow FTW
                     skill_name = skill_names[str(skill_id)]
-                    skill_level_trained = skill['current_skill_level']
+                    print(skill_name)
+                    print(skill)
+                    skill_level_trained = skill['active_skill_level']
                     skills_dict[group][skill_name] = skill_level_trained
                     skills_stats[group]['skills_in_group'] += 1
                     skills_stats[group]['sp_in_group'] += skill['skillpoints_in_skill']
                     skills_stats['Totals']['total_sp'] += skill['skillpoints_in_skill']
 
     except Exception as e:
-        flash('There was an error parsing skills', 'error')
-        print('Skill Parse error: ' + str(e))
+        flash('There was an error parsing skills' + str(e), 'error')
+        #print >> sys.stderr, 'Skill Parse error: ' #+ str(e)
+        print(sys.exc_info())
         return render_template('recruitment-view.html')
 
     return render_template('recruitment-view.html', pilot_name=pilot_name, pilotID=pilotID, skills=skills_dict,
