@@ -1,0 +1,20 @@
+
+{% include "services-head.html" ignore missing %}
+
+
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse1">I'm a WiNGSPAN agent who wants access to services</a>
+      </h4>
+    </div>
+    <div class="panel-body">
+          <a href="{{ crest_url }}"><img src="{{ url_for('static',filename='images/sso_white.png') }}"
+                                         alt="Click here to log in"></a>
+    </div>
+ </div>
+</div>
+
+
+{% include "foot.html" ignore missing %}
