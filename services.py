@@ -4,14 +4,27 @@ import yaml
 from services_util import *
 from services_discord import get_invite_link
 from services_slack import *
+from preston.esi import Preston as ESIPreston
 
 app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
 config = yaml.load(open('services.conf', 'r'))
+crest_config = config['agents']
+
+preston = ESIPreston(
+    user_agent=crest_config['EVE_OAUTH_USER_AGENT'],
+    client_id=crest_config['EVE_OAUTH_CLIENT_ID'],
+    client_secret=crest_config['EVE_OAUTH_SECRET'],
+    callback_url=crest_config['EVE_OAUTH_CALLBACK'],
+    scope=crest_config['EVE_OAUTH_SCOPE']
+)
 
 OAUTH2_CLIENT_SECRET = config['OAUTH2_CLIENT_SECRET']
 SLACK_TOKEN = config['SLACK_TOKEN']
+
+WDS_CORP_ID = "98330748"
+ACADEMY_CORP_ID = "98415327"
 
 app.config['BASIC_AUTH_USERNAME'] = config['BASIC_AUTH_USERNAME']
 app.config['BASIC_AUTH_PASSWORD'] = config['BASIC_AUTH_PASSWORD']
@@ -28,11 +41,71 @@ app.register_blueprint(services_torp)
 app.register_blueprint(services_admin, url_prefix='/admin')
 
 @app.route('/')
+def crest_landing():
+  """
+  Default landing page for services, with crest auth.
+  """
+  return render_template('services-landing-crest.html', show_crest=True, crest_url=preston.get_authorize_url())
+
+
+@services.route('/auth/callback')
+def crest_callback():
+  """
+  Process successfull crest authorisation attempts
+  """
+  # check response
+  if 'error' in request.path:
+      flash('There was an error in EVE\'s response', 'error')
+      return url_for('services.crest_landing')
+  try:
+      auth = preston.authenticate(request.args['code'])
+  except Exception as e:
+      print('SSO callback exception: ' + str(e))
+      flash('There was an authentication error signing you in.', 'error')
+      return redirect(url_for('services.crest_landing'))
+
+  pilot_info = auth.whoami()
+  pilot_id = pilot_info['CharacterId']
+  pilot_name = pilot_info['CharacterName']
+  pilot_corp = pilot_info['CorporationId']
+  refresh_token = auth.refresh_token  
+
+  #pilot must be in corp
+  if pilot_corp == WDS_CORP_ID or pilot_corp == ACADEMY_CORP_ID:
+      #is the pilot an existing agent?
+      result = query_db('SELECT name, email, refresh_token from pilots where lower(name) = ?', [pilot_name.lower()])
+         
+      if len(result) == 1:
+        #existing pilot
+        pilot_email = result[0]['email']
+        return render_template('services-crest_process.html', email=pilot_email, pilot_name=pilot_name, pilot_id=pilot_id)
+        if result[0]['refresh_token'] == "":
+            #no refresh_token.  Update table and show message "Your account request has been processed"
+            insert_db('UPDATE pilots set refresh_token = ? where name = ?', [refresh_token, pilot_name])
+            return render_template('services-crest_success.html', pilot_name=pilot_name, email=email, message="Your account request has been processed")
+        else:
+            #pilot record is all updated, just show details and "Your slack and discord accounts are already active
+            return render_template('services-crest_success.html', pilot_name=pilot_name, email=email, message="Your slack and discord accounts are already active")
+
+      elif len(result) > 1:
+        #could not uniquely identify pilot in DB
+        flash('Multiple characters with your character name where identifed.  Please contact Dakodai to rectify.')
+        return render_template('services-error.html')
+      else:
+        #new agent
+        return render_template('services-crest_process.html', pilot_name=pilot_name, pilot_id=pilot_id)
+
+  else:
+     #kick them out to the not-in-corp page
+     print(pilot_name + "not in corp")
+     flash('You aren\'t a member of WiNGSPAN Delivery Services')
+     return render_template('services-error.html')
+
 def default():
   """
   Default landing page for services.
   """
-  return render_template('services-landing.html')
+  return render_template('services-landing-esi.html')
 
 @app.route('/new', methods=['POST'])
 @app.route('/new/', methods=['POST'])
