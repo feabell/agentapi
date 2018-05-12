@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, g, redirect, url_for
+from flask import Flask, request, render_template, g, redirect, url_for, flash
 import yaml
 
 from services_util import *
@@ -10,14 +10,16 @@ app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
 config = yaml.load(open('services.conf', 'r'))
-crest_config = config['agents']
+crest_config = yaml.load(open('crest_config.conf', 'r'))
+
+auth_config = crest_config['agents']
 
 preston = ESIPreston(
-    user_agent=crest_config['EVE_OAUTH_USER_AGENT'],
-    client_id=crest_config['EVE_OAUTH_CLIENT_ID'],
-    client_secret=crest_config['EVE_OAUTH_SECRET'],
-    callback_url=crest_config['EVE_OAUTH_CALLBACK'],
-    scope=crest_config['EVE_OAUTH_SCOPE']
+    user_agent=auth_config['EVE_OAUTH_USER_AGENT'],
+    client_id=auth_config['EVE_OAUTH_CLIENT_ID'],
+    client_secret=auth_config['EVE_OAUTH_SECRET'],
+    callback_url=auth_config['EVE_OAUTH_CALLBACK'],
+    scope=auth_config['EVE_OAUTH_SCOPE']
 )
 
 OAUTH2_CLIENT_SECRET = config['OAUTH2_CLIENT_SECRET']
@@ -40,7 +42,7 @@ app.register_blueprint(services_discord)
 app.register_blueprint(services_torp)
 app.register_blueprint(services_admin, url_prefix='/admin')
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def crest_landing():
   """
   Default landing page for services, with crest auth.
@@ -48,7 +50,26 @@ def crest_landing():
   return render_template('services-landing-crest.html', show_crest=True, crest_url=preston.get_authorize_url())
 
 
-@services.route('/auth/callback')
+@app.route('/', methods=['POST'])
+def crest_update():
+  email = request.form['email']
+  token = request.form['token']
+
+  #update the row with the users email address
+  insert_db('UPDATE pilots set email = ?, active_account=1, in_alliance=1, slack_active=1 '
+            'where token = ?',[email, token])
+
+  #get additional info
+  result = query_db('SELECT name from pilots where token = ?', [token])
+  name = result[0][0]
+
+  discord_invite_token = get_invite_link()
+  slack_invite = invite_to_slack(email=email, name=name, token=SLACK_TOKEN)
+
+  return render_template('services-success.html', token=discord_invite_token)
+
+
+@app.route('/auth/callback')
 def crest_callback():
   """
   Process successfull crest authorisation attempts
@@ -65,35 +86,37 @@ def crest_callback():
       return redirect(url_for('services.crest_landing'))
 
   pilot_info = auth.whoami()
-  pilot_id = pilot_info['CharacterId']
+
+  #pilot_id = pilot_info['CharacterId']
   pilot_name = pilot_info['CharacterName']
-  pilot_corp = pilot_info['CorporationId']
+  pilot_id = pilot_info['CharacterID']
+  pilot_corp = str(auth.characters(pilot_id).get('corporation_id'))
   refresh_token = auth.refresh_token  
 
   #pilot must be in corp
   if pilot_corp == WDS_CORP_ID or pilot_corp == ACADEMY_CORP_ID:
       #is the pilot an existing agent?
-      result = query_db('SELECT name, email, refresh_token from pilots where lower(name) = ?', [pilot_name.lower()])
+      result = query_db('SELECT name, email, token from pilots where lower(name) = ?', [pilot_name.lower()])
          
       if len(result) == 1:
         #existing pilot
         pilot_email = result[0]['email']
-        return render_template('services-crest_process.html', email=pilot_email, pilot_name=pilot_name, pilot_id=pilot_id)
-        if result[0]['refresh_token'] == "":
+        if result[0]['token'] == "":
             #no refresh_token.  Update table and show message "Your account request has been processed"
-            insert_db('UPDATE pilots set refresh_token = ? where name = ?', [refresh_token, pilot_name])
-            return render_template('services-crest_success.html', pilot_name=pilot_name, email=email, message="Your account request has been processed")
+            insert_db('UPDATE pilots set token = ? where name = ?', [refresh_token, pilot_name])
+            return render_template('services-crest_success.html', pilot_name=pilot_name, email=pilot_email, message="Your account request has been processed")
         else:
             #pilot record is all updated, just show details and "Your slack and discord accounts are already active
-            return render_template('services-crest_success.html', pilot_name=pilot_name, email=email, message="Your slack and discord accounts are already active")
+            return render_template('services-crest_success.html', pilot_name=pilot_name, email=pilot_email, message="Your Slack and Discord accounts are already active")
 
       elif len(result) > 1:
         #could not uniquely identify pilot in DB
         flash('Multiple characters with your character name where identifed.  Please contact Dakodai to rectify.')
         return render_template('services-error.html')
       else:
-        #new agent
-        return render_template('services-crest_process.html', pilot_name=pilot_name, pilot_id=pilot_id)
+        #new agent, insert a temp record to wait for the email
+        insert_db('INSERT INTO pilots (name, token) values (?, ?)', [pilot_name, refresh_token])
+        return render_template('services-crest_process.html', pilot_name=pilot_name, pilot_id=pilot_id, token=refresh_token)
 
   else:
      #kick them out to the not-in-corp page
@@ -107,6 +130,7 @@ def default():
   """
   return render_template('services-landing-esi.html')
 
+'''
 @app.route('/new', methods=['POST'])
 @app.route('/new/', methods=['POST'])
 def new():
@@ -161,6 +185,7 @@ def update():
   else:
     print("[ERROR] pilot {email} not valid".format(email = email))
     return render_template('services-error.html')
+'''
 
 @app.teardown_appcontext
 def close_connection(exception):
