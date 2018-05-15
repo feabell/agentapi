@@ -23,8 +23,7 @@ def adminpage():
   Method returns accounts with pending New/Delete status.
   """
   add_to_slack_query = query_db('SELECT name, email from pilots '
-                                'WHERE keyid NOT NULL '
-                                'AND vcode NOT NULL ' 
+                                'WHERE token NOT NULL '
                                 'AND slack_active=0 '
                                 'AND active_account=1 '
                                 'AND in_alliance=1')
@@ -32,7 +31,7 @@ def adminpage():
   for add in add_to_slack_query:
     add_to_slack = add_to_slack + add['name'] + " <"+ add['email']+">,"
 
-  delete_from_slack = query_db('SELECT name, email, keyid, vcode, id '
+  delete_from_slack = query_db('SELECT name, email, token, id '
                                'FROM pilots '
                                'where slack_active=1 '
                                'AND (active_account=0 '

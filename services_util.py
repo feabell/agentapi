@@ -5,11 +5,24 @@ import sys
 import requests
 import yaml
 from flask import g
+from preston.esi import Preston as ESIPreston
 
 database = 'agentapi.db'
 
 WDS_CORP_ID = "98330748"
 ACADEMY_CORP_ID = "98415327"
+
+crest_config = yaml.load(open('crest_config.conf', 'r'))
+
+auth_config = crest_config['agents']
+
+preston = ESIPreston(
+    user_agent=auth_config['EVE_OAUTH_USER_AGENT'],
+    client_id=auth_config['EVE_OAUTH_CLIENT_ID'],
+    client_secret=auth_config['EVE_OAUTH_SECRET'],
+    callback_url=auth_config['EVE_OAUTH_CALLBACK'],
+    scope=auth_config['EVE_OAUTH_SCOPE']
+)
 
 def slack_exists(email):
   """
@@ -32,7 +45,7 @@ def valid_pilot(email):
   Method returns false if pilot doesn't exits in table, or has API or Vcode.
   Returns True/False.
   """
-  results =  query_db('SELECT keyid, vcode, id '
+  results =  query_db('SELECT token, id '
                       'FROM pilots '
                       'WHERE lower(email) = ? limit 1', [email.lower()])
 
@@ -41,9 +54,9 @@ def valid_pilot(email):
 	  print("[ERROR] {email} not in pilots table".format(email = email))
 	  return False
 
-    #barf if the api and vcode have already been submitted
-  if (results[0][0] or results[0][1]):
-    print("[ERROR] {email} already has an API or VCODE".format(email = email))
+  #barf if the api and vcode have already been submitted
+  if (results[0][0]):
+    print("[ERROR] {email} already has an ESI token".format(email = email))
     return False
 
   return True
@@ -52,9 +65,9 @@ def which_corp(email):
   """
   Method checks if pilots is in corp. Returns corpID Integer.
   """
-
-  #get the key and vcode from the db
-  results =  query_db('SELECT keyid, vcode '
+  
+  #get the ESI token from the db
+  results =  query_db('SELECT token '
                       'FROM pilots '
                       'WHERE lower(email) = ? '
                       'LIMIT 1',[email.lower()])
@@ -64,12 +77,24 @@ def which_corp(email):
 	  return False   
 
   key = results[0][0]
-  vcode = results [0][1]
-  url = ('https://api.eveonline.com/account/Characters.xml.aspx?'
-         'keyId={key}&vCode={vcode}'.format(key = str(key), vcode = vcode))
+
+  if key == None:
+	  print("[ERROR] {email} does not have an ESI token".format(email = email))
+
+  #url = ('https://api.eveonline.com/account/Characters.xml.aspx?'
+  #       'keyId={key}&vCode={vcode}'.format(key = str(key), vcode = vcode))
 
   corp =""
 
+  auth = preston.use_refresh_token(key)
+
+  pilot_info = auth.whoami()
+  pilot_id = pilot_info['CharacterID']
+  pilot_corp = str(auth.characters(pilot_id).get('corporation_id'))
+
+  return pilot_corp
+
+'''
   try:
     root = ET.fromstring(requests.get(url).content)
 	
@@ -97,9 +122,9 @@ def which_corp(email):
     print(str(e))
 
   return corp
+'''
 
-
-
+'''
 def pilot_in_alliance(key, vcode):
   """
   Method checks if pilot is in the alliance. Returns True/False
@@ -128,6 +153,22 @@ def pilot_in_alliance(key, vcode):
     print( str(e))
 
   return response
+'''
+
+def pilot_in_alliance(token):
+  try:
+      auth = preston.authenticate(token)
+  except Exception as e:
+      print('SSO callback exception: ' + str(e))
+
+  pilot_info = auth.whoami()
+  pilot_id = pilot_info['CharacterID']
+  pilot_name = pilot_info['CharacterName']
+  pilot_corp = str(auth.characters(pilot_id).get('corporation_id'))
+  
+  if corpID ==  WDS_CORP_ID or corpID == ACADEMY_CORP_ID:
+     print("[INFO] pilot {name} is in alliance".format(name = pilot_name))
+     return True
 
 def account_active(key, vcode):
   """
@@ -166,12 +207,16 @@ def account_active(key, vcode):
 	
   return response
 
-def in_alliance_and_active(email, keyid, vcode):
+def in_alliance_and_active(email, token):
+  if not (pilot_in_alliance(token)):
+    return email
+
+'''#def in_alliance_and_active(email, keyid, vcode):
   """
   Method checks if the provided pilot is in corp and active.  If not active, returns their email address
   """
   if not (pilot_in_alliance(keyid, vcode) and account_active(keyid, vcode)):
-    return email
+    return email'''
 
 
 

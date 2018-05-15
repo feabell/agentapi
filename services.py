@@ -68,6 +68,11 @@ def crest_update():
 
   return render_template('services-success.html', token=discord_invite_token)
 
+@app.route('/statsbot/callback', methods=['GET'])
+def statsbot_callback():
+  print(request.args['code'])
+  return request.args['code']
+
 
 @app.route('/auth/callback')
 def crest_callback():
