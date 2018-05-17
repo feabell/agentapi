@@ -121,7 +121,7 @@ def crest_callback():
         return render_template('services-error.html')
       else:
         #new agent, insert a temp record to wait for the email
-        insert_db('INSERT INTO pilots (name, token) values (?, ?)', [pilot_name, refresh_token])
+        insert_db('INSERT INTO pilots (name, token, in_alliance) values (?, ?, 1)', [pilot_name, refresh_token])
         return render_template('services-crest_process.html', pilot_name=pilot_name, pilot_id=pilot_id, token=refresh_token)
 
   else:
