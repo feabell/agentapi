@@ -109,7 +109,7 @@ def crest_callback():
         
         if result[0]['token'] == None:
             #no refresh_token.  Update table and show message "Your account request has been processed"
-            insert_db('UPDATE pilots set token = ? where name = ?', [refresh_token, pilot_name])
+            insert_db('UPDATE pilots set token = ?, in_alliance=1, active_account=1 where name = ?', [refresh_token, pilot_name])
             return render_template('services-crest_success.html', pilot_name=pilot_name, email=pilot_email, message="Your account has been successfully converted to ESI auth! No action by you is required :)")
         else:
             #pilot record is all updated, just show details and "Your slack and discord accounts are already active
