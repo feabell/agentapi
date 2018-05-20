@@ -47,8 +47,7 @@ def admin_accounts_added():
   """
   update_query = insert_db('UPDATE pilots '
                            'SET slack_active=1 '
-                           'WHERE keyid NOT NULL '
-                           'AND vcode NOT NULL '
+                           'WHERE token NOT NULL '
                            'AND slack_active=0 '
                            'AND active_account=1 '
                            'AND in_alliance=1')
@@ -68,7 +67,7 @@ def admin_accounts_deleted():
                              'OR in_alliance=0)')
 
   update_query = insert_db('UPDATE pilots '
-                           'SET slack_active=0, keyid=NULL, vcode=NULL, active_account=0, in_alliance=0 '
+                           'SET slack_active=0, token=NULLL, active_account=0, in_alliance=0 '
                            'WHERE slack_active=1 '
                            'AND (active_account=0 '
                            'OR in_alliance=0)')
@@ -88,13 +87,14 @@ def admin_accounts_deleted():
 
   return redirect(url_for('services_admin.adminpage'), code=302)
 
+#this needs fixing
 @services_admin.route('/checkaccounts')
 @basic_auth.required
 def checkaccounts():
   """
   Method checks DB for expired accounts, updates DB with the prep-for-delete flag.
   """
-  active_accounts = query_db('SELECT email, keyid, vcode from pilots '
+  active_accounts = query_db('SELECT email, token from pilots '
                              'WHERE active_account=1 '
                              'AND in_alliance=1 '
                              'AND slack_active=1')
