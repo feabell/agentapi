@@ -412,8 +412,8 @@ def view_recruit(pilot_name):
                     skill_id = skill['skill_id']
                     #skill_name = next(item['name'] for item in skill_names if item['id'] == skill_id)  # stackoverflow FTW
                     skill_name = skill_names[str(skill_id)]
-                    print(skill_name)
-                    print(skill)
+                    #print(skill_name)
+                    #print(skill)
                     skill_level_trained = skill['active_skill_level']
                     skills_dict[group][skill_name] = skill_level_trained
                     skills_stats[group]['skills_in_group'] += 1
