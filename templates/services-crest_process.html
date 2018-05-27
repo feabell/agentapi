@@ -9,10 +9,13 @@
     </div>
     <div id="collapse1" class="panel-collapse">
       <div class="panel-body">
-      <form action="/" method=post>
+      <form class="needs-validation" action="/" method=post novalidate>
               <div class="form-group">
               <label for="inputEmail">Email:</label>
-                <input type="text" length=64 class="form-control" id="inputEmail" name="email" placeholder="Email">
+                <input type="text" length=64 class="form-control" id="inputEmail" name="email" placeholder="Email" required>
+                <div class="invalid-feedback">
+                  You must supply an email address
+                </div>
                 <input type="text" length=64 class="form-control hidden" id="inputName1" name="token" value="{{ token }}">
               </div>
               <button type="submit" class="btn btn-default">Submit</button>
@@ -22,5 +25,26 @@
       </div>
     </div>
   </div>
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
 
 {% include "foot.html" ignore missing %}
