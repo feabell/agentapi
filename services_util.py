@@ -80,6 +80,7 @@ def which_corp(email):
 
   if key == None:
 	  print("[ERROR] {email} does not have an ESI token".format(email = email))
+          return False
 
   #url = ('https://api.eveonline.com/account/Characters.xml.aspx?'
   #       'keyId={key}&vCode={vcode}'.format(key = str(key), vcode = vcode))
